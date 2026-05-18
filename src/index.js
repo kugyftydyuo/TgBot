@@ -22,7 +22,7 @@ function handleConversion(userId, ref) {
     const users = JSON.parse(fs.readFileSync("./users.json", "utf-8"));
 
     if (!refs[ref]) {
-        refs[ref] = 1;
+        refs[ref] = 0;
     }
 
     if (!users[userId]) {
@@ -48,7 +48,7 @@ function checkRef(userId, ref, text) {
 
     if (!users[userId]) {
         userRefs[userId] = {
-            ref: text === "/start" ? "1942693598" : ref,
+            ref: text === "/start" ? "IsLnck0mCnC2" : ref,
             subscribes: []
         }
         users[userId] = {
@@ -74,12 +74,12 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     await bot.sendPhoto(chatId, fs.createReadStream("./images/hello.jpg"), {
         caption: "Добро пожаловать👋\nCпасибо что пользуешься нашим ботом🤜🤛",
     });
-    await bot.sendMessage(chatId, "Для того чтобы отправить код подпишись на следующие каналы и нажми проверить", {
+    await bot.sendMessage(chatId, "Для того чтобы отправить код подпишись на следующие каналы и нажми ✅Проверить", {
         reply_markup: {
             inline_keyboard: [
                 [{text: 'sponsor1', url: "https://t.me/+cqkrYv1GR4dlNGVi"}, {text: 'sponsor2', url: "https://t.me/+X689MU1msFY3ZjQy"}],
-                [{text: 'Проверить', callback_data: "check"}],
-                [{text: 'Сотрудничество', callback_data: 'support'}]
+                [{text: '✅Проверить', callback_data: "check"}],
+                [{text: '👨‍🔧Сотрудничество', callback_data: 'support'}]
             ],
         }
     })
@@ -98,7 +98,7 @@ bot.on('message', async msg => {
     }
 
     try {
-        if (text === "/start" || text === "/start 8501167201" || text === "/start 1942693598") {
+        if (text === "/start" || text === "/start TeB6GZ369vUr" || text === "/start IsLnck0mCnC2") {
             return;
         }
         if (rights[chatId].isWritingCode) {
@@ -108,9 +108,8 @@ bot.on('message', async msg => {
                 const botMessage = await bot.sendMessage(chatId, `Название аниме: ${movie}`, {
                     reply_markup: {
                         inline_keyboard: [
-                            [
-                                { text: 'Найти фильм-аниме🎥', callback_data: 'search' }
-                            ]
+                            [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}],
+                            [{text: '↩Назад', callback_data: 'back'}]
                         ]
                     }
                 })
@@ -141,7 +140,6 @@ bot.on('message', async msg => {
             }
             await bot.deleteMessage(chatId, botsMessageId[userId].myMessage)
         }
-
     } catch (e) {
         console.log(e.message)
     }
@@ -187,7 +185,7 @@ bot.on("callback_query", async (query) => {
 
         if (isSubscribed) {
             await bot.editMessageText(
-                '✅ Доступ разрешён\n\nВыберите действие:',
+                '✅ Доступ разрешён                      \n\nВыберите действие:',
                 {
                     chat_id: chatId,
                     message_id: messageId,
@@ -274,15 +272,15 @@ bot.on("callback_query", async (query) => {
     if (query.data === 'back') {
         rights[chatId].isWritingCode = false
         await bot.editMessageText(
-            'Для того чтобы отправить код подпишись на следующие каналы и нажми проверить',
+            'Для того чтобы отправить код подпишись на следующие каналы и нажми ✅Проверить',
             {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: {
                     inline_keyboard: [
                         [{text: 'sponsor1', url: "https://t.me/+cqkrYv1GR4dlNGVi"}, {text: 'sponsor2', url: "https://t.me/+X689MU1msFY3ZjQy"}],
-                        [{text: 'Проверить', callback_data: "check"}],
-                        [{text: 'Сотрудничество', callback_data: 'support'}]
+                        [{text: '✅Проверить', callback_data: "check"}],
+                        [{text: '👨‍🔧Сотрудничество', callback_data: 'support'}]
                     ],
                 }
             }

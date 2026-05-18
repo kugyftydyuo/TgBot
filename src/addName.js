@@ -1,8 +1,7 @@
-require('dotenv').config()
-const TelegramApi = require('node-telegram-bot-api')
-const fs = require("fs")
-const token = process.env.ADD_BOT_TOKEN
-const bot = new TelegramApi(token, {polling: true})
+import 'dotenv/config'
+import TelegramBot from 'node-telegram-bot-api'
+import fs from 'fs'
+const bot = new TelegramBot(process.env.ADD_BOT_TOKEN, {polling: true})
 
 const admins = [5429133787, 8501167201, 1942693598]
 
@@ -17,13 +16,20 @@ function addMovie(code, name) {
 }
 
 bot.onText(/\/start/, msg => {
-    return bot.sendMessage(msg.chat.id, "Добро пожаловать\nЗдесь вы можете добавить бота по коду\nДля того чтобы добавить бота напишите /add название")
+    return bot.sendMessage(msg.chat.id, "Добро пожаловать\nЗдесь вы можете добавить бота по коду\nДля того чтобы добавить бота напишите /add название", {
+        reply_markup: {
+            resize_keyboard: true,
+            keyboard: [
+                [{text: "/stats"}]
+            ]
+        }
+    })
 })
 
 bot.onText(/\/add (.+)/, async (msg, match) => {
     const chatId = msg.chat.id
     const userId = msg.from.id
-    console.log(msg)
+
     if (admins.includes(userId)) {
         const data = JSON.parse(fs.readFileSync("./movies.json", "utf8"));
         const name = match[1];
@@ -42,11 +48,16 @@ bot.onText(/\/add (.+)/, async (msg, match) => {
     }
 });
 
+const parallels = {
+    8501167201: "TeB6GZ369vUr",
+    1942693598: "IsLnck0mCnC2",
+}
+
 bot.onText(/\/stats/, msg => {
     const userId = msg.from.id
     if (admins.includes(userId)) {
         const data = JSON.parse(fs.readFileSync("./refs.json", "utf8"));
-        return bot.sendMessage(msg.chat.id, `👨‍💼- ${data[userId]} чел\n💰 - ${data[userId] * 6}₽`)
+        return bot.sendMessage(msg.chat.id, `👨‍💼- ${data[parallels[userId]]} чел\n💰 - ${data[parallels[userId]] * 6}₽`)
     } else {
         return bot.sendMessage(chatId, "Нет доступа")
     }

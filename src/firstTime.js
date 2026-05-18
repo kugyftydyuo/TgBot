@@ -1,7 +1,7 @@
 require('dotenv').config()
 const TelegramApi = require('node-telegram-bot-api')
 const fs = require("fs")
-const token = process.env.FIRST_TIME_BOT_TOKEN
+const token = process.env.MAIN_BOT_TOKEN
 const bot = new TelegramApi(token, {polling: true})
 
 let rights = {}
