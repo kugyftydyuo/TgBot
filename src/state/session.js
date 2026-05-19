@@ -11,7 +11,7 @@ export function getRights(userId) {
     if (!rights[userId]) {
         rights[userId] = {
             isWritingCode: false,
-            secondAttempt: false
+            secondAttempt: true
         }
     }
 
@@ -30,5 +30,6 @@ export function getMessagesId(userId) {
             botMessage: null
         }
     }
+    console.log(messagesId)
     return messagesId[userId]
 }

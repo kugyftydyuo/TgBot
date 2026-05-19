@@ -13,20 +13,16 @@ export function saveRefs(refs) {
 let refState = {}
 
 export function setRef(ref, userId) {
-    const user = getUser(userId)
-    if (user.ref === null) {
-        if (!refState[userId]) {
-            refState[userId] = {
-                ref: ref
-            }
-        }
-    } else {
-        refState[userId] = {
-            ref: user.ref
-        }
+    refState[userId] = {
+        ref: ref
     }
 }
 
 export function getRef(userId) {
-    return refState[userId].ref
+    const user = getUser(userId)
+    if (user.ref !== null) {
+        return user.ref
+    } else {
+        return refState[userId].ref
+    }
 }

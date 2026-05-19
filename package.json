@@ -4,8 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "devMain": "concurrently \"nodemon src/test.js\" \"nodemon src/addName.js\"",
-    "devFirst": "concurrently \"nodemon src/firstTime.js\" \"nodemon src/addName.js\"",
+    "dev": "concurrently \"nodemon src/index.js\" \"nodemon src/addName.js\"",
     "start": "concurrently \"node src/index.js\" \"node src/addName.js\""
   },
   "author": "",

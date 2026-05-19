@@ -1,13 +1,13 @@
-import {setRights, getRights, setMessagesId, getMessagesId} from "../state/session.js";
-import {getMovies} from "../utils/readJson.js";
-import {afterWritingCodeKeyboard, foundFilmKeyboard} from "../utils/keyboards.js";
+import {setRights, getRights, setMessagesId, getMessagesId} from "../../state/session.js";
+import {getMovies} from "../../services/moviesService.js";
+import {foundFilmAndBackKeyboard, foundFilmKeyboard} from "../../utils/keyboards.js";
 
 export async function messageHandler(chatId, text, messageId, userId, bot) {
     const userRights = getRights(userId)
     const messagesId = getMessagesId(userId)
 
     try {
-        if (text.startsWith('/start') || text.startsWith('TeB6GZ369vUr') || text.startsWith('IsLnck0mCnC2')) {
+        if (text.startsWith('/start')) {
             return;
         }
 
@@ -15,10 +15,10 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
             const movie = getMovies()[text];
 
             if (movie) {
-                setRights(userId, false, userRights.secondAttempt)
+                setRights(userId, false, false)
 
                 const botMessage = await bot.sendMessage(chatId, `Название аниме: ${movie}`, {
-                    reply_markup: afterWritingCodeKeyboard()
+                    reply_markup: foundFilmAndBackKeyboard()
                 })
 
                 setMessagesId(userId, botMessage.message_id)
@@ -28,11 +28,8 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
             } else {
                 const botMessage = await bot.sendMessage(chatId, "❌Код неверный, перепроверь и отправь еще раз")
                 setMessagesId(userId, botMessage.message_id)
-                await bot.deleteMessage(chatId)
             }
         } else {
-            setMessagesId(userId, messagesId.botMessage, messageId)
-
             if (!userRights.secondAttempt) {
                 await bot.deleteMessage(chatId, messageId)
                 setRights(userId, userRights.isWritingCode, true)
@@ -43,6 +40,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
                     reply_markup: foundFilmKeyboard()
                 });
             }
+
             await bot.deleteMessage(chatId, messageId)
         }
     } catch (e) {

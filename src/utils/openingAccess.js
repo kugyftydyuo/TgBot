@@ -1,7 +1,7 @@
 import {getUsers, saveUsers} from "../services/userService.js";
 import {getRefs, saveRefs, getRef} from "../services/refsService.js";
 
-export async function handleConversion(bot, userId, checkSub) {
+export async function openAccess(bot, userId, checkSub) {
     const refs = getRefs()
     const users = getUsers()
 
@@ -12,19 +12,20 @@ export async function handleConversion(bot, userId, checkSub) {
     }
 
     if (checkSub.isSubscribed) {
-        if (!users[userId]) {
-            users[userId] = {
-                isSubscribed: true,
-                ref: ref,
-            };
-        } else if (!users[userId] || !users[userId].isSubscribed) {
-            users[userId].isSubscribed = true
-            refs[ref]++;
+        users[userId] = {
+            ref: ref,
+            isSubscribed: true
+        }
+        if (!users[userId].isSubscribed) {
+            refs[ref]++
         }
     } else {
         if (users[userId]) {
-            users[userId].isSubscribed = false
-            refs[ref]--;
+            refs[ref]--
+            users[userId] = {
+                ref: ref,
+                isSubscribed: false
+            }
         }
     }
 

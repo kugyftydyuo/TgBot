@@ -8,7 +8,7 @@ function startKeyboard() {
     }
 }
 
-function afterWritingCodeKeyboard() {
+function foundFilmAndBackKeyboard() {
     return {
         inline_keyboard: [
             [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}],
@@ -41,10 +41,20 @@ function backKeyboard() {
     }
 }
 
+function statsKeyboard() {
+    return {
+        resize_keyboard: true,
+        keyboard: [
+            [{text: "/stats"}]
+        ]
+    }
+}
+
 export {
     startKeyboard,
-    afterWritingCodeKeyboard,
+    foundFilmAndBackKeyboard,
     foundFilmKeyboard,
     checkKeyboard,
-    backKeyboard
+    backKeyboard,
+    statsKeyboard
 }

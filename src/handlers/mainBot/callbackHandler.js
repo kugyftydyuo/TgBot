@@ -1,9 +1,7 @@
-import {getRights, setRights, setMessagesId} from "../state/session.js";
-import {getUsers} from "../services/userService.js";
-import {checkSubscription} from "../services/subscriptionService.js";
-import {handleConversion} from "../utils/writeJson.js";
-import {foundFilmKeyboard, checkKeyboard, backKeyboard, startKeyboard} from "../utils/keyboards.js";
-import {setRef} from "../services/refsService.js";
+import {getRights, setRights, setMessagesId} from "../../state/session.js";
+import {checkSubscription} from "../../services/subscriptionService.js";
+import {openAccess} from "../../utils/openingAccess.js";
+import {foundFilmKeyboard, checkKeyboard, backKeyboard, startKeyboard} from "../../utils/keyboards.js";
 
 export async function callbackHandler(query, bot) {
     const userId = query.from.id;
@@ -14,10 +12,8 @@ export async function callbackHandler(query, bot) {
 
     if (query.data === "check") {
         const checkSub = await checkSubscription(bot, userId)
-        console.log(checkSub)
-        const users = getUsers()
-        setRef('', userId)
-        await handleConversion(bot, userId, checkSub);
+
+        await openAccess(bot, userId, checkSub);
 
         if (checkSub.isSubscribed) {
             await bot.editMessageText(
