@@ -1,6 +1,4 @@
 .idea
 .env
 node_modules
-src/storage/movies.json
-src/storage/users.json
-src/storage/refs.json
+src/storage/
