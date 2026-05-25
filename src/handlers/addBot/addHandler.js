@@ -1,4 +1,4 @@
-import {admins} from "../../config/admins.js";
+import {workers} from "../../config/workers.js";
 import {addMovie, getMovies} from "../../services/moviesService.js";
 
 export async function addHandler(msg, bot, name) {
@@ -7,45 +7,43 @@ export async function addHandler(msg, bot, name) {
     const username = msg.from.username
     const lastName = msg.from.first_name
 
-    if (admins.includes(userId)) {
-        const movies = getMovies()
-        const keys = Object.keys(movies)
-        const values = Object.values(movies)
-        const code = Number(keys[keys.length - 1]) + 1
+    if (workers.includes(userId)) {
+        const words = name.split(' ')
+        const wordsWithoutCommand = words.slice(1, words.length)
+        const newName = wordsWithoutCommand.join(' ')
 
-        name = name.trim().replace(/\s+/g, ' ');
-
-        const hasLink = /(https?:\/\/|www\.|t\.me|@)/i.test(name);
-
-        if (hasLink) {
-            return bot.sendMessage(chatId, '❌ Ссылки запрещены');
-        }
-
-        const bannedWords = [
-            'ёб', 'еб', 'бля', 'ху', 'пид', 'пиз', 'шлюх', 'ган', 'гон', 'шалав'
-        ];
-
-        const lower = name.toLowerCase();
-        const bad = bannedWords.some(word => lower.includes(word));
-
-        if (bad) {
-            return bot.sendMessage(chatId, '❌ Недопустимое слово');
-        }
-
-        const valid = /^[a-zA-Zа-яА-ЯёЁ0-9\s\-:()]+$/.test(name);
-
-        if (!valid) {
-            return bot.sendMessage(chatId, '❌ Недопустимые символы');
-        }
-
-        if (!values.includes(name)) {
-            addMovie(code.toString(), name);
-            await bot.sendMessage(5429133787, `${username ? username : lastName} добавил фильм с названием ${name} под кодом ${code}`)
-            return bot.sendMessage(chatId, `Фильм добавлен по коду ${code}`);
+        if (words.length === 1) {
+            return bot.sendMessage(chatId, 'Чтобы добавить фильм введи /add название')
         } else {
-            return bot.sendMessage(chatId, `Фильм добавлен по коду ${keys[values.indexOf(name)]}`);
+            const movies = getMovies()
+            const keys = Object.keys(movies)
+            const values = Object.values(movies)
+            const code = Number(keys[keys.length - 1]) + 1
+
+            const title = newName.trim().replace(/\s+/g, ' ');
+
+            const hasLink = /(https?:\/\/|www\.|t\.me|@)/i.test(title);
+
+            if (hasLink) {
+                return bot.sendMessage(chatId, '❌ Ссылки запрещены');
+            }
+
+            const valid = /^[a-zA-Zа-яА-ЯёЁ0-9\s\-:(),*.]+$/.test(title);
+
+            if (!valid) {
+                return bot.sendMessage(chatId, '❌ Недопустимые символы');
+            }
+
+            if (!values.includes(newName)) {
+                addMovie(code.toString(), newName);
+                await bot.sendMessage(8501167201, `${username ? username : lastName} добавил фильм с названием ${newName} под кодом ${code}`)
+                await bot.sendMessage(1942693598, `${username ? username : lastName} добавил фильм с названием ${newName} под кодом ${code}`)
+                return bot.sendMessage(chatId, `✅ Фильм добавлен по коду ${code}`);
+            } else {
+                return bot.sendMessage(chatId, `✅ Фильм добавлен по коду ${keys[values.indexOf(newName)]}`);
+            }
         }
     } else {
-        return bot.sendMessage(chatId, "Нет доступа")
+        return bot.sendMessage(chatId, "❌ Нет доступа")
     }
 }

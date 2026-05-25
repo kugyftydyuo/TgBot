@@ -30,6 +30,6 @@ export function getMessagesId(userId) {
             botMessage: null
         }
     }
-    console.log(messagesId)
+
     return messagesId[userId]
 }

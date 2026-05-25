@@ -14,3 +14,15 @@ export function addMovie(code, name) {
     movies[code] = name;
     saveMovies(movies)
 }
+
+export function deleteMovie(code) {
+    const movies = getMovies()
+    delete movies[code]
+    saveMovies(movies)
+}
+
+export function editMovie(code, newName) {
+    const movies = getMovies()
+    movies[code] = newName
+    saveMovies(movies)
+}

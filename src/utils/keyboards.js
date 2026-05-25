@@ -41,11 +41,11 @@ function backKeyboard() {
     }
 }
 
-function statsKeyboard() {
+function addBotKeyboard() {
     return {
         resize_keyboard: true,
         keyboard: [
-            [{text: "/stats"}]
+            [{text: "/stats"}, {text: "/help"}]
         ]
     }
 }
@@ -56,5 +56,5 @@ export {
     foundFilmKeyboard,
     checkKeyboard,
     backKeyboard,
-    statsKeyboard
+    addBotKeyboard
 }

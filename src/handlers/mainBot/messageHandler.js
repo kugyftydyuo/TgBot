@@ -17,7 +17,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
             if (movie) {
                 setRights(userId, false, false)
 
-                const botMessage = await bot.sendMessage(chatId, `Название аниме: ${movie}`, {
+                const botMessage = await bot.sendMessage(chatId, `Название: ${movie}`, {
                     reply_markup: foundFilmAndBackKeyboard()
                 })
 
