@@ -9,16 +9,17 @@ function saveUsers(users) {
     fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2))
 }
 
-function getUser(userId) {
+function getUser(userId, ref) {
     const users = getUsers()
 
     if (!users[userId]) {
         users[userId] = {
-            ref: null,
-            isSubscribed: false
+            ref: ref,
+            isSubscribed: false,
+            isFirstSub: false
         }
+        saveUsers(users)
     }
-
     return users[userId]
 }
 

@@ -10,7 +10,7 @@ export async function addHandler(msg, bot, name) {
     if (workers.includes(userId)) {
         const words = name.split(' ')
         const wordsWithoutCommand = words.slice(1, words.length)
-        const newName = wordsWithoutCommand.join(' ')
+        const newName = wordsWithoutCommand.join(' ').toLowerCase()
 
         if (words.length === 1) {
             return bot.sendMessage(chatId, 'Чтобы добавить фильм введи /add название')
@@ -34,7 +34,10 @@ export async function addHandler(msg, bot, name) {
                 return bot.sendMessage(chatId, '❌ Недопустимые символы');
             }
 
-            if (!values.includes(newName)) {
+            let lowerCaseValues = []
+            values.map(movie => lowerCaseValues = [...lowerCaseValues, movie.toLowerCase()])
+
+            if (!lowerCaseValues.includes(newName)) {
                 addMovie(code.toString(), newName);
                 await bot.sendMessage(8501167201, `${username ? username : lastName} добавил фильм с названием ${newName} под кодом ${code}`)
                 await bot.sendMessage(1942693598, `${username ? username : lastName} добавил фильм с названием ${newName} под кодом ${code}`)

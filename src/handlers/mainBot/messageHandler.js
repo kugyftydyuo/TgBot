@@ -1,4 +1,4 @@
-import {setRights, getRights, setMessagesId, getMessagesId} from "../../state/session.js";
+import {setRights, getRights, getMessagesId} from "../../state/session.js";
 import {getMovies} from "../../services/moviesService.js";
 import {foundFilmAndBackKeyboard, foundFilmKeyboard} from "../../utils/keyboards.js";
 
@@ -17,17 +17,23 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
             if (movie) {
                 setRights(userId, false, false)
 
-                const botMessage = await bot.sendMessage(chatId, `Название: ${movie}`, {
+                await bot.editMessageText(`Название: ${movie}`, {
+                    chat_id: chatId,
+                    message_id: messagesId.botMessage,
                     reply_markup: foundFilmAndBackKeyboard()
                 })
 
-                setMessagesId(userId, botMessage.message_id)
-
                 await bot.deleteMessage(chatId, messageId)
-                await bot.deleteMessage(chatId, messagesId.botMessage)
             } else {
-                const botMessage = await bot.sendMessage(chatId, "❌Код неверный, перепроверь и отправь еще раз")
-                setMessagesId(userId, botMessage.message_id)
+                try {
+                    await bot.editMessageText("❌Код неверный, перепроверь и отправь еще раз", {
+                        chat_id: chatId,
+                        message_id: messagesId.botMessage
+                    })
+                    await bot.deleteMessage(chatId, messageId)
+                } catch {
+                    await bot.deleteMessage(chatId, messageId)
+                }
             }
         } else {
             if (!userRights.secondAttempt) {

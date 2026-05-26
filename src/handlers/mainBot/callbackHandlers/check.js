@@ -1,11 +1,11 @@
 import {checkSubscription} from "../../../services/subscriptionService.js";
-import {openAccess} from "../../../utils/openingAccess.js";
 import {checkKeyboard, foundFilmKeyboard} from "../../../utils/keyboards.js";
+import {editRef} from "../../../services/refsService.js";
 
 export async function check(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
 
-    await openAccess(bot, userId, checkSub);
+    await editRef(bot, userId, checkSub);
 
     if (checkSub.isSubscribed) {
         await bot.editMessageText(

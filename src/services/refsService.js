@@ -1,5 +1,5 @@
 import fs from "fs";
-import {getUser} from "./userService.js";
+import {getUsers, saveUsers} from "./userService.js";
 import {REFS_PATH} from "../config/paths.js";
 
 export function getRefs() {
@@ -10,19 +10,25 @@ export function saveRefs(refs) {
     fs.writeFileSync(REFS_PATH, JSON.stringify(refs, null, 2));
 }
 
-let refState = {}
+export function editRef(bot, userId, checkSub) {
+    const refs = getRefs()
+    const users = getUsers()
 
-export function setRef(ref, userId) {
-    refState[userId] = {
-        ref: ref
-    }
-}
-
-export function getRef(userId) {
-    const user = getUser(userId)
-    if (user.ref !== null) {
-        return user.ref
+    if (checkSub.isSubscribed) {
+        if (!users[userId].isSubscribed) {
+            refs[users[userId].ref]++
+        }
+        users[userId].isSubscribed = true
+        if (!users[userId].isFirstSub) {
+            users[userId].isFirstSub = true
+        }
     } else {
-        return refState[userId].ref
+        if (users[userId].isFirstSub) {
+            refs[users[userId].ref]--
+            users[userId].isSubscribed = false
+        }
     }
+
+    saveRefs(refs)
+    saveUsers(users)
 }

@@ -1,4 +1,4 @@
 export const channels = [
-    '@sponsor1example',
+    '@FrameRushNews',
     '@sponsor2example'
 ]
