@@ -1,4 +1,4 @@
-import {backKeyboard} from "../../../utils/keyboards.js";
+import {backSupportKeyboard} from "../../../utils/keyboards.js";
 
 export async function support(bot, chatId, messageId) {
     await bot.editMessageText(
@@ -6,7 +6,7 @@ export async function support(bot, chatId, messageId) {
         {
             chat_id: chatId,
             message_id: messageId,
-            reply_markup: backKeyboard()
+            reply_markup: backSupportKeyboard()
         }
     );
 }

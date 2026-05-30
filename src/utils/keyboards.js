@@ -8,6 +8,14 @@ function startKeyboard() {
     }
 }
 
+function foundFilmKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}],
+        ]
+    }
+}
+
 function foundFilmAndBackKeyboard() {
     return {
         inline_keyboard: [
@@ -17,10 +25,12 @@ function foundFilmAndBackKeyboard() {
     }
 }
 
-function foundFilmKeyboard() {
+function doKeyboard() {
     return {
         inline_keyboard: [
-            [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}]
+            [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}],
+            [{text: 'Рандомное аниме🎲', callback_data: 'search_random'}],
+            [{text: 'Искать по жанру🔎', callback_data: 'search_genre'}]
         ]
     }
 }
@@ -28,7 +38,15 @@ function foundFilmKeyboard() {
 function checkKeyboard() {
     return {
         inline_keyboard: [
-            [{text: 'Проверить подписку', callback_data: 'back'}]
+            [{text: 'Проверить подписку', callback_data: 'back_support'}]
+        ]
+    }
+}
+
+function backSupportKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: '↩Назад', callback_data: 'back_support'}]
         ]
     }
 }
@@ -50,11 +68,32 @@ function addBotKeyboard() {
     }
 }
 
+function genreKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: "Романтика", callback_data: 'romance'}],
+        ]
+    }
+}
+
+function searchGenreKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: "Романтика", callback_data: 'search_romance'}],
+            [{text: '↩Назад', callback_data: 'back'}]
+        ]
+    }
+}
+
 export {
     startKeyboard,
     foundFilmAndBackKeyboard,
-    foundFilmKeyboard,
+    doKeyboard,
     checkKeyboard,
-    backKeyboard,
-    addBotKeyboard
+    backSupportKeyboard,
+    addBotKeyboard,
+    genreKeyboard,
+    foundFilmKeyboard,
+    searchGenreKeyboard,
+    backKeyboard
 }

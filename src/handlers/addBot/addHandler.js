@@ -1,19 +1,19 @@
 import {workers} from "../../config/workers.js";
-import {addMovie, getMovies} from "../../services/moviesService.js";
+import {addMovieState, getMovies} from "../../services/moviesService.js";
+import {genreKeyboard} from "../../utils/keyboards.js";
 
-export async function addHandler(msg, bot, name) {
+export async function addHandler(msg, bot) {
     const chatId = msg.chat.id
     const userId = msg.from.id
-    const username = msg.from.username
-    const lastName = msg.from.first_name
+    const name = msg.text
 
     if (workers.includes(userId)) {
         const words = name.split(' ')
-        const wordsWithoutCommand = words.slice(1, words.length)
-        const newName = wordsWithoutCommand.join(' ').toLowerCase()
+        const newName = words.slice(2, words.length).join(' ')
+        const series = words[1]
 
-        if (words.length === 1) {
-            return bot.sendMessage(chatId, 'Чтобы добавить фильм введи /add название')
+        if (words.length < 3) {
+            return bot.sendMessage(chatId, 'Чтобы добавить фильм введи /add кол-во_серий название')
         } else {
             const movies = getMovies()
             const keys = Object.keys(movies)
@@ -35,15 +35,15 @@ export async function addHandler(msg, bot, name) {
             }
 
             let lowerCaseValues = []
-            values.map(movie => lowerCaseValues = [...lowerCaseValues, movie.toLowerCase()])
+            values.map(movie => lowerCaseValues = [...lowerCaseValues, movie.name.toLowerCase()])
 
-            if (!lowerCaseValues.includes(newName)) {
-                addMovie(code.toString(), newName);
-                await bot.sendMessage(8501167201, `${username ? username : lastName} добавил фильм с названием ${newName} под кодом ${code}`)
-                await bot.sendMessage(1942693598, `${username ? username : lastName} добавил фильм с названием ${newName} под кодом ${code}`)
-                return bot.sendMessage(chatId, `✅ Фильм добавлен по коду ${code}`);
+            if (!lowerCaseValues.includes(newName.toLowerCase())) {
+                addMovieState(userId, newName, series, code, "add")
+                return bot.sendMessage(chatId, "Укажи жанр нажав на кнопку", {
+                    reply_markup: genreKeyboard()
+                });
             } else {
-                return bot.sendMessage(chatId, `✅ Фильм добавлен по коду ${keys[values.indexOf(newName)]}`);
+                return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${keys[values.indexOf(newName)]}`);
             }
         }
     } else {

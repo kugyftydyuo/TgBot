@@ -1,24 +1,23 @@
-import {getUserOptions, setUserBotMessageId, setUserState} from "../../../state/session.js";
 import {checkSubscription} from "../../../services/subscriptionService.js";
-import {checkKeyboard} from "../../../utils/keyboards.js";
 import {editRef} from "../../../services/refsService.js";
+import {backKeyboard, checkKeyboard} from "../../../utils/keyboards.js";
+import {getMovies} from "../../../services/moviesService.js";
 
-export async function search(bot, userId, chatId, messageId) {
-    getUserOptions(userId)
-    setUserState(userId, "WAITING_CODE")
-
+export async function search_random(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
 
     await editRef(bot, userId, checkSub);
 
     if (checkSub.isSubscribed) {
         try {
-            setUserBotMessageId(userId, messageId)
+            const movies = getMovies()
+            const randomMovie = Object.entries(movies).sort(() => Math.random() - 0.5).slice(0, 1)[0][1]
 
-            await bot.editMessageText('✍ Напиши код из описания видео', {
+            await bot.editMessageText(`🎲Рандомное аниме:\n🗯 Название: ${randomMovie.name}\n📒 Кол-во серий: ${randomMovie.series}\n🎬 Жанр: ${randomMovie.genre}`, {
                 chat_id: chatId,
                 message_id: messageId,
-            });
+                reply_markup: backKeyboard()
+            })
         } catch {
             await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
         }

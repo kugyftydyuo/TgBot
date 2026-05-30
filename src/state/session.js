@@ -1,35 +1,19 @@
-let rights = {}
+let userOptions = {}
 
-export function setRights(userId, isWritingCode, secondAttempt) {
-    rights[userId] = {
-        isWritingCode: isWritingCode,
-        secondAttempt: secondAttempt
-    }
-}
-
-export function getRights(userId) {
-    if (!rights[userId]) {
-        rights[userId] = {
-            isWritingCode: false,
-            secondAttempt: true
+export function getUserOptions(userId) {
+    if (!userOptions[userId]) {
+        userOptions[userId] = {
+            state: "IDLE",
+            botMessageId: null
         }
     }
-
-    return rights[userId]
+    return userOptions[userId]
 }
 
-let messagesId = {}
-
-export function setMessagesId(userId, botMessage) {
-    messagesId[userId] = {botMessage: botMessage}
+export function setUserState(userId, state) {
+    userOptions[userId].state = state
 }
 
-export function getMessagesId(userId) {
-    if (!messagesId[userId]) {
-        messagesId[userId] = {
-            botMessage: null
-        }
-    }
-
-    return messagesId[userId]
+export function setUserBotMessageId(userId, botMessageId) {
+    userOptions[userId].botMessageId = botMessageId
 }

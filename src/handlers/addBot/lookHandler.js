@@ -13,7 +13,7 @@ export function lookHandler(msg, bot, code) {
             if (!movies[words[1]]) {
                 return bot.sendMessage(chatId, '❌ Фильма с таким кодом не существует')
             } else {
-                return bot.sendMessage(chatId, `"${words[1]}": ${movies[words[1]]}`)
+                return bot.sendMessage(chatId, `"${words[1]}":\n🗯 Название: ${movies[words[1]].name}\n📒 Кол-во серий: ${movies[words[1]].series}\n🎬 Жанр: ${movies[words[1]].genre}`)
             }
         } else {
             const keys = Object.keys(movies)
@@ -21,7 +21,7 @@ export function lookHandler(msg, bot, code) {
 
             let message = ``
             for (let i = 0; i < keys.length; i++) {
-                message += `"${keys[i]}": ${values[i]}\n`
+                message += `"${keys[i]}":\n🗯 Название: ${values[i].name}\n📒 Кол-во серий: ${values[i].series}\n🎬 Жанр: ${values[i].genre}\n\n`
             }
 
             return bot.sendMessage(chatId, message)

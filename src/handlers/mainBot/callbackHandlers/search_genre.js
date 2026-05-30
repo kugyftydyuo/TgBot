@@ -1,24 +1,19 @@
-import {getUserOptions, setUserBotMessageId, setUserState} from "../../../state/session.js";
 import {checkSubscription} from "../../../services/subscriptionService.js";
-import {checkKeyboard} from "../../../utils/keyboards.js";
 import {editRef} from "../../../services/refsService.js";
+import {checkKeyboard, searchGenreKeyboard} from "../../../utils/keyboards.js";
 
-export async function search(bot, userId, chatId, messageId) {
-    getUserOptions(userId)
-    setUserState(userId, "WAITING_CODE")
-
+export async function search_genre(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
 
     await editRef(bot, userId, checkSub);
 
     if (checkSub.isSubscribed) {
         try {
-            setUserBotMessageId(userId, messageId)
-
-            await bot.editMessageText('✍ Напиши код из описания видео', {
+            await bot.editMessageText('По какому жанру будем искать?', {
                 chat_id: chatId,
                 message_id: messageId,
-            });
+                reply_markup: searchGenreKeyboard()
+            })
         } catch {
             await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
         }
