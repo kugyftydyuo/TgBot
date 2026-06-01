@@ -9,12 +9,12 @@ export function saveMovies(movies) {
     fs.writeFileSync(MOVIES_PATH, JSON.stringify(movies, null, 2));
 }
 
-export function addMovie(movie, genre) {
+export function addMovie(movie) {
     const movies = getMovies()
     movies[movie.code] = {
         name: movie.name,
-        series: movie.series,
-        genre: genre
+        episodes: movie.episodes,
+        genre: movie.genre
     };
     saveMovies(movies)
 }
@@ -25,27 +25,12 @@ export function deleteMovie(code) {
     saveMovies(movies)
 }
 
-export function editMovie(movie, genre) {
+export function editMovie(movie) {
     const movies = getMovies()
     movies[movie.code] = {
-        name: movie.name,
-        series: movie.series,
-        genre: genre
+        name: !movie.name ? movies[movie.code].name : movie.name,
+        episodes: !movie.episodes ? movies[movie.code].episodes : movie.episodes,
+        genre: !movie.genre ? movies[movie.code].genre : movie.genre
     }
     saveMovies(movies)
-}
-
-let movieState = {}
-
-export function addMovieState(userId, name, series, code, type) {
-    movieState[userId] = {
-        type: type,
-        name: name,
-        series: series,
-        code: code
-    }
-}
-
-export function getMovieState(userId) {
-    return movieState[userId]
 }

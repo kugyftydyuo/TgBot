@@ -7,7 +7,7 @@ export async function romance(bot, userId, chatId, messageId) {
 
     let message = ``;
     for (let i = 0; i < romanceGenre.length; i++) {
-        message += `🗯 Название: ${romanceGenre[i][1].name}\n📒 Кол-во серий: ${romanceGenre[i][1].series}\n🎬 Жанр: ${romanceGenre[i][1].genre}\n\n`
+        message += `🗯 Название: ${romanceGenre[i][1].name}\n📒 Кол-во серий: ${romanceGenre[i][1].episodes}\n🎬 Жанр: ${romanceGenre[i][1].genre}\n\n`
     }
 
     try {
@@ -16,7 +16,8 @@ export async function romance(bot, userId, chatId, messageId) {
             message_id: messageId,
             reply_markup: backKeyboard()
         })
-    } catch {
+    } catch (e) {
+        console.log(e)
         await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
     }
 }

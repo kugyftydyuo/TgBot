@@ -1,6 +1,6 @@
 import {getUserOptions, setUserState} from "../../state/session.js";
 import {getMovies} from "../../services/moviesService.js";
-import {foundFilmAndBackKeyboard, foundFilmKeyboard} from "../../utils/keyboards.js";
+import {backKeyboard, foundFilmKeyboard} from "../../utils/keyboards.js";
 
 export async function messageHandler(chatId, text, messageId, userId, bot) {
     const userOptions = getUserOptions(userId)
@@ -17,7 +17,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
                     await bot.editMessageText(`Название: ${movie.name}`, {
                         chat_id: chatId,
                         message_id: userOptions.botMessageId,
-                        reply_markup: foundFilmAndBackKeyboard()
+                        reply_markup: backKeyboard()
                     })
 
                     await bot.deleteMessage(chatId, messageId)
@@ -43,7 +43,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
             try {
                 await bot.deleteMessage(chatId, messageId)
 
-                await bot.editMessageText("Для того чтобы отправить код нажми на кнопку Найти фильм-аниме🎥", {
+                await bot.editMessageText("Для того чтобы отправить код нажми на кнопку Поиск по коду🔎", {
                     chat_id: chatId,
                     message_id: userOptions.botMessageId,
                     reply_markup: foundFilmKeyboard()

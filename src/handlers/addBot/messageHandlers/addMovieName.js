@@ -1,0 +1,36 @@
+import {getMovies} from "../../../services/moviesService.js";
+import {getSession} from "../../../state/sessionAddBot.js";
+
+export async function addMovieName(chatId, bot, text, userId) {
+    const movies = getMovies()
+    const keys = Object.keys(movies)
+    const values = Object.values(movies)
+    const code = Number(keys[keys.length - 1]) + 1
+    const title = text.trim().replace(/\s+/g, ' ');
+    const session = getSession(userId);
+
+    const hasLink = /(https?:\/\/|www\.|t\.me|@)/i.test(title);
+
+    if (hasLink) {
+        return bot.sendMessage(chatId, '❌ Ссылки запрещены');
+    }
+
+    const valid = /^[a-zA-Zа-яА-ЯёЁ0-9\s\-:(),*.]+$/.test(title);
+
+    if (!valid) {
+        return bot.sendMessage(chatId, '❌ Недопустимые символы');
+    }
+
+    let lowerCaseValues = []
+    values.map(movie => lowerCaseValues = [...lowerCaseValues, movie.name.toLowerCase()])
+
+    if (!lowerCaseValues.includes(text.toLowerCase())) {
+        session.data.code = code
+        session.data.name = text;
+        session.state = 'ADD_MOVIE_EPISODES';
+    } else {
+        return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${keys[values.indexOf(text)]}`);
+    }
+
+    await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n✍ Напиши количество серий');
+}

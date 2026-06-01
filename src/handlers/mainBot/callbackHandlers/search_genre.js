@@ -1,9 +1,11 @@
 import {checkSubscription} from "../../../services/subscriptionService.js";
 import {editRef} from "../../../services/refsService.js";
 import {checkKeyboard, searchGenreKeyboard} from "../../../utils/keyboards.js";
+import {saveStats} from "../../../services/statsService.js";
 
 export async function search_genre(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
+    saveStats("searchGenre")
 
     await editRef(bot, userId, checkSub);
 

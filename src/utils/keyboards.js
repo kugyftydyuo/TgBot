@@ -11,16 +11,7 @@ function startKeyboard() {
 function foundFilmKeyboard() {
     return {
         inline_keyboard: [
-            [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}],
-        ]
-    }
-}
-
-function foundFilmAndBackKeyboard() {
-    return {
-        inline_keyboard: [
-            [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}],
-            [{text: '↩Назад', callback_data: 'back'}]
+            [{text: 'Поиск по коду🔎', callback_data: 'search'}],
         ]
     }
 }
@@ -28,9 +19,10 @@ function foundFilmAndBackKeyboard() {
 function doKeyboard() {
     return {
         inline_keyboard: [
-            [{text: 'Найти фильм-аниме🎥', callback_data: 'search'}],
+            [{text: 'Поиск по коду🔎', callback_data: 'search'}],
             [{text: 'Рандомное аниме🎲', callback_data: 'search_random'}],
-            [{text: 'Искать по жанру🔎', callback_data: 'search_genre'}]
+            [{text: 'Поиск по жанру🔎', callback_data: 'search_genre'}],
+            [{text: '👨‍🔧Сотрудничество', callback_data: 'support_is_sub'}]
         ]
     }
 }
@@ -63,7 +55,20 @@ function addBotKeyboard() {
     return {
         resize_keyboard: true,
         keyboard: [
-            [{text: "/stats"}, {text: "/help"}]
+            [{text: "➕ Добавить"}],
+            [{text: "📋 Посмотреть статистику"}]
+        ]
+    }
+}
+
+function addBotForAdminsKeyboard() {
+    return {
+        resize_keyboard: true,
+        keyboard: [
+            [{text: "➕ Добавить"}, {text: "♻ Удалить"}],
+            [{text: "🛠 Изменить"}],
+            [{text: "📋 Посмотреть статистику"}],
+            [{text: "❗ Посмотреть информацию"}]
         ]
     }
 }
@@ -85,15 +90,35 @@ function searchGenreKeyboard() {
     }
 }
 
+function editMovieKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: "🗯 Название", callback_data: 'edit_movie_name'}, {text: "📒 Кол-во серий", callback_data: 'edit_movie_episodes'}],
+            [{text: "🎬 Жанр", callback_data: 'edit_movie_genre'}],
+            [{text: "✅ Готово", callback_data: 'edit_movie_is_ready'}]
+        ]
+    }
+}
+
+function lookMoviesKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: '📚 Все', callback_data: 'look_all'}, {text: '📔 Один', callback_data: 'look_one'}]
+        ]
+    }
+}
+
 export {
     startKeyboard,
-    foundFilmAndBackKeyboard,
     doKeyboard,
     checkKeyboard,
     backSupportKeyboard,
     addBotKeyboard,
+    addBotForAdminsKeyboard,
     genreKeyboard,
     foundFilmKeyboard,
     searchGenreKeyboard,
-    backKeyboard
+    backKeyboard,
+    editMovieKeyboard,
+    lookMoviesKeyboard
 }
