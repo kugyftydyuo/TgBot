@@ -1,6 +1,7 @@
 import {checkSubscription} from "../../../services/subscriptionService.js";
 import {checkKeyboard, doKeyboard} from "../../../utils/keyboards.js";
 import {editRef} from "../../../services/refsService.js";
+import {updateBot} from "../../../config/strings.js";
 
 export async function check(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
@@ -18,7 +19,7 @@ export async function check(bot, userId, chatId, messageId) {
                 }
             );
         } catch {
-            await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+            await bot.sendMessage(chatId, updateBot)
         }
     } else {
         try {
@@ -28,7 +29,7 @@ export async function check(bot, userId, chatId, messageId) {
                 reply_markup: checkKeyboard()
             });
         } catch {
-            await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+            await bot.sendMessage(chatId, updateBot)
         }
     }
 }

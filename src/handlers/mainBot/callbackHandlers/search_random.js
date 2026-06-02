@@ -3,6 +3,7 @@ import {editRef} from "../../../services/refsService.js";
 import {backKeyboard, checkKeyboard} from "../../../utils/keyboards.js";
 import {getMovies} from "../../../services/moviesService.js";
 import {saveStats} from "../../../services/statsService.js";
+import {updateBot} from "../../../config/strings.js";
 
 export async function search_random(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
@@ -21,7 +22,7 @@ export async function search_random(bot, userId, chatId, messageId) {
                 reply_markup: backKeyboard()
             })
         } catch {
-            await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+            await bot.sendMessage(chatId, updateBot)
         }
     } else {
         try {
@@ -31,7 +32,7 @@ export async function search_random(bot, userId, chatId, messageId) {
                 reply_markup: checkKeyboard()
             });
         } catch {
-            await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+            await bot.sendMessage(chatId, updateBot)
         }
     }
 }

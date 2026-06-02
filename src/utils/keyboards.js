@@ -22,6 +22,7 @@ function doKeyboard() {
             [{text: 'Поиск по коду🔎', callback_data: 'search'}],
             [{text: 'Рандомное аниме🎲', callback_data: 'search_random'}],
             [{text: 'Поиск по жанру🔎', callback_data: 'search_genre'}],
+            [{text: 'Игра: "Угадай число" 🎮', callback_data: 'start_game_guess_number'}],
             [{text: '👨‍🔧Сотрудничество', callback_data: 'support_is_sub'}]
         ]
     }
@@ -76,7 +77,11 @@ function addBotForAdminsKeyboard() {
 function genreKeyboard() {
     return {
         inline_keyboard: [
-            [{text: "Романтика", callback_data: 'romance'}],
+            [{text: "❤ Романтика", callback_data: 'romance'}, {text: "🪬 Исекай", callback_data: 'issekai'}],
+            [{text: "🤝 Сенэн", callback_data: 'senen'}, {text: "✈ Приключение", callback_data: 'adventure'}],
+            [{text: "😢 Драма", callback_data: 'drama'}, {text: "😝 Комедия", callback_data: 'comedy'}],
+            [{text: "🥇 Спорт", callback_data: 'sport'}, {text: "🔮 Фэнтези", callback_data: 'fantasy'}],
+            [{text: "🥪 Повседневка", callback_data: 'everyday'}]
         ]
     }
 }
@@ -84,7 +89,11 @@ function genreKeyboard() {
 function searchGenreKeyboard() {
     return {
         inline_keyboard: [
-            [{text: "Романтика", callback_data: 'search_romance'}],
+            [{text: "❤ Романтика", callback_data: 'search_genre_romance'}, {text: "🪬 Исекай", callback_data: 'search_genre_issekai'}],
+            [{text: "🤝 Сенэн", callback_data: 'search_genre_senen'}, {text: "✈ Приключение", callback_data: 'search_genre_adventure'}],
+            [{text: "😢 Драма", callback_data: 'search_genre_drama'}, {text: "😝 Комедия", callback_data: 'search_genre_comedy'}],
+            [{text: "🥇 Спорт", callback_data: 'search_genre_sport'}, {text: "🔮 Фэнтези", callback_data: 'search_genre_fantasy'}],
+            [{text: "🥪 Повседневка", callback_data: 'search_genre_everyday'}],
             [{text: '↩Назад', callback_data: 'back'}]
         ]
     }
@@ -108,6 +117,26 @@ function lookMoviesKeyboard() {
     }
 }
 
+function guessNumberKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: '1', callback_data: 'guess_number_1'}, {text: '2', callback_data: 'guess_number_2'}, {text: '3', callback_data: 'guess_number_3'}],
+            [{text: '4', callback_data: 'guess_number_4'}, {text: '5', callback_data: 'guess_number_5'}, {text: '6', callback_data: 'guess_number_6'}],
+            [{text: '7', callback_data: 'guess_number_7'}, {text: '8', callback_data: 'guess_number_8'}, {text: '9', callback_data: 'guess_number_9'}],
+            [{text: '0', callback_data: 'guess_number_0'}],
+        ]
+    }
+}
+
+function guessNumberPlayAgain() {
+    return {
+        inline_keyboard: [
+            [{text: 'Играть еще раз', callback_data: 'start_game_guess_number'}],
+            [{text: '↩Назад', callback_data: 'back'}]
+        ]
+    }
+}
+
 export {
     startKeyboard,
     doKeyboard,
@@ -120,5 +149,7 @@ export {
     searchGenreKeyboard,
     backKeyboard,
     editMovieKeyboard,
-    lookMoviesKeyboard
+    lookMoviesKeyboard,
+    guessNumberKeyboard,
+    guessNumberPlayAgain
 }

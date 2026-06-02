@@ -1,9 +1,8 @@
 import {admins} from "../../config/workers.js";
-import {getMovies} from "../../services/moviesService.js";
 import {getSession} from "../../state/sessionAddBot.js";
 import {lookMoviesKeyboard} from "../../utils/keyboards.js";
 
-export async function lookHandler(msg, bot, code) {
+export async function lookHandler(msg, bot) {
     const chatId = msg.chat.id
     const userId = msg.from.id
 

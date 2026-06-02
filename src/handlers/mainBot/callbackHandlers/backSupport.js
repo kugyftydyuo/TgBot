@@ -1,5 +1,6 @@
 import {getUserOptions, setUserState} from "../../../state/session.js";
 import {startKeyboard} from "../../../utils/keyboards.js";
+import {updateBot} from "../../../config/strings.js";
 
 export async function backSupport(bot, userId, chatId, messageId) {
     getUserOptions(userId)
@@ -16,6 +17,6 @@ export async function backSupport(bot, userId, chatId, messageId) {
             }
         );
     } catch {
-        await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+        await bot.sendMessage(chatId, updateBot)
     }
 }

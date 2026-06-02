@@ -1,6 +1,7 @@
 import {getUserOptions, setUserState} from "../../state/session.js";
 import {getMovies} from "../../services/moviesService.js";
 import {backKeyboard, foundFilmKeyboard} from "../../utils/keyboards.js";
+import {updateBot} from "../../config/strings.js";
 
 export async function messageHandler(chatId, text, messageId, userId, bot) {
     const userOptions = getUserOptions(userId)
@@ -22,7 +23,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
 
                     await bot.deleteMessage(chatId, messageId)
                 } catch {
-                    await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+                    await bot.sendMessage(chatId, updateBot)
                 }
             } else {
                 try {
@@ -35,7 +36,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
                     if (e.message === 'ETELEGRAM: 400 Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message') {
                         await bot.deleteMessage(chatId, messageId)
                     } else {
-                        await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+                        await bot.sendMessage(chatId, updateBot)
                     }
                 }
             }
@@ -52,7 +53,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
                 if (e.message === 'ETELEGRAM: 400 Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message') {
                     await bot.deleteMessage(chatId, messageId)
                 } else {
-                    await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+                    await bot.sendMessage(chatId, updateBot)
                 }
             }
         }

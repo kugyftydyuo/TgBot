@@ -26,7 +26,7 @@ export async function addMovieName(chatId, bot, text, userId) {
 
     if (!lowerCaseValues.includes(text.toLowerCase())) {
         session.data.code = code
-        session.data.name = text;
+        session.data.name = text[0].toUpperCase() + text.slice(1);
         session.state = 'ADD_MOVIE_EPISODES';
     } else {
         return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${keys[values.indexOf(text)]}`);

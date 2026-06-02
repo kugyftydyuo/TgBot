@@ -4,5 +4,13 @@ export const userIds = {
 }
 
 export const genres = {
-    'romance': 'Романтика'
+    'romance': 'Романтика',
+    'issekai': 'Иссекай',
+    'senen': 'Сенэн',
+    'adventure': 'Приключение',
+    'drama': 'Драма',
+    'comedy': 'Комедия',
+    'sport': 'Спорт',
+    'fantasy': 'Фэнтези',
+    'everyday': 'Повседневка'
 }

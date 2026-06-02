@@ -1,5 +1,6 @@
 import {doKeyboard} from "../../../utils/keyboards.js";
 import {setUserState} from "../../../state/session.js";
+import {updateBot} from "../../../config/strings.js";
 
 export async function back(bot, chatId, messageId, userId) {
     try {
@@ -13,6 +14,6 @@ export async function back(bot, chatId, messageId, userId) {
             }
         );
     } catch (e) {
-        await bot.sendMessage(chatId, "⚠ Бот был обновлён. Перезапустите его")
+        await bot.sendMessage(chatId, updateBot)
     }
 }
