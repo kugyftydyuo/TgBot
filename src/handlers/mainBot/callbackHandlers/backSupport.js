@@ -1,6 +1,6 @@
 import {getUserOptions, setUserState} from "../../../state/session.js";
 import {startKeyboard} from "../../../utils/keyboards.js";
-import {updateBot} from "../../../config/strings.js";
+import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 
 export async function backSupport(bot, userId, chatId, messageId) {
     getUserOptions(userId)
@@ -16,7 +16,9 @@ export async function backSupport(bot, userId, chatId, messageId) {
                 reply_markup: startKeyboard()
             }
         );
-    } catch {
-        await bot.sendMessage(chatId, updateBot)
+    } catch (e) {
+        if (e.message !== msgIsNotModifiedError) {
+            await bot.sendMessage(chatId, updateBot)
+        }
     }
 }

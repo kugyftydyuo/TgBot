@@ -14,7 +14,8 @@ export function addMovie(movie) {
     movies[movie.code] = {
         name: movie.name,
         episodes: movie.episodes,
-        genre: movie.genre
+        genre: movie.genre,
+        type: movie.type
     };
     saveMovies(movies)
 }
@@ -30,7 +31,8 @@ export function editMovie(movie) {
     movies[movie.code] = {
         name: !movie.name ? movies[movie.code].name : movie.name,
         episodes: !movie.episodes ? movies[movie.code].episodes : movie.episodes,
-        genre: !movie.genre ? movies[movie.code].genre : movie.genre
+        genre: !movie.genre ? movies[movie.code].genre : movie.genre,
+        type: !movie.type ? movies[movie.code].type : movie.type,
     }
     saveMovies(movies)
 }

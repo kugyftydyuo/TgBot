@@ -3,11 +3,10 @@ import {checkSubscription} from "../../../services/subscriptionService.js";
 import {backKeyboard, checkKeyboard} from "../../../utils/keyboards.js";
 import {editRef} from "../../../services/refsService.js";
 import {saveStats} from "../../../services/statsService.js";
-import {updateBot} from "../../../config/strings.js";
+import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 
 export async function search(bot, userId, chatId, messageId) {
     getUserOptions(userId)
-    setUserState(userId, "WAITING_CODE")
     saveStats("searchCode")
 
     const checkSub = await checkSubscription(bot, userId)
@@ -15,6 +14,7 @@ export async function search(bot, userId, chatId, messageId) {
     await editRef(bot, userId, checkSub);
 
     if (checkSub.isSubscribed) {
+        setUserState(userId, "WAITING_CODE")
         try {
             setUserBotMessageId(userId, messageId)
 
@@ -23,8 +23,10 @@ export async function search(bot, userId, chatId, messageId) {
                 message_id: messageId,
                 reply_markup: backKeyboard()
             });
-        } catch {
-            await bot.sendMessage(chatId, updateBot)
+        } catch (e) {
+            if (e.message !== msgIsNotModifiedError) {
+                await bot.sendMessage(chatId, updateBot)
+            }
         }
     } else {
         try {
@@ -33,8 +35,10 @@ export async function search(bot, userId, chatId, messageId) {
                 message_id: messageId,
                 reply_markup: checkKeyboard()
             });
-        } catch {
-            await bot.sendMessage(chatId, updateBot)
+        } catch (e) {
+            if (e.message !== msgIsNotModifiedError) {
+                await bot.sendMessage(chatId, updateBot)
+            }
         }
     }
 }

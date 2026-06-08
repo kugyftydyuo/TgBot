@@ -6,13 +6,15 @@ import {editMovieName} from "./messageHandlers/editMovieName.js";
 import {editMovieEpisodes} from "./messageHandlers/editMovieEpisodes.js";
 import {lookMovieCode} from "./messageHandlers/lookMovieCode.js";
 import {getSession} from "../../state/sessionAddBot.js";
+import {buttons} from "../../config/strings.js";
 
 export async function messageHandler(msg, bot) {
     const chatId = msg.chat.id
     const userId = msg.from.id
     const text = msg.text
-    const session = getSession(userId)
+    if (buttons.includes(text)) return
 
+    const session = getSession(userId)
     switch (session.state) {
         case 'ADD_MOVIE_NAME':
             addMovieName(chatId, bot, text, userId)

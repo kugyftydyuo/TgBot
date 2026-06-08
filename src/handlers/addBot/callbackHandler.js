@@ -1,7 +1,14 @@
 import {addMovie, editMovie, getMovies} from "../../services/moviesService.js";
 import {getSession} from "../../state/sessionAddBot.js";
-import {genres} from "../../config/parallels.js";
-import {editMovieKeyboard, genreKeyboard} from "../../utils/keyboards.js";
+import {genres, userIds} from "../../config/parallels.js";
+import {
+    editMovieKeyboard,
+    animeGenreKeyboard,
+    doramaGenreKeyboard,
+    typeKeyboard
+} from "../../utils/keyboards.js";
+import {getRefs} from "../../services/refsService.js";
+import {moviesList} from "../../config/strings.js";
 
 export async function callbackHandler(query, bot) {
     const userId = query.from.id;
@@ -16,8 +23,8 @@ export async function callbackHandler(query, bot) {
         session.data.genre = genres[query.data]
         session.state = null
         addMovie(session.data)
-        await bot.sendMessage(8501167201, `${username ? username : lastName} добавил новый фильм!!!\n🗯 Название: ${session.data.name}\n📒 Кол-во серий: ${session.data.episodes}\n🎬 Жанр: ${session.data.genre}`)
-        await bot.sendMessage(1942693598, `${username ? username : lastName} добавил новый фильм!!!\n🗯 Название: ${session.data.name}\n📒 Кол-во серий: ${session.data.episodes}\n🎬 Жанр: ${session.data.genre}`)
+        // await bot.sendMessage(8501167201, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
+        // await bot.sendMessage(1942693598, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
         return bot.sendMessage(chatId, `✅ Фильм был добавлен по коду ${session.data.code}`)
     }
 
@@ -35,10 +42,19 @@ export async function callbackHandler(query, bot) {
         }
 
         if (query.data === "edit_movie_genre") {
+            const movies = getMovies()
             session.state = "EDIT_MOVIE_GENRE"
             await bot.deleteMessage(chatId, messageId)
             return bot.sendMessage(chatId, '🛠 Редактирование жанра...\n\n👇 Укажи новый жанр', {
-                reply_markup: genreKeyboard()
+                reply_markup: (session.data.type ? session.data.type : movies[session.data.code].type) === "Аниме" ? animeGenreKeyboard() : doramaGenreKeyboard()
+            })
+        }
+
+        if (query.data === "edit_movie_type") {
+            session.state = "EDIT_MOVIE_TYPE"
+            await bot.deleteMessage(chatId, messageId)
+            return bot.sendMessage(chatId, '🛠 Редактирование типа...\n\n👇 Укажи новый тип', {
+                reply_markup: typeKeyboard()
             })
         }
 
@@ -59,6 +75,19 @@ export async function callbackHandler(query, bot) {
         })
     }
 
+    if (session.state === "EDIT_MOVIE_TYPE") {
+        if (query.data === "type_anime") {
+            session.data.type = "Аниме"
+        } else {
+            session.data.type = "Дорама"
+        }
+        session.state = 'EDIT_MOVIE'
+        await bot.deleteMessage(chatId, messageId)
+        return bot.sendMessage(chatId, '✅ Тип успешно изменен! Поменять что-то ещё?', {
+            reply_markup: editMovieKeyboard()
+        })
+    }
+
     if (session.state === "LOOK_MOVIE") {
         if (query.data === 'look_all') {
             session.state = null
@@ -68,7 +97,7 @@ export async function callbackHandler(query, bot) {
 
             let message = ``
             for (let i = 0; i < keys.length; i++) {
-                message += `"${keys[i]}":\n🗯 Название: ${values[i].name}\n📒 Кол-во серий: ${values[i].episodes}\n🎬 Жанр: ${values[i].genre}\n\n`
+                message += `"${keys[i]}":\n${moviesList(values[i])}`
             }
             await bot.deleteMessage(chatId, messageId)
             return bot.sendMessage(chatId, message)
@@ -78,5 +107,36 @@ export async function callbackHandler(query, bot) {
             await bot.deleteMessage(chatId, messageId)
             return bot.sendMessage(chatId, '✍ Напиши код')
         }
+    }
+
+    if (session.state === "LOOK_STATS") {
+        const refs = getRefs()
+        session.state = null
+        if (query.data === "look_stats_my") {
+            await bot.deleteMessage(chatId, messageId)
+            return bot.sendMessage(chatId, `👨‍💼- ${refs[userIds[userId]]} чел\n💰 - ${refs[userIds[userId]] * 6}₽`)
+        }
+        if (query.data === "look_stats_all") {
+            let message = ``
+            const keys = Object.keys(refs)
+            const values = Object.values(refs)
+
+            for (let i = 0; i < keys.length; i++) {
+                message += `${keys[i]}: ${values[i]}\n`
+            }
+            await bot.deleteMessage(chatId, messageId)
+            return bot.sendMessage(chatId, message)
+        }
+    }
+
+    if (session.state === "ADD_MOVIE_TYPE") {
+        session.state = "ADD_MOVIE_NAME"
+        if (query.data === "type_anime") {
+            session.data.type = "Аниме"
+        } else {
+            session.data.type = "Дорама"
+        }
+        await bot.deleteMessage(chatId, messageId)
+        await bot.sendMessage(chatId, "📩 Добавление новой записи...\n\n✍ Напиши название")
     }
 }

@@ -1,5 +1,6 @@
 import {getSession} from "../../../state/sessionAddBot.js";
 import {getMovies} from "../../../services/moviesService.js";
+import {moviesList} from "../../../config/strings.js";
 
 export async function lookMovieCode(chatId, bot, text, userId) {
     const session = getSession(userId)
@@ -9,6 +10,6 @@ export async function lookMovieCode(chatId, bot, text, userId) {
         return bot.sendMessage(chatId, '❌ Фильма с таким кодом не существует')
     } else {
         session.state = null
-        await bot.sendMessage(chatId, `"${text}":\n🗯 Название: ${movies[text].name}\n📒 Кол-во серий: ${movies[text].episodes}\n🎬 Жанр: ${movies[text].genre}`)
+        await bot.sendMessage(chatId, `"${text}":\n${moviesList(movies[text])}`)
     }
 }

@@ -12,7 +12,7 @@ export async function startHandler(chatId, ref, userId, bot) {
     } catch (e) {
         console.log(e)
     }
-    await bot.sendMessage(chatId, "Для того чтобы отправить код подпишись на следующи каналы и нажми ✅Проверить", {
+    await bot.sendMessage(chatId, "Для того чтобы отправить код подпишись на следующиe каналы и нажми ✅Проверить", {
         reply_markup: startKeyboard()
     })
 }

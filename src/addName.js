@@ -17,11 +17,11 @@ bot.onText("➕ Добавить",(msg) => addHandler(msg, bot));
 
 bot.onText("📋 Посмотреть статистику", msg => statsHandler(bot, msg.from.id, msg.chat.id))
 
-bot.onText("❗ Посмотреть информацию", (msg, match) => lookHandler(msg, bot, match.input))
+bot.onText("❗ Посмотреть информацию", (msg) => lookHandler(msg, bot))
 
-bot.onText("♻ Удалить", (msg, match) => deleteHandler(msg, bot, match.input))
+bot.onText("♻ Удалить", (msg) => deleteHandler(msg, bot))
 
-bot.onText("🛠 Изменить", (msg, match) => editHandler(msg, bot, match.input))
+bot.onText("🛠 Изменить", (msg) => editHandler(msg, bot))
 
 bot.on('message', (msg) => messageHandler(msg, bot))
 

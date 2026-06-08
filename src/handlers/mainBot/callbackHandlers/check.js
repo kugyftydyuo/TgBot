@@ -1,7 +1,7 @@
 import {checkSubscription} from "../../../services/subscriptionService.js";
 import {checkKeyboard, doKeyboard} from "../../../utils/keyboards.js";
 import {editRef} from "../../../services/refsService.js";
-import {updateBot} from "../../../config/strings.js";
+import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 
 export async function check(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
@@ -11,15 +11,17 @@ export async function check(bot, userId, chatId, messageId) {
     if (checkSub.isSubscribed) {
         try {
             await bot.editMessageText(
-                '✅ Доступ разрешён                      \n\nВыберите действие:',
+                '✅ Доступ разрешён\n\nВыберите действие:',
                 {
                     chat_id: chatId,
                     message_id: messageId,
                     reply_markup: doKeyboard()
                 }
             );
-        } catch {
-            await bot.sendMessage(chatId, updateBot)
+        } catch (e) {
+            if (e.message !== msgIsNotModifiedError) {
+                await bot.sendMessage(chatId, updateBot)
+            }
         }
     } else {
         try {
@@ -28,8 +30,10 @@ export async function check(bot, userId, chatId, messageId) {
                 message_id: messageId,
                 reply_markup: checkKeyboard()
             });
-        } catch {
-            await bot.sendMessage(chatId, updateBot)
+        } catch (e) {
+            if (e.message !== msgIsNotModifiedError) {
+                await bot.sendMessage(chatId, updateBot)
+            }
         }
     }
 }

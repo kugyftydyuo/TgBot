@@ -4,7 +4,7 @@ import {backKeyboard, checkKeyboard, searchGenreKeyboard} from "../../../utils/k
 import {saveStats} from "../../../services/statsService.js";
 import {getMovies} from "../../../services/moviesService.js";
 import {genres} from "../../../config/parallels.js";
-import {updateBot} from "../../../config/strings.js";
+import {moviesList, msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 
 export async function search_genre_start(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
@@ -12,24 +12,22 @@ export async function search_genre_start(bot, userId, chatId, messageId) {
 
     await editRef(bot, userId, checkSub);
 
-    if (checkSub.isSubscribed) {
-        try {
-            await bot.editMessageText('По какому жанру будем искать?', {
-                chat_id: chatId,
-                message_id: messageId,
-                reply_markup: searchGenreKeyboard()
-            })
-        } catch {
-            await bot.sendMessage(chatId, updateBot)
+    try {
+        if (checkSub.isSubscribed) {
+                await bot.editMessageText('По какому жанру будем искать?', {
+                    chat_id: chatId,
+                    message_id: messageId,
+                    reply_markup: searchGenreKeyboard()
+                })
+        } else {
+                await bot.editMessageText('❌ Подпишитесь на все каналы', {
+                    chat_id: chatId,
+                    message_id: messageId,
+                    reply_markup: checkKeyboard()
+                });
         }
-    } else {
-        try {
-            await bot.editMessageText('❌ Подпишитесь на все каналы', {
-                chat_id: chatId,
-                message_id: messageId,
-                reply_markup: checkKeyboard()
-            });
-        } catch {
+    } catch (e) {
+        if (e.message !== msgIsNotModifiedError) {
             await bot.sendMessage(chatId, updateBot)
         }
     }
@@ -42,7 +40,7 @@ export async function search_genre(callData, bot, chatId, messageId) {
 
     let message = ``;
     for (let i = 0; i < moviesWithGenre.length; i++) {
-        message += `🗯 Название: ${moviesWithGenre[i][1].name}\n📒 Кол-во серий: ${moviesWithGenre[i][1].episodes}\n🎬 Жанр: ${moviesWithGenre[i][1].genre}\n\n`
+        message += `${moviesList(moviesWithGenre[i][1])}`
     }
 
     try {
@@ -60,6 +58,8 @@ export async function search_genre(callData, bot, chatId, messageId) {
             })
         }
     } catch (e) {
-        await bot.sendMessage(chatId, updateBot)
+        if (e.message !== msgIsNotModifiedError) {
+            await bot.sendMessage(chatId, updateBot)
+        }
     }
 }

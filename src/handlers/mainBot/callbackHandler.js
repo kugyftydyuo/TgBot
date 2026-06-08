@@ -1,6 +1,6 @@
 import {check} from "./callbackHandlers/check.js";
 import {search} from "./callbackHandlers/search.js";
-import {support, supportIsSub} from "./callbackHandlers/support.js";
+import {support} from "./callbackHandlers/support.js";
 import {backSupport} from "./callbackHandlers/backSupport.js";
 import {search_random} from "./callbackHandlers/search_random.js";
 import {search_genre, search_genre_start} from "./callbackHandlers/search_genre.js";
@@ -16,14 +16,12 @@ export async function callbackHandler(query, bot) {
         check(bot, userId, chatId, messageId)
     } else if (query.data === 'search') {
         search(bot, userId, chatId, messageId)
-    } else if (query.data === 'support') {
-        support(bot, chatId, messageId)
-    } else if (query.data === "support_is_sub") {
-        supportIsSub(bot, chatId, messageId)
+    } else if (query.data.startsWith('support')) {
+        support(bot, chatId, messageId, query.data)
     } else if (query.data === 'back_support') {
         backSupport(bot, userId, chatId, messageId)
-    } else if (query.data === 'search_random') {
-        search_random(bot, userId, chatId, messageId)
+    } else if (query.data.startsWith('search_random_')) {
+        search_random(bot, userId, chatId, messageId, query.data)
     } else if (query.data === 'search_genre') {
         search_genre_start(bot, userId, chatId, messageId)
     } else if (query.data.startsWith('search_genre_')) {

@@ -1,6 +1,6 @@
 import {guessNumberKeyboard, guessNumberPlayAgain} from "../../../utils/keyboards.js";
 import {getUserOptions, setUserRandomNumber} from "../../../state/session.js";
-import {updateBot} from "../../../config/strings.js";
+import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 import {saveStats} from "../../../services/statsService.js";
 
 export async function gameGuessNumber(chatId, bot, messageId, userId) {
@@ -33,7 +33,9 @@ export async function guess(chatId, bot, userId, callData, messageId) {
                 reply_markup: guessNumberPlayAgain()
             })
         }
-    } catch {
-        await bot.sendMessage(chatId, updateBot)
+    } catch (e) {
+        if (e.message !== msgIsNotModifiedError) {
+            await bot.sendMessage(chatId, updateBot)
+        }
     }
 }
