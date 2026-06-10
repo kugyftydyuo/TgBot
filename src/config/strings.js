@@ -1,6 +1,6 @@
-export const updateBot = '⚠ Бот был обновлён. Перезапустите его через команду /start'
+export const updateBot = '⚠ Бот был обновлён. Перезапусти его через команду /start'
 
-export const buttons = ["➕ Добавить", "♻ Удалить", "🛠 Изменить", "📋 Посмотреть статистику", "❗ Посмотреть информацию", "🚫 Прервать действие"]
+export const buttons = ["➕ Добавить", "♻ Удалить", "🛠 Изменить", "📋 Посмотреть статистику", "❗ Посмотреть информацию"]
 
 export const msgIsNotModifiedError = 'ETELEGRAM: 400 Bad Request: message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup of the message'
 

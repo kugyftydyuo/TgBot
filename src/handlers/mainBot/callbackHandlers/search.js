@@ -30,7 +30,7 @@ export async function search(bot, userId, chatId, messageId) {
         }
     } else {
         try {
-            await bot.editMessageText('❌ Подпишитесь на все каналы', {
+            await bot.editMessageText('❌ Подпишись на все каналы', {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: checkKeyboard()

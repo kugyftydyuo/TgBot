@@ -32,7 +32,7 @@ export async function search_random(bot, userId, chatId, messageId, callData) {
         }
     } else {
         try {
-            await bot.editMessageText('❌ Подпишитесь на все каналы', {
+            await bot.editMessageText('❌ Подпишись на все каналы', {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: checkKeyboard()

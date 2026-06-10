@@ -6,7 +6,7 @@ export async function back(bot, chatId, messageId, userId) {
     try {
         setUserState(userId, "IDLE")
         await bot.editMessageText(
-            'Выберите действие:',
+            'Выбери действие:',
             {
                 chat_id: chatId,
                 message_id: messageId,

@@ -20,7 +20,7 @@ export async function search_genre_start(bot, userId, chatId, messageId) {
                     reply_markup: searchGenreKeyboard()
                 })
         } else {
-                await bot.editMessageText('❌ Подпишитесь на все каналы', {
+                await bot.editMessageText('❌ Подпишись на все каналы', {
                     chat_id: chatId,
                     message_id: messageId,
                     reply_markup: checkKeyboard()

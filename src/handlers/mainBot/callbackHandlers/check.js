@@ -11,7 +11,7 @@ export async function check(bot, userId, chatId, messageId) {
     if (checkSub.isSubscribed) {
         try {
             await bot.editMessageText(
-                '✅ Доступ разрешён\n\nВыберите действие:',
+                '🔓 Доступ разрешён\n\nВыбери действие:',
                 {
                     chat_id: chatId,
                     message_id: messageId,
@@ -25,7 +25,7 @@ export async function check(bot, userId, chatId, messageId) {
         }
     } else {
         try {
-            await bot.editMessageText('❌ Подпишитесь на все каналы', {
+            await bot.editMessageText('❌ Подпишись на все каналы', {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: checkKeyboard()
