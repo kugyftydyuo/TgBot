@@ -7,11 +7,11 @@ export async function check(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
 
     await editRef(bot, userId, checkSub);
-    console.log("ura bot rabotaet")
+
     if (checkSub.isSubscribed) {
         try {
             await bot.editMessageText(
-                '🔓 Доступ разрешён\n\nВыбери действие:',
+                '🔓 Доступ разрешен\n\nВыбери действие:',
                 {
                     chat_id: chatId,
                     message_id: messageId,
