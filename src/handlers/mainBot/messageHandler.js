@@ -1,7 +1,7 @@
 import {getUserOptions, setUserState} from "../../state/session.js";
 import {getMovies} from "../../services/moviesService.js";
 import {backKeyboard, foundFilmKeyboard} from "../../utils/keyboards.js";
-import {msgIsNotModifiedError, updateBot} from "../../config/strings.js";
+import {moviesList, msgIsNotModifiedError, updateBot} from "../../config/strings.js";
 
 export async function messageHandler(chatId, text, messageId, userId, bot) {
     const userOptions = getUserOptions(userId)
@@ -15,7 +15,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
                 try {
                     setUserState(userId, "IDLE")
 
-                    await bot.editMessageText(`Название: ${movie.name}`, {
+                    await bot.editMessageText(`${moviesList(movie)}`, {
                         chat_id: chatId,
                         message_id: userOptions.botMessageId,
                         reply_markup: backKeyboard()

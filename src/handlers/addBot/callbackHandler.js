@@ -1,6 +1,6 @@
 import {getSession} from "../../state/sessionAddBot.js";
 import {addMovieGenre} from "./callbackHandlers/addMovieGenre.js";
-import {editMovieH} from "./callbackHandlers/editMovieH";
+import {editMovieH} from "./callbackHandlers/editMovieH.js";
 import {editMovieGenre} from "./callbackHandlers/editMovieGenre.js";
 import {editMovieType} from "./callbackHandlers/editMovieType.js";
 import {lookMovie} from "./callbackHandlers/lookMovie.js";
