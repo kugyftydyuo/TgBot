@@ -6,7 +6,7 @@ import {saveStats} from "../../../services/statsService.js";
 export async function gameGuessNumber(chatId, bot, messageId, userId) {
     const randomNumber = Math.floor(Math.random() * 10)
     setUserRandomNumber(userId, randomNumber)
-    saveStats('guessNumber')
+    saveStats('guessNumber', userId)
 
     await bot.editMessageText('Я загадал цифру от 0 до 9, попробуй ее угадать', {
         chat_id: chatId,

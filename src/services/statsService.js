@@ -1,7 +1,10 @@
 import fs from "fs";
 import {STATS_PATH} from "../config/paths.js";
+import {workers} from "../config/workers.js";
 
-export function saveStats(stat) {
+export function saveStats(stat, userId) {
+    if (workers.includes(userId)) return
+
     const data = JSON.parse(fs.readFileSync(STATS_PATH, "utf8"));
     data[stat]++
     fs.writeFileSync(STATS_PATH, JSON.stringify(data, null, 2));

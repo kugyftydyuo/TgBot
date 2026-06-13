@@ -8,7 +8,7 @@ import {types} from "../../../config/parallels.js";
 
 export async function search_random(bot, userId, chatId, messageId, callData) {
     const checkSub = await checkSubscription(bot, userId)
-    saveStats("searchRandom")
+    saveStats("searchRandom", userId)
 
     await editRef(bot, userId, checkSub);
 

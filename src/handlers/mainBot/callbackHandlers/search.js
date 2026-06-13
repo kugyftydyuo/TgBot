@@ -7,7 +7,7 @@ import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 
 export async function search(bot, userId, chatId, messageId) {
     getUserOptions(userId)
-    saveStats("searchCode")
+    saveStats("searchCode", userId)
 
     const checkSub = await checkSubscription(bot, userId)
 
