@@ -4,7 +4,7 @@ import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 export async function support(bot, chatId, messageId, callData) {
     try {
         await bot.editMessageText(
-            'Связаться с нами можно по следующим контактам:\nhttps://t.me/KHAN_xox',
+            'Связаться с нами можно по следующим контактам:\nhttps://t.me/KHAN_ss1',
             {
                 chat_id: chatId,
                 message_id: messageId,
