@@ -19,7 +19,7 @@ export async function search_random(bot, userId, chatId, messageId, callData) {
             const filteredMovies = Object.entries(movies).filter(movie => movie[1].type === types[type])
             const randomMovie = filteredMovies.sort(() => Math.random() - 0.5).slice(0, 1)[0][1]
 
-            await bot.editMessageText(`${callData === "anime" ? "🎲Рандомное аниме:" : "🎲Рандомная дорама:"}\n\n${moviesList(randomMovie)}`, {
+            await bot.editMessageText(`${type === "anime" ? "🎲Рандомное аниме:" : "🎲Рандомная дорама:"}\n\n${moviesList(randomMovie)}`, {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: backKeyboard()

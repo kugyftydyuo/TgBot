@@ -16,7 +16,7 @@ export function editRef(bot, userId, checkSub) {
 
     if (checkSub.isSubscribed) {
         if (!users[userId].isSubscribed) {
-            refs[users[userId].ref]++
+            refs[users[userId].ref].lastReset++
         }
         users[userId].isSubscribed = true
         if (!users[userId].isFirstSub) {
@@ -24,11 +24,20 @@ export function editRef(bot, userId, checkSub) {
         }
     } else {
         if (users[userId].isFirstSub) {
-            refs[users[userId].ref]--
+            refs[users[userId].ref].lastReset--
             users[userId].isSubscribed = false
         }
     }
 
     saveRefs(refs)
     saveUsers(users)
+}
+
+export function resetRefs() {
+    const refs = getRefs()
+    Object.entries(refs).map(ref => {
+        refs[ref[1].name].always += refs[ref[1].name].lastReset
+        refs[ref[1].name].lastReset = 0
+    })
+    saveRefs(refs)
 }

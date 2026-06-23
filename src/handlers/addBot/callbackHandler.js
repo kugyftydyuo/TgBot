@@ -6,6 +6,7 @@ import {editMovieType} from "./callbackHandlers/editMovieType.js";
 import {lookMovie} from "./callbackHandlers/lookMovie.js";
 import {lookStats} from "./callbackHandlers/lookStats.js";
 import {addMovieType} from "./callbackHandlers/addMovieType.js";
+import {resetRefs} from "../../services/refsService.js";
 
 export async function callbackHandler(query, bot) {
     const userId = query.from.id;
@@ -35,6 +36,10 @@ export async function callbackHandler(query, bot) {
             break
         case "ADD_MOVIE_TYPE":
             addMovieType(bot, chatId, userId, messageId, query)
+            break
+        case "RESET_REFS":
+            bot.sendMessage(chatId, "✅ Рефки обнулены")
+            resetRefs()
             break
     }
 }

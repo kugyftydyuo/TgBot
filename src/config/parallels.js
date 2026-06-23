@@ -5,7 +5,7 @@ export const userIds = {
 
 export const genres = {
     'romance': 'Романтика',
-    'issekai': 'Иссекай',
+    'issekai': 'Исекай',
     'senen': 'Сенэн',
     'adventure': 'Приключение',
     'drama': 'Драма',

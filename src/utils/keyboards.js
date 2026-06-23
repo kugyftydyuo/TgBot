@@ -70,7 +70,8 @@ function addBotForAdminsKeyboard() {
             [{text: "➕ Добавить"}, {text: "♻ Удалить"}],
             [{text: "🛠 Изменить"}],
             [{text: "📋 Посмотреть статистику"}],
-            [{text: "❗ Посмотреть информацию"}]
+            [{text: "❗ Посмотреть информацию"}],
+            [{text: "🔄 Обнулить рефки"}]
         ]
     }
 }
@@ -167,6 +168,14 @@ function typeKeyboard() {
     }
 }
 
+function resetRefsKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: "🔄 Обнулить рефки", callback_data: "resetRefs"}]
+        ]
+    }
+}
+
 export {
     startKeyboard,
     doKeyboard,
@@ -183,5 +192,6 @@ export {
     guessNumberKeyboard,
     guessNumberPlayAgain,
     lookStatsKeyboard,
-    typeKeyboard
+    typeKeyboard,
+    resetRefsKeyboard
 }

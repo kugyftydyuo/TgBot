@@ -13,7 +13,7 @@ export function statsHandler(bot, userId, chatId) {
         })
     } else if (workers.includes(userId)) {
         const refs = getRefs()
-        return bot.sendMessage(chatId, `👨‍💼- ${refs[userIds[userId]]} чел\n💰 - ${refs[userIds[userId]] * 6}₽`)
+        return bot.sendMessage(chatId, `${refs[userIds[userId]].name}: 👤${refs[userIds[userId]].lastReset}\n💰${refs[userIds[userId]].lastReset * 6}р`)
     } else {
         return bot.sendMessage(chatId, "❌ Нет доступа")
     }
