@@ -10,7 +10,7 @@ export async function lookStats(bot, chatId, userId, messageId, query) {
     if (query.data === "look_stats_my") {
         session.state = null
         await bot.deleteMessage(chatId, messageId)
-        return bot.sendMessage(chatId, `👨‍💼- ${refs[userIds[userId]]} чел\n💰 - ${refs[userIds[userId]] * 6}₽`)
+        return bot.sendMessage(chatId, `👨‍💼- ${refs[userIds[userId]].lastReset} чел\n💰 - ${refs[userIds[userId]].lastReset * 6}₽`)
     }
     if (query.data === "look_stats_all") {
         session.state = "RESET_REFS"
