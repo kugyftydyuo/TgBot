@@ -19,8 +19,8 @@ export async function addMoreGenres(bot, chatId, userId, messageId, query) {
         await bot.deleteMessage(chatId, messageId)
         session.state = null
         addMovie(session.data)
-        // await bot.sendMessage(8501167201, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
-        // await bot.sendMessage(1942693598, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
+        await bot.sendMessage(8501167201, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
+        await bot.sendMessage(1942693598, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
         await bot.sendMessage(chatId, `✅ Фильм был добавлен по коду ${session.data.code}`)
     }
 }
