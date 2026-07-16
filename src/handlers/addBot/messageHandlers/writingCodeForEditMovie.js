@@ -12,6 +12,7 @@ export async function writingCodeForEditMovie(chatId, bot, text, userId) {
         return bot.sendMessage(chatId, '❌ Фильма с таким кодом не существует')
     } else {
         session.data.code = text
+        session.data.type = movies[text].type
     }
 
     await bot.sendMessage(chatId, '🛠 Редактирование...\n\n👇 Что будем редактировать?', {

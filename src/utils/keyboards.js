@@ -176,6 +176,27 @@ function resetRefsKeyboard() {
     }
 }
 
+function moreGenresKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: "➕ Добавить еще жанр", callback_data: "more_genre_on"}],
+            [{text: "▶ Далее", callback_data: "more_genre_off"}]
+        ]
+    }
+}
+
+function lookMoviesPagesKeyboard(length) {
+    let buttons = []
+    for (let i = 0; i < length / 5; i++) {
+        buttons = [...buttons, {text: `${i + 1}`, callback_data: `look_page_${i + 1}`}]
+    }
+    return {
+        inline_keyboard: [
+            buttons
+        ]
+    }
+}
+
 export {
     startKeyboard,
     doKeyboard,
@@ -193,5 +214,7 @@ export {
     guessNumberPlayAgain,
     lookStatsKeyboard,
     typeKeyboard,
-    resetRefsKeyboard
+    resetRefsKeyboard,
+    moreGenresKeyboard,
+    lookMoviesPagesKeyboard
 }

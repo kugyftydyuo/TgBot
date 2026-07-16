@@ -7,6 +7,9 @@ import {lookMovie} from "./callbackHandlers/lookMovie.js";
 import {lookStats} from "./callbackHandlers/lookStats.js";
 import {addMovieType} from "./callbackHandlers/addMovieType.js";
 import {resetRefs} from "../../services/refsService.js";
+import {addMoreGenres} from "./callbackHandlers/addMoreGenres.js";
+import {editMoreGenres} from "./callbackHandlers/editMoreGenres.js";
+import {lookAllMovie} from "./callbackHandlers/lookAllMovie.js";
 
 export async function callbackHandler(query, bot) {
     const userId = query.from.id;
@@ -40,6 +43,15 @@ export async function callbackHandler(query, bot) {
         case "RESET_REFS":
             bot.sendMessage(chatId, "✅ Рефки обнулены")
             resetRefs()
+            break
+        case "ADD_MORE_GENRES":
+            addMoreGenres(bot, chatId, userId, messageId, query)
+            break
+        case "EDIT_MORE_GENRES":
+            editMoreGenres(bot, chatId, userId, messageId, query)
+            break
+        case "LOOK_ALL_MOVIE":
+            lookAllMovie(bot, chatId, userId, messageId, query)
             break
     }
 }
