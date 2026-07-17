@@ -1,6 +1,6 @@
 import {getMovies} from "../../../services/moviesService.js";
 import {moviesList} from "../../../config/strings.js";
-import {lookMoviesPagesKeyboard} from "../../../utils/keyboards.js";
+import {pagesKeyboard} from "../../../utils/keyboards.js";
 
 export async function lookAllMovie(bot, chatId, userId, messageId, query) {
     const page = Number(query.data.slice(10, query.data.length))
@@ -18,7 +18,7 @@ export async function lookAllMovie(bot, chatId, userId, messageId, query) {
         await bot.editMessageText(message, {
             chat_id: chatId,
             message_id: messageId,
-            reply_markup: lookMoviesPagesKeyboard(keys.length)
+            reply_markup: pagesKeyboard(keys.length, "look")
         })
     } catch {
         await bot.sendMessage(chatId, "Ты уже на этой странице!")

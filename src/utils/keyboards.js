@@ -185,15 +185,27 @@ function moreGenresKeyboard() {
     }
 }
 
-function lookMoviesPagesKeyboard(length) {
-    let buttons = []
-    for (let i = 0; i < length / 5; i++) {
-        buttons = [...buttons, {text: `${i + 1}`, callback_data: `look_page_${i + 1}`}]
+function pagesKeyboard(length, type) {
+    function createRow(start) {
+        let row = []
+        for (let i = start; i < Math.ceil(length / 5); i++) {
+            row = [...row, {text: `${i + 1}`, callback_data: `${type}_page_${i + 1}`}]
+        }
+        return row
     }
-    return {
-        inline_keyboard: [
-            buttons
+    let buttons = []
+    for (let i = 0; i < Math.ceil(length / 40); i++) {
+        buttons = [
+            ...buttons,
+            createRow(i * 8),
         ]
+    }
+    buttons = [
+        ...buttons,
+        type === "genre" && [{text: '↩Назад', callback_data: 'back'}]
+    ]
+    return {
+        inline_keyboard: buttons
     }
 }
 
@@ -216,5 +228,5 @@ export {
     typeKeyboard,
     resetRefsKeyboard,
     moreGenresKeyboard,
-    lookMoviesPagesKeyboard
+    pagesKeyboard
 }

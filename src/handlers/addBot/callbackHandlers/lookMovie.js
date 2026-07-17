@@ -1,7 +1,7 @@
 import {getMovies} from "../../../services/moviesService.js";
 import {moviesList} from "../../../config/strings.js";
 import {getSession} from "../../../state/sessionAddBot.js";
-import {lookMoviesPagesKeyboard} from "../../../utils/keyboards.js";
+import {pagesKeyboard} from "../../../utils/keyboards.js";
 
 export async function lookMovie(bot, chatId, userId, messageId, query) {
     const session = getSession(userId)
@@ -18,7 +18,7 @@ export async function lookMovie(bot, chatId, userId, messageId, query) {
         }
         await bot.deleteMessage(chatId, messageId)
         return bot.sendMessage(chatId, message, {
-            reply_markup: lookMoviesPagesKeyboard(keys.length)
+            reply_markup: pagesKeyboard(keys.length)
         })
     }
     if (query.data === "look_one") {
