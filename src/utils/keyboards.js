@@ -70,8 +70,7 @@ function addBotForAdminsKeyboard() {
             [{text: "➕ Добавить"}, {text: "♻ Удалить"}],
             [{text: "🛠 Изменить"}],
             [{text: "📋 Посмотреть статистику"}],
-            [{text: "❗ Посмотреть информацию"}],
-            [{text: "🔄 Обнулить рефки"}]
+            [{text: "❗ Посмотреть информацию"}]
         ]
     }
 }
@@ -189,6 +188,7 @@ function pagesKeyboard(length, type) {
     function createRow(start) {
         let row = []
         for (let i = start; i < Math.ceil(length / 5); i++) {
+            if (row.length === 9) break
             row = [...row, {text: `${i + 1}`, callback_data: `${type}_page_${i + 1}`}]
         }
         return row
@@ -202,8 +202,9 @@ function pagesKeyboard(length, type) {
     }
     buttons = [
         ...buttons,
-        type === "genre" && [{text: '↩Назад', callback_data: 'back'}]
+        type === "genre" ? [{text: '↩Назад', callback_data: 'back'}] : null
     ]
+    console.log(buttons)
     return {
         inline_keyboard: buttons
     }

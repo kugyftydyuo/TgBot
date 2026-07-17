@@ -18,7 +18,7 @@ export async function lookMovie(bot, chatId, userId, messageId, query) {
         }
         await bot.deleteMessage(chatId, messageId)
         return bot.sendMessage(chatId, message, {
-            reply_markup: pagesKeyboard(keys.length)
+            reply_markup: pagesKeyboard(keys.length, "look")
         })
     }
     if (query.data === "look_one") {
