@@ -1,6 +1,7 @@
 import fs from "fs";
 import {getUsers, saveUsers} from "./userService.js";
 import {REFS_PATH} from "../config/paths.js";
+import {getSession} from "../state/sessionAddBot.js";
 
 export function getRefs() {
     return JSON.parse(fs.readFileSync(REFS_PATH, "utf-8"));
@@ -33,11 +34,17 @@ export function editRef(bot, userId, checkSub) {
     saveUsers(users)
 }
 
-export function resetRefs() {
+export function resetRefs(userId, query) {
+    if (query.includes("page")) return
+
     const refs = getRefs()
+    const session = getSession(userId)
+
     Object.entries(refs).map(ref => {
         refs[ref[1].name].always += refs[ref[1].name].lastReset
         refs[ref[1].name].lastReset = 0
     })
+
+    session.state = null
     saveRefs(refs)
 }

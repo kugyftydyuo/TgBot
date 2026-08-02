@@ -37,6 +37,7 @@ export async function editMovieH(bot, chatId, userId, messageId, query) {
     if (query.data === 'edit_movie_is_ready') {
         session.state = null
         editMovie(session.data)
+        session.data = {}
         await bot.deleteMessage(chatId, messageId)
         return bot.sendMessage(chatId, "✅ Редактирование завершено")
     }

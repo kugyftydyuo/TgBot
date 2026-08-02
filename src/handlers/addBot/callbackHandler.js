@@ -42,7 +42,7 @@ export async function callbackHandler(query, bot) {
             break
         case "RESET_REFS":
             bot.sendMessage(chatId, "✅ Рефки обнулены")
-            resetRefs()
+            resetRefs(userId, query.data)
             break
         case "ADD_MORE_GENRES":
             addMoreGenres(bot, chatId, userId, messageId, query)

@@ -75,6 +75,21 @@ function addBotForAdminsKeyboard() {
     }
 }
 
+function addBotForTgAdminsKeyboard() {
+    return {
+        resize_keyboard: true,
+        keyboard: [
+            [{text: "➕ Добавить"}, {text: "♻ Удалить"}],
+            [{text: "🛠 Изменить"}],
+            [{text: "📋 Посмотреть статистику"}],
+            [{text: "❗ Посмотреть информацию"}],
+            [{text: "🏆 Лучшее за месяц"}],
+            [{text: "🏆 Лучше за год"}],
+            [{text: "🎉 Дни рождения"}]
+        ]
+    }
+}
+
 function animeGenreKeyboard() {
     return {
         inline_keyboard: [
@@ -204,7 +219,7 @@ function pagesKeyboard(length, type) {
         ...buttons,
         type === "genre" ? [{text: '↩Назад', callback_data: 'back'}] : null
     ]
-    console.log(buttons)
+    
     return {
         inline_keyboard: buttons
     }
@@ -216,6 +231,7 @@ export {
     checkKeyboard,
     addBotKeyboard,
     addBotForAdminsKeyboard,
+    addBotForTgAdminsKeyboard,
     animeGenreKeyboard,
     doramaGenreKeyboard,
     foundFilmKeyboard,

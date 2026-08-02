@@ -2,3 +2,5 @@
 .env
 node_modules
 src/storage
+src/anime-rating/output
+src/anime-rating/source-files
