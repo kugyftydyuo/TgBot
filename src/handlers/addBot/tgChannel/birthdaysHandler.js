@@ -10,14 +10,6 @@ export async function birthdaysHandler(msg, bot) {
                     name {
                         userPreferred
                     }
-                    media(type: ANIME, perPage: 1) {
-                        nodes {
-                            title {
-                                romaji
-                                english
-                            }
-                        }
-                    }
                 }
             }   
         }`
@@ -27,7 +19,7 @@ export async function birthdaysHandler(msg, bot) {
         let message = ``
 
         anilist.map(char => {
-            message += `Персонаж: ${char.name.userPreferred}\nАниме: ${!char.media.nodes[0].title.english ? char.media.nodes[0].title.romaji : char.media.nodes[0].title.english}\n\n`
+            message += `${char.name.userPreferred}\n\n`
         })
 
         bot.sendMessage(msg.chat.id, message)
