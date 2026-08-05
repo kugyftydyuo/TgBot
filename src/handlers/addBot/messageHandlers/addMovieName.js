@@ -30,7 +30,7 @@ export async function addMovieName(chatId, bot, text, userId) {
         session.state = 'ADD_MOVIE_EPISODES';
     } else {
         session.state = null
-        return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${keys[values.indexOf(text)]}`);
+        return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${keys[lowerCaseValues.indexOf(text.toLowerCase())]}`);
     }
 
     await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n✍ Напиши количество серий');

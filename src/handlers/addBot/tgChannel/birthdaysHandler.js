@@ -10,12 +10,19 @@ export async function birthdaysHandler(msg, bot) {
                     name {
                         userPreferred
                     }
+                    media(type: ANIME, perPage: 1) {
+                        nodes {
+                            title {
+                                romaji
+                                english
+                            }
+                        }
+                    }
                 }
             }   
         }`
         const birthdays = await axios.post("https://graphql.anilist.co", {query});
-        const anilist = birthdays.data.data.Page.characters.slice(0, 5);
-
+        const anilist = birthdays.data.data.Page.characters.slice(0, 10);
         let message = ``
 
         anilist.map(char => {
