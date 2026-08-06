@@ -11,7 +11,7 @@ export async function search_genre_start(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
     saveStats("searchGenre", userId)
 
-    await editRef(bot, userId, checkSub);
+    await editRef(userId, checkSub);
 
     try {
         if (checkSub.isSubscribed) {

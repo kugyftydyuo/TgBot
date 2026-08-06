@@ -11,7 +11,7 @@ export function saveRefs(refs) {
     fs.writeFileSync(REFS_PATH, JSON.stringify(refs, null, 2));
 }
 
-export function editRef(bot, userId, checkSub) {
+export function editRef(userId, checkSub) {
     const refs = getRefs()
     const users = getUsers()
 

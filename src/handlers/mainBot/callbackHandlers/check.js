@@ -6,7 +6,7 @@ import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 export async function check(bot, userId, chatId, messageId) {
     const checkSub = await checkSubscription(bot, userId)
 
-    await editRef(bot, userId, checkSub);
+    await editRef(userId, checkSub);
 
     if (checkSub.isSubscribed) {
         try {

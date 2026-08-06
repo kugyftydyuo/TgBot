@@ -3,7 +3,8 @@ function startKeyboard() {
         inline_keyboard: [
             [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
             [{text: '✅Проверить', callback_data: "check"}],
-            [{text: '👨‍🔧Сотрудничество и тех. поддержка', callback_data: 'support'}]
+            [{text: '👨‍🔧Tех. поддержка', callback_data: 'support'}],
+            [{text: '🤝‍Сотрудничество (реклама)', callback_data: 'support_ad'}]
         ],
     }
 }
@@ -24,7 +25,8 @@ function doKeyboard() {
             [{text: 'Рандомная дорама🎲', callback_data: 'search_random_dorama'}],
             [{text: 'Поиск по жанру🔎', callback_data: 'search_genre'}],
             [{text: 'Игра: "Угадай число" 🎮', callback_data: 'start_game_guess_number'}],
-            [{text: '👨‍🔧Сотрудничество и тех. поддержка', callback_data: 'support_is_sub'}]
+            [{text: '👨‍🔧Tех. поддержка', callback_data: 'support_is_sub'}],
+            [{text: '🤝Сотрудничество (реклама)', callback_data: 'support_ad_is_sub'}]
         ]
     }
 }

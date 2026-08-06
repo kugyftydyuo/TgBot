@@ -10,7 +10,7 @@ export async function search_random(bot, userId, chatId, messageId, callData) {
     const checkSub = await checkSubscription(bot, userId)
     saveStats("searchRandom", userId)
 
-    await editRef(bot, userId, checkSub);
+    await editRef(userId, checkSub);
 
     if (checkSub.isSubscribed) {
         try {

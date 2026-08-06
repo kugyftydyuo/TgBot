@@ -11,7 +11,7 @@ export async function search(bot, userId, chatId, messageId) {
 
     const checkSub = await checkSubscription(bot, userId)
 
-    await editRef(bot, userId, checkSub);
+    await editRef(userId, checkSub);
 
     if (checkSub.isSubscribed) {
         setUserState(userId, "WAITING_CODE")
