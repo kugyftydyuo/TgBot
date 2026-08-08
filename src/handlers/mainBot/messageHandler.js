@@ -1,5 +1,5 @@
 import {getUserOptions, setUserState} from "../../state/session.js";
-import {getMovies} from "../../services/moviesService.js";
+import {getMovie} from "../../services/moviesService.js";
 import {backKeyboard, foundFilmKeyboard} from "../../utils/keyboards.js";
 import {moviesList, msgIsNotModifiedError, updateBot} from "../../config/strings.js";
 
@@ -9,7 +9,7 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
         if (text.startsWith('/start')) return;
 
         if (userOptions.state === "WAITING_CODE") {
-            const movie = getMovies()[text];
+            const movie = getMovie(text);
 
             if (movie) {
                 try {
@@ -29,7 +29,8 @@ export async function messageHandler(chatId, text, messageId, userId, bot) {
                 try {
                     await bot.editMessageText("❌ Код неверный, перепроверь и отправь еще раз", {
                         chat_id: chatId,
-                        message_id: userOptions.botMessageId
+                        message_id: userOptions.botMessageId,
+                        reply_markup: backKeyboard(false)
                     })
                     await bot.deleteMessage(chatId, messageId)
                 } catch (e) {

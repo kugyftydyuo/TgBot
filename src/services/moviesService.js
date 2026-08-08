@@ -1,38 +1,53 @@
-import fs from "fs";
-import {MOVIES_PATH} from "../config/paths.js";
+import {db} from "../database/database.js";
 
-export function getMovies() {
-    return JSON.parse(fs.readFileSync(MOVIES_PATH, "utf8"));
+export function getMovie(code) {
+    return db.prepare(`
+        SELECT * FROM movies WHERE code = ?
+    `).get(code)
 }
 
-export function saveMovies(movies) {
-    fs.writeFileSync(MOVIES_PATH, JSON.stringify(movies, null, 2));
+export function getMovies() {
+    return db.prepare(`
+        SELECT * FROM movies
+    `).all()
 }
 
 export function addMovie(movie) {
-    const movies = getMovies()
-    movies[movie.code] = {
-        name: movie.name,
-        episodes: movie.episodes,
-        genre: movie.genre,
-        type: movie.type
-    };
-    saveMovies(movies)
+    db.prepare(`
+        INSERT INTO movies (
+            code,
+            name,
+            episodes,
+            genre,
+            type
+        )
+        VALUES (?, ?, ?, ?, ?)
+    `).run(movie.code, movie.name, movie.episodes, movie.genre, movie.type)
 }
 
 export function deleteMovie(code) {
-    const movies = getMovies()
-    delete movies[code]
-    saveMovies(movies)
+    db.prepare(`
+        DELETE FROM movies
+        WHERE code = ?
+    `).run(code)
 }
 
-export function editMovie(movie) {
-    const movies = getMovies()
-    movies[movie.code] = {
-        name: !movie.name ? movies[movie.code].name : movie.name,
-        episodes: !movie.episodes ? movies[movie.code].episodes : movie.episodes,
-        genre: !movie.genre ? movies[movie.code].genre : movie.genre,
-        type: !movie.type ? movies[movie.code].type : movie.type,
-    }
-    saveMovies(movies)
+export function editMovie(movieToEdit) {
+    const movie = getMovie(movieToEdit.code)
+
+    db.prepare(`
+        UPDATE movies
+        SET 
+            name = ?,
+            episodes = ?,
+            genre = ?,
+            type = ?
+        WHERE code = ?
+    `).run(
+        !movieToEdit.name ? movie.name : movieToEdit.name,
+        !movieToEdit.episodes ? movie.episodes : movieToEdit.episodes,
+        !movieToEdit.genre ? movie.genre : movieToEdit.genre,
+        !movieToEdit.type ? movie.type : movieToEdit.type,
+        movieToEdit.code
+    )
 }

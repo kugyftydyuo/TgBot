@@ -1,4 +1,4 @@
-import {editMovie, getMovies} from "../../../services/moviesService.js";
+import {editMovie, getMovie} from "../../../services/moviesService.js";
 import {animeGenreKeyboard, doramaGenreKeyboard, typeKeyboard} from "../../../utils/keyboards.js";
 import {getSession} from "../../../state/sessionAddBot.js";
 
@@ -18,11 +18,11 @@ export async function editMovieH(bot, chatId, userId, messageId, query) {
     }
 
     if (query.data === "edit_movie_genre") {
-        const movies = getMovies()
+        const movie = getMovie(session.data.code)
         session.state = "EDIT_MOVIE_GENRE"
         await bot.deleteMessage(chatId, messageId)
         return bot.sendMessage(chatId, '🛠 Редактирование жанра...\n\n👇 Укажи новый жанр', {
-            reply_markup: (session.data.type ? session.data.type : movies[session.data.code].type) === "Аниме" ? animeGenreKeyboard() : doramaGenreKeyboard()
+            reply_markup: (session.data.type ? session.data.type : movie.type) === "Аниме" ? animeGenreKeyboard() : doramaGenreKeyboard()
         })
     }
 

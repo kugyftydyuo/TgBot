@@ -4,12 +4,13 @@ import {backKeyboard, checkKeyboard} from "../../../utils/keyboards.js";
 import {editRef} from "../../../services/refsService.js";
 import {saveStats} from "../../../services/statsService.js";
 import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
+import {isDev} from "../../../config/rules.js";
 
 export async function search(bot, userId, chatId, messageId) {
     getUserOptions(userId)
     saveStats("searchCode", userId)
 
-    const checkSub = await checkSubscription(bot, userId)
+    const checkSub = isDev ? {isSubscribed: true} : await checkSubscription(bot, userId)
 
     await editRef(userId, checkSub);
 

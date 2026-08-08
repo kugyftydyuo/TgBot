@@ -9,16 +9,15 @@ export async function lookMovie(bot, chatId, userId, messageId, query) {
     if (query.data === 'look_all') {
         session.state = "LOOK_ALL_MOVIE"
         const movies = getMovies()
-        const keys = Object.keys(movies)
-        const values = Object.values(movies)
 
         let message = `❗️                                                                                                              СТРАНИЦА 1\n\n`
         for (let i = 0; i < 5; i++) {
-            message += `"${keys[i]}":\n${moviesList(values[i])}`
+            if (!movies[i]) break
+            message += `"${movies[i].code}":\n${moviesList(movies[i])}`
         }
         await bot.deleteMessage(chatId, messageId)
         return bot.sendMessage(chatId, message, {
-            reply_markup: pagesKeyboard(keys.length, "look")
+            reply_markup: pagesKeyboard(movies.length, "look")
         })
     }
     if (query.data === "look_one") {

@@ -1,37 +1,61 @@
-import fs from "fs";
-import {getUsers, saveUsers} from "./userService.js";
-import {REFS_PATH} from "../config/paths.js";
+import {getUser, updateUser} from "./userService.js";
 import {getSession} from "../state/sessionAddBot.js";
+import {db} from "../database/database.js";
 
 export function getRefs() {
-    return JSON.parse(fs.readFileSync(REFS_PATH, "utf-8"));
+    return db.prepare(`
+        SELECT * FROM refs;
+    `).all()
 }
 
-export function saveRefs(refs) {
-    fs.writeFileSync(REFS_PATH, JSON.stringify(refs, null, 2));
+export function getRef(name) {
+    const ref = db.prepare(`
+        SELECT *
+        FROM refs
+        WHERE name = ?
+    `).get(name)
+
+    return {
+        name: ref.name,
+        last_reset: ref.last_reset,
+        always: ref.always
+    }
+}
+
+export function updateRef(ref) {
+    db.prepare(`
+        UPDATE refs
+        SET
+            name = ?,
+            last_reset = ?,
+            always = ?
+        WHERE name = ?
+    `).run(
+        ref.name,
+        ref.last_reset,
+        ref.always,
+        ref.name
+    )
 }
 
 export function editRef(userId, checkSub) {
-    const refs = getRefs()
-    const users = getUsers()
-
+    const user = getUser(userId)
+    const ref = getRef(user.ref)
+    
     if (checkSub.isSubscribed) {
-        if (!users[userId].isSubscribed) {
-            refs[users[userId].ref].lastReset++
+        if (!user.is_subscribed) {
+            updateRef({name: user.ref, last_reset: ref.last_reset + 1, always: ref.always})
         }
-        users[userId].isSubscribed = true
-        if (!users[userId].isFirstSub) {
-            users[userId].isFirstSub = true
+        updateUser({ref: user.ref, is_subscribed: true, is_first_sub: user.is_first_sub, id: userId})
+        if (!user.is_first_sub) {
+            updateUser({ref: user.ref, is_subscribed: true, is_first_sub: true, id: userId})
         }
     } else {
-        if (users[userId].isFirstSub) {
-            refs[users[userId].ref].lastReset--
-            users[userId].isSubscribed = false
+        if (user.is_first_sub) {
+            updateRef({name: user.ref, last_reset: ref.last_reset - 1, always: ref.always})
+            updateUser({ref: user.ref, is_subscribed: false, is_first_sub: user.is_first_sub, id: userId})
         }
     }
-
-    saveRefs(refs)
-    saveUsers(users)
 }
 
 export function resetRefs(userId, query) {
@@ -40,11 +64,9 @@ export function resetRefs(userId, query) {
     const refs = getRefs()
     const session = getSession(userId)
 
-    Object.entries(refs).map(ref => {
-        refs[ref[1].name].always += refs[ref[1].name].lastReset
-        refs[ref[1].name].lastReset = 0
+    refs.map(ref => {
+        updateRef({ref: ref.name, last_reset: 0, always: ref.always + ref.last_reset})
     })
 
     session.state = null
-    saveRefs(refs)
 }

@@ -1,11 +1,21 @@
-import fs from "fs";
-import {STATS_PATH} from "../config/paths.js";
 import {workers} from "../config/workers.js";
+import {db} from "../database/database.js";
+
+function getStat(stat) {
+    return db.prepare(`
+        SELECT * FROM stats WHERE name = ?
+    `).get(stat)
+}
 
 export function saveStats(stat, userId) {
     if (workers.includes(userId)) return
+    const stats = getStat(stat)
 
-    const data = JSON.parse(fs.readFileSync(STATS_PATH, "utf8"));
-    data[stat]++
-    fs.writeFileSync(STATS_PATH, JSON.stringify(data, null, 2));
+    db.prepare(`
+        UPDATE stats
+        SET
+            name = ?,
+            count = ?
+        WHERE name = ?
+    `).run(stat, stats.count + 1, stat)
 }

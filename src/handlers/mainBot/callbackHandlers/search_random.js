@@ -5,9 +5,10 @@ import {getMovies} from "../../../services/moviesService.js";
 import {saveStats} from "../../../services/statsService.js";
 import {moviesList, msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 import {types} from "../../../config/parallels.js";
+import {isDev} from "../../../config/rules.js";
 
 export async function search_random(bot, userId, chatId, messageId, callData) {
-    const checkSub = await checkSubscription(bot, userId)
+    const checkSub = isDev ? {isSubscribed: true} : await checkSubscription(bot, userId)
     saveStats("searchRandom", userId)
 
     await editRef(userId, checkSub);
@@ -16,8 +17,8 @@ export async function search_random(bot, userId, chatId, messageId, callData) {
         try {
             const movies = getMovies()
             const type = callData.slice(14, callData.length)
-            const filteredMovies = Object.entries(movies).filter(movie => movie[1].type === types[type])
-            const randomMovie = filteredMovies.sort(() => Math.random() - 0.5).slice(0, 1)[0][1]
+            const filteredMovies = movies.filter(movie => movie.type === types[type])
+            const randomMovie = filteredMovies.sort(() => Math.random() - 0.5).slice(0, 1)[0]
 
             await bot.editMessageText(`${type === "anime" ? "🎲Рандомное аниме:" : "🎲Рандомная дорама:"}\n\n${moviesList(randomMovie)}`, {
                 chat_id: chatId,

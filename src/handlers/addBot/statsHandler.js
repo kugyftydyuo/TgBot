@@ -1,5 +1,5 @@
 import {admins, workers} from "../../config/workers.js";
-import {getRefs} from "../../services/refsService.js";
+import {getRef} from "../../services/refsService.js";
 import {userIds} from "../../config/parallels.js";
 import {lookStatsKeyboard} from "../../utils/keyboards.js";
 import {getSession} from "../../state/sessionAddBot.js";
@@ -12,8 +12,8 @@ export function statsHandler(bot, userId, chatId) {
             reply_markup: lookStatsKeyboard()
         })
     } else if (workers.includes(userId)) {
-        const refs = getRefs()
-        return bot.sendMessage(chatId, `${refs[userIds[userId]].name}: 👤${refs[userIds[userId]].lastReset}\n💰${refs[userIds[userId]].lastReset * 6}р`)
+        const ref = getRef(userIds[userId])
+        return bot.sendMessage(chatId, `${ref.name}: 👤${ref.last_reset}\n💰${ref.last_reset * 6}р`)
     } else {
         return bot.sendMessage(chatId, "❌ Нет доступа")
     }

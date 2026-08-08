@@ -3,9 +3,8 @@ import {getSession} from "../../../state/sessionAddBot.js";
 
 export async function addMovieName(chatId, bot, text, userId) {
     const movies = getMovies()
-    const keys = Object.keys(movies)
-    const values = Object.values(movies)
-    const code = Number(keys[keys.length - 1]) + 1
+    const code = movies[movies.length - 1].code + 1
+
     const title = text.trim().replace(/\s+/g, ' ');
     const session = getSession(userId);
 
@@ -22,7 +21,7 @@ export async function addMovieName(chatId, bot, text, userId) {
     }
 
     let lowerCaseValues = []
-    values.map(movie => lowerCaseValues = [...lowerCaseValues, movie.name.toLowerCase()])
+    movies.map(movie => lowerCaseValues = [...lowerCaseValues, movie.name.toLowerCase()])
 
     if (!lowerCaseValues.includes(text.toLowerCase())) {
         session.data.code = code
@@ -30,7 +29,7 @@ export async function addMovieName(chatId, bot, text, userId) {
         session.state = 'ADD_MOVIE_EPISODES';
     } else {
         session.state = null
-        return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${keys[lowerCaseValues.indexOf(text.toLowerCase())]}`);
+        return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${movies[lowerCaseValues.indexOf(text.toLowerCase())].code}`);
     }
 
     await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n✍ Напиши количество серий');

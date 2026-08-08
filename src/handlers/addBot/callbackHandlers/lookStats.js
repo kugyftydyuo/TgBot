@@ -1,33 +1,33 @@
-import {getRefs} from "../../../services/refsService.js";
+import {getRef, getRefs} from "../../../services/refsService.js";
 import {userIds} from "../../../config/parallels.js";
 import {getSession} from "../../../state/sessionAddBot.js";
 import {resetRefsKeyboard} from "../../../utils/keyboards.js";
 
 export async function lookStats(bot, chatId, userId, messageId, query) {
-    const refs = getRefs()
     const session = getSession(userId)
 
     if (query.data === "look_stats_my") {
+        const ref = getRef(userIds[userId])
         session.state = null
         await bot.deleteMessage(chatId, messageId)
-        return bot.sendMessage(chatId, `👨‍💼- ${refs[userIds[userId]].lastReset} чел\n💰 - ${refs[userIds[userId]].lastReset * 6}₽`)
+        return bot.sendMessage(chatId, `👨‍💼- ${ref.last_reset} чел\n💰 - ${ref.last_reset * 6}₽`)
     }
     if (query.data === "look_stats_all") {
+        const refs = getRefs()
         session.state = "RESET_REFS"
-        const refsArr = Object.entries(refs)
 
         let lastResetMessage = ``
-        for (let i = 0; i < refsArr.length; i++) {
-            if (refsArr[i][0] === 'undefined') break;
+        for (let i = 0; i < refs.length; i++) {
+            if (!refs[i]) break;
 
-            lastResetMessage += `${refsArr[i][0]}: 👤${refsArr[i][1].lastReset}\n💰${refsArr[i][1].lastReset * 6}р\n\n`
+            lastResetMessage += `${refs[i].name}: 👤${refs[i].last_reset}\n💰${refs[i].last_reset * 6}р\n\n`
         }
 
         let alwaysMessage = ``
-        for (let i = 0; i < refsArr.length; i++) {
-            if (refsArr[i][0] === 'undefined') break;
+        for (let i = 0; i < refs.length; i++) {
+            if (!refs[i]) break;
 
-            alwaysMessage += `${refsArr[i][0]}: 👤${refsArr[i][1].always}\n\n`
+            alwaysMessage += `${refs[i].name}: 👤${refs[i].always}\n\n`
         }
         await bot.sendMessage(chatId, `💸Ваши рефки с прошлого обнуления:\n\n${lastResetMessage}`, {
             reply_markup: resetRefsKeyboard()

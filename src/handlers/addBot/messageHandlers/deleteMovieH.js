@@ -1,11 +1,11 @@
 import {getSession} from "../../../state/sessionAddBot.js";
-import {getMovies, deleteMovie} from "../../../services/moviesService.js";
+import {getMovie, deleteMovie} from "../../../services/moviesService.js";
 
 export async function deleteMovieH(chatId, bot, text, userId) {
     const session = getSession(userId)
-    const movies = getMovies()
+    const movie = getMovie(text)
 
-    if (!movies[text]) {
+    if (!movie) {
         return bot.sendMessage(chatId, '❌ Фильма с таким кодом не существует')
     } else {
         deleteMovie(text)

@@ -2,9 +2,10 @@ import {checkSubscription} from "../../../services/subscriptionService.js";
 import {checkKeyboard, doKeyboard} from "../../../utils/keyboards.js";
 import {editRef} from "../../../services/refsService.js";
 import {msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
+import {isDev} from "../../../config/rules.js";
 
 export async function check(bot, userId, chatId, messageId) {
-    const checkSub = await checkSubscription(bot, userId)
+    const checkSub = isDev ? {isSubscribed: true} : await checkSubscription(bot, userId)
 
     await editRef(userId, checkSub);
 

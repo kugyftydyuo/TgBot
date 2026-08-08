@@ -1,30 +1,50 @@
-import fs from 'fs'
-import {USERS_PATH} from "../config/paths.js";
+import {db} from "../database/database.js";
 
-function getUsers() {
-    return JSON.parse(fs.readFileSync(USERS_PATH, 'utf-8'))
-}
+export function getUser(userId, ref) {
+    const user = db.prepare(`
+        SELECT *
+        FROM users
+        WHERE id = ?
+    `).get(userId);
 
-function saveUsers(users) {
-    fs.writeFileSync(USERS_PATH, JSON.stringify(users, null, 2))
-}
+    if (!user) {
+        const name = !ref ? "tryhard" : ref
+        db.prepare(`
+            INSERT INTO users (
+                id,
+                ref,
+                is_subscribed,
+                is_first_sub
+            )
+            VALUES (?, ?, 0, 0)
+        `).run(userId, name);
 
-function getUser(userId, ref) {
-    const users = getUsers()
-
-    if (!users[userId]) {
-        users[userId] = {
-            ref: ref,
-            isSubscribed: false,
-            isFirstSub: false
-        }
-        saveUsers(users)
+        return {
+            name: name,
+            is_subscribed: false,
+            is_first_sub: false
+        };
     }
-    return users[userId]
+
+    return {
+        ref: user.ref,
+        is_subscribed: Boolean(user.is_subscribed),
+        is_first_sub: Boolean(user.is_first_sub)
+    };
 }
 
-export {
-    getUsers,
-    saveUsers,
-    getUser
+export function updateUser(user) {
+    db.prepare(`
+        UPDATE users
+        SET
+            ref = ?,
+            is_subscribed = ?,
+            is_first_sub = ?
+        WHERE id = ?
+    `).run(
+        user.ref,
+        user.is_subscribed ? 1 : 0,
+        user.is_first_sub ? 1 : 0,
+        user.id
+    );
 }

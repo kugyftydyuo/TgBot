@@ -6,9 +6,10 @@ import {getMovies} from "../../../services/moviesService.js";
 import {genres} from "../../../config/parallels.js";
 import {moviesList, msgIsNotModifiedError, updateBot} from "../../../config/strings.js";
 import {getUserOptions, setUserSearchGenre, setUserState} from "../../../state/session.js";
+import {isDev} from "../../../config/rules.js";
 
 export async function search_genre_start(bot, userId, chatId, messageId) {
-    const checkSub = await checkSubscription(bot, userId)
+    const checkSub = isDev ? {isSubscribed: true} : await checkSubscription(bot, userId)
     saveStats("searchGenre", userId)
 
     await editRef(userId, checkSub);
@@ -39,12 +40,12 @@ export async function search_genre(callData, bot, chatId, userId, messageId) {
 
     const genre = callData.slice(13, callData.length)
     setUserSearchGenre(userId, genre)
-    const moviesWithGenre = Object.entries(movies).filter(movie => movie[1].genre.includes(genres[genre]))
+    const moviesWithGenre = movies.filter(movie => movie.genre.includes(genres[genre]))
 
     let message = ``;
     for (let i = 0; i < 5; i++) {
         if (i === moviesWithGenre.length) break
-        message += `${moviesList(moviesWithGenre[i][1])}`
+        message += `${moviesList(moviesWithGenre[i])}`
     }
 
     try {
@@ -72,7 +73,7 @@ export async function search_genre_page(chatId, bot, userId, callData, messageId
     const page = Number(callData.slice(11, callData.length))
     const movies = getMovies()
     const userOptions = getUserOptions(userId)
-    const moviesWithGenre = Object.entries(movies).filter(movie => movie[1].genre.includes(genres[userOptions.searchGenre]))
+    const moviesWithGenre = movies.filter(movie => movie.genre.includes(genres[userOptions.searchGenre]))
 
     if (moviesWithGenre.length === 0) {
         try {
@@ -94,7 +95,7 @@ export async function search_genre_page(chatId, bot, userId, callData, messageId
         let message = `❗️                                                                                                              СТРАНИЦА ${page}\n\n`
         for (let i = (page - 1) * 5; i < page * 5; i++) {
             if (!moviesWithGenre[i]) break
-            message += `${moviesList(moviesWithGenre[i][1])}`
+            message += `${moviesList(moviesWithGenre[i])}`
         }
 
         try {
