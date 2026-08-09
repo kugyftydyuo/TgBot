@@ -1,4 +1,3 @@
 export const channels = [
-    '@FrameRushNews',
-    '@blessping'
+    '@FrameRushNews'
 ]

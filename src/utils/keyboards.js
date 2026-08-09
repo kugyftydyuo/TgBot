@@ -2,7 +2,6 @@ function startKeyboard() {
     return {
         inline_keyboard: [
             [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
-            [{text: '➕ Подписаться', url: "https://t.me/+TkRVULjh8WZmMjRi"}],
             [{text: '✅Проверить', callback_data: "check"}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support'}],
             [{text: '🤝‍Сотрудничество (реклама)', callback_data: 'support_ad'}]
