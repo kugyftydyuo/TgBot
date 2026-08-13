@@ -1,3 +1,3 @@
 export const channels = [
-    '@FrameRushNews'
+    '@FrameRushNews', '@manga_komixy_khentayro_videos_18'
 ]
