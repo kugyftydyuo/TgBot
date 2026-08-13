@@ -187,7 +187,16 @@ function typeKeyboard() {
 function resetRefsKeyboard() {
     return {
         inline_keyboard: [
-            [{text: "🔄 Обнулить рефки", callback_data: "resetRefs"}]
+            [{text: "🔄 Обнулить рефки", callback_data: "resetRefs"}],
+            [{text: "🆙 Обновить стату", callback_data: "updateRefs_lastReset"}]
+        ]
+    }
+}
+
+function updateAllRefsKeyboard() {
+    return {
+        inline_keyboard: [
+            [{text: "🆙 Обновить стату", callback_data: "updateRefs_always"}]
         ]
     }
 }
@@ -246,6 +255,7 @@ export {
     lookStatsKeyboard,
     typeKeyboard,
     resetRefsKeyboard,
+    updateAllRefsKeyboard,
     moreGenresKeyboard,
     pagesKeyboard
 }

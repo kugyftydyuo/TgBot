@@ -58,15 +58,12 @@ export function editRef(userId, checkSub) {
     }
 }
 
-export function resetRefs(userId, query) {
+export function resetRefs(query) {
     if (query.includes("page")) return
 
     const refs = getRefs()
-    const session = getSession(userId)
 
     refs.map(ref => {
-        updateRef({ref: ref.name, last_reset: 0, always: ref.always + ref.last_reset})
+        updateRef({name: ref.name, last_reset: 0, always: ref.always + ref.last_reset})
     })
-
-    session.state = null
 }
