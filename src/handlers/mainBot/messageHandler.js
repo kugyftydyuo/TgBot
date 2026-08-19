@@ -5,6 +5,8 @@ import {waitingCodeSecondTime} from "./messageHandlers/waitingCodeSecondTime.js"
 export async function messageHandler(chatId, text, messageId, userId, bot) {
     const userOptions = getUserOptions(userId)
 
+    if (text.startsWith("/start")) return
+
         if (userOptions.state === "WAITING_CODE") {
             waitingCode(bot, chatId, userId, text, messageId)
         } else {
