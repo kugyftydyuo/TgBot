@@ -3,7 +3,7 @@ import TelegramBot from 'node-telegram-bot-api'
 import {getUsers} from "./services/userService.js";
 import {JETTON_IMG_PATH} from "./config/paths.js";
 
-const bot = new TelegramBot(process.env.SERVER_ANIME_BOT_TOKEN, {polling: true})
+const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: true})
 
 function main() {
     const users = getUsers()
