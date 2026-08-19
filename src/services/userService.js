@@ -1,5 +1,11 @@
 import {db} from "../database/database.js";
 
+export function getUsers() {
+    return db.prepare(`
+        SELECT * FROM users;
+    `).all()
+}
+
 export function getUser(userId, ref) {
     const user = db.prepare(`
         SELECT *

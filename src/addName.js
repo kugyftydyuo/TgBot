@@ -8,10 +8,6 @@ import {deleteHandler} from "./handlers/addBot/deleteHandler.js";
 import {editHandler} from "./handlers/addBot/editHandler.js";
 import {callbackHandler} from "./handlers/addBot/callbackHandler.js";
 import {messageHandler} from "./handlers/addBot/messageHandler.js";
-import {bestOfMonthHandler} from "./handlers/addBot/tgChannel/bestOfMonthHandler.js";
-import {bestOfYearHandler} from "./handlers/addBot/tgChannel/bestOfYearHandler.js";
-import {birthdaysHandler} from "./handlers/addBot/tgChannel/birthdaysHandler.js";
-
 const bot = new TelegramBot(process.env.ADD_BOT_TOKEN, {polling: true})
 
 bot.onText(/\/start/, msg => startHandler(msg.chat.id, bot, msg.from.id))
@@ -25,12 +21,6 @@ bot.onText("❗ Посмотреть информацию", (msg) => lookHandler
 bot.onText("♻ Удалить", (msg) => deleteHandler(msg, bot))
 
 bot.onText("🛠 Изменить", (msg) => editHandler(msg, bot))
-
-bot.onText("🏆 Лучшее за месяц", (msg) => bestOfMonthHandler(msg, bot))
-
-bot.onText("🏆 Лучше за год", (msg) => bestOfYearHandler(msg, bot))
-
-bot.onText("🎉 Дни рождения", (msg) => birthdaysHandler(msg, bot))
 
 bot.on('message', (msg) => messageHandler(msg, bot))
 

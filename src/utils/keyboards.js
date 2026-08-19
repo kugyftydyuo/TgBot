@@ -22,6 +22,7 @@ function doKeyboard() {
     return {
         inline_keyboard: [
             [{text: 'Поиск по коду🔎', callback_data: 'search'}],
+            // [{text: 'ИИ эксперт🤖', callback_data: 'ai'}],
             [{text: 'Рандомное аниме🎲', callback_data: 'search_random_anime'}],
             [{text: 'Рандомная дорама🎲', callback_data: 'search_random_dorama'}],
             [{text: 'Поиск по жанру🔎', callback_data: 'search_genre'}],
@@ -74,21 +75,6 @@ function addBotForAdminsKeyboard() {
             [{text: "🛠 Изменить"}],
             [{text: "📋 Посмотреть статистику"}],
             [{text: "❗ Посмотреть информацию"}]
-        ]
-    }
-}
-
-function addBotForTgAdminsKeyboard() {
-    return {
-        resize_keyboard: true,
-        keyboard: [
-            [{text: "➕ Добавить"}, {text: "♻ Удалить"}],
-            [{text: "🛠 Изменить"}],
-            [{text: "📋 Посмотреть статистику"}],
-            [{text: "❗ Посмотреть информацию"}],
-            [{text: "🏆 Лучшее за месяц"}],
-            [{text: "🏆 Лучше за год"}],
-            [{text: "🎉 Дни рождения"}]
         ]
     }
 }
@@ -243,7 +229,6 @@ export {
     checkKeyboard,
     addBotKeyboard,
     addBotForAdminsKeyboard,
-    addBotForTgAdminsKeyboard,
     animeGenreKeyboard,
     doramaGenreKeyboard,
     foundFilmKeyboard,

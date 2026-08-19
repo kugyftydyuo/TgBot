@@ -6,6 +6,7 @@ import {search_random} from "./callbackHandlers/search_random.js";
 import {search_genre, search_genre_page, search_genre_start} from "./callbackHandlers/search_genre.js";
 import {back} from "./callbackHandlers/back.js";
 import {gameGuessNumber, guess} from "./callbackHandlers/gameGuessNumber.js";
+import {ai} from "./callbackHandlers/ai.js";
 
 export async function callbackHandler(query, bot) {
     const userId = query.from.id;
@@ -34,5 +35,9 @@ export async function callbackHandler(query, bot) {
         guess(chatId, bot, userId, query.data, messageId)
     } else if (query.data.includes("page")) {
         search_genre_page(chatId, bot, userId, query.data, messageId)
+    } else if (query.data === 'ai') {
+        ai(chatId, bot, userId, messageId)
+    } else if (query.data === 'buy') {
+        bot.sendMessage(chatId, 'Задавай вопрос')
     }
 }
