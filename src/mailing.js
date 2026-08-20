@@ -6,7 +6,7 @@ import pLimit from "p-limit";
 const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: false})
 
 const users = getUsers()
-const limit = pLimit(55);
+const limit = pLimit(80);
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -21,11 +21,22 @@ async function runBroadcast(users, fileId, text, keyboard) {
             while (!sent && attempts < 3) {
                 try {
                     // Отправка с использованием готового file_id картинки
-                    await bot.sendPhoto(user.id, fileId, {
-                        caption: text,
-                        parse_mode: 'HTML',
-                        reply_markup: keyboard // Объект вашей Inline или Reply клавиатуры
-                    });
+                    if (fileId) {
+                        await bot.sendPhoto(user.id, fileId, {
+                            caption: text,
+                            parse_mode: 'HTML',
+                            reply_markup: keyboard // Объект вашей Inline или Reply клавиатуры
+                        });
+                    } else {
+                        await bot.sendMessage(user.id, text, {
+                            reply_markup: keyboard,
+                            parse_mode: 'HTML',
+                            disable_web_page_preview: true,
+                            link_preview_options: JSON.stringify({
+                                is_disabled: true
+                            })
+                        })
+                    }
                     sent = true;
 
                     // Микро-пауза между запросами для стабильности очереди
@@ -57,14 +68,8 @@ async function runBroadcast(users, fileId, text, keyboard) {
     console.log('Рассылка успешно завершена!');
 }
 
-runBroadcast(users, 'AgACAgIAAxkBAAEBZK9qhsVTKgU6fy-YoiOQp_PDEIMu6AACHR1rG_T7MUhHicvqsiilOQEAAwIAA3kAAz0E', "🤩ПОКА ТЫ ЛИСТАЕШЬ ТИК-ТОК, ДРУГИЕ ЗАРАБАТЫВАЮТ‼️\n" +
-    "\n" +
-    "<a href='https://telegram.me/elementspace826bot?start=ciaWWDMBeGi'>🤑РЕГИСТРИРУЙСЯ</a> И ПОЛУЧИ +425% К ПЕРВОМУ ДЕПОЗИТУ А ТАК ЖЕ 250 ФРИ СПИНОВ\n" +
-    "\n" +
-    "<a href='https://jtredportal.com/ciaWWDMBeGi?click_id=%7Bclick_id%7D&target_id=/&target_type=registration'>ЗАБИРАЙ ПРЯМО СЕЙЧАС</a>",
-    {
+runBroadcast(users, false, "✅ <b>Bы выигpaли 50.000₽</b> 💶\n <a href='https://t.me/+zK1TwOmgF5hkZmMy'>ПОБEДИТEЛЬ! \"ID:518046\"</a>💰 ⤵" ,{
         inline_keyboard: [
-            [{text: '✅ВЫИГРЫВАЙ✅', url: 'https://telegram.me/elementspace826bot?start=ciaWWDMBeGi'}],
-            [{text: '💰ЗАРАБАТЫВАЙ💰', url: 'https://jtredportal.com/ciaWWDMBeGi?click_id=%7Bclick_id%7D&target_id=/&target_type=registration'}]
+            [{text: 'Принять 50.000₽', url: 'https://t.me/+zK1TwOmgF5hkZmMy'}]
         ]
     })

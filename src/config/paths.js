@@ -13,5 +13,3 @@ export const MOVIES_PATH = path.join(__dirname, '../storage/movies.json')
 export const STATS_PATH = path.join(__dirname, '../storage/stats.json')
 
 export const HELLO_IMG_PATH = path.join(__dirname, '../../images/hello.jpg')
-
-export const JETTON_IMG_PATH = path.join(__dirname, '../../images/jetton.jpg')

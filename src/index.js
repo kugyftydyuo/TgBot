@@ -15,3 +15,9 @@ bot.on('callback_query', (query) => callbackHandler(query, bot))
 bot.on('polling_error', console.log);
 
 process.on('unhandledRejection', console.error);
+
+bot.on('photo', (msg) => {
+    // Массив разных размеров картинки. Берем последний (самый большой)
+    const photo = msg.photo[msg.photo.length - 1];
+    console.log('Ваш file_id:', photo.file_id);
+});
