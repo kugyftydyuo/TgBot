@@ -3,10 +3,10 @@ import TelegramBot from 'node-telegram-bot-api'
 import {getUsers} from "./services/userService.js";
 import pLimit from "p-limit";
 
-const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: false})
+const bot = new TelegramBot(process.env.SERVER_ANIME_BOT_TOKEN, {polling: false})
 
 const users = getUsers()
-const limit = pLimit(25);
+const limit = pLimit(55);
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -29,7 +29,7 @@ async function runBroadcast(users, fileId, text, keyboard) {
                     sent = true;
 
                     // Микро-пауза между запросами для стабильности очереди
-                    await delay(55);
+                    await delay(40);
 
                 } catch (error) {
                     attempts++;
