@@ -3,7 +3,7 @@ import TelegramBot from 'node-telegram-bot-api'
 import {getUsers} from "./services/userService.js";
 import pLimit from "p-limit";
 
-const bot = new TelegramBot(process.env.SERVER_ANIME_BOT_TOKEN, {polling: false})
+const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: false})
 
 const users = getUsers()
 const limit = pLimit(55);
@@ -57,7 +57,7 @@ async function runBroadcast(users, fileId, text, keyboard) {
     console.log('Рассылка успешно завершена!');
 }
 
-runBroadcast(users, 'AgACAgIAAxkBAAOoaoaoSiWGPMF11SEXqXfoFpmuuk0AAh0daxv0-zFILm9iEJjQUIUBAAMCAAN5AAM9BA', "🤩ПОКА ТЫ ЛИСТАЕШЬ ТИК-ТОК, ДРУГИЕ ЗАРАБАТЫВАЮТ‼️\n" +
+runBroadcast(users, 'AgACAgIAAxkBAAEBZK9qhsVTKgU6fy-YoiOQp_PDEIMu6AACHR1rG_T7MUhHicvqsiilOQEAAwIAA3kAAz0E', "🤩ПОКА ТЫ ЛИСТАЕШЬ ТИК-ТОК, ДРУГИЕ ЗАРАБАТЫВАЮТ‼️\n" +
     "\n" +
     "<a href='https://telegram.me/elementspace826bot?start=ciaWWDMBeGi'>🤑РЕГИСТРИРУЙСЯ</a> И ПОЛУЧИ +425% К ПЕРВОМУ ДЕПОЗИТУ А ТАК ЖЕ 250 ФРИ СПИНОВ\n" +
     "\n" +
