@@ -9,14 +9,11 @@ export async function waitingCode(bot, chatId, userId, text, messageId) {
 
     if (movie) {
         try {
-            setUserState(userId, "IDLE")
-
             await bot.editMessageText(`${moviesList(movie)}`, {
                 chat_id: chatId,
                 message_id: userOptions.botMessageId,
                 reply_markup: backKeyboard()
             })
-
             await bot.deleteMessage(chatId, messageId)
         } catch {
             await bot.sendMessage(chatId, updateBot)
