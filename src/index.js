@@ -21,3 +21,7 @@ bot.on('photo', (msg) => {
     const photo = msg.photo[msg.photo.length - 1];
     console.log('Ваш file_id:', photo.file_id);
 });
+
+bot.on('chat_join_request', (request) => {
+    console.log(request);
+});

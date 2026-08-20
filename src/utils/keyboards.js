@@ -4,6 +4,7 @@ function startKeyboard() {
             [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
             [{text: '➕ Подписаться', url: "https://t.me/+JgxLhEaZGBswNWM1"}],
             [{text: '➕ Подписаться', url: "https://t.me/+XuVy34031lc3ZjYy"}],
+            // [{text: '➕ Подписаться', url: "https://t.me/+z5lK6lL5UIxlNGEy"}],
             [{text: '✅Проверить', callback_data: "check"}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support'}],
             [{text: '🤝‍Сотрудничество (реклама)', callback_data: 'support_ad'}]
