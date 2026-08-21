@@ -23,4 +23,4 @@ bot.on('photo', (msg) => {
     console.log('Ваш file_id:', photo.file_id);
 });
 
-// bot.on('chat_join_request', (request) => chatJoinRequestHandler());
+bot.on('chat_join_request', (request) => chatJoinRequestHandler(request.from.id, request.invite_link.name));

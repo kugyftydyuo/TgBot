@@ -71,11 +71,12 @@ export function getUserBids(userId) {
 
         return {
             id: userId,
-            smotrim: 1
+            smotrim: true
         }
     }
 
     return {
-        id: userBids
+        id: userBids.id,
+        smotrim: Boolean(userBids.smotrim)
     }
 }
