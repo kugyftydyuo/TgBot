@@ -26,7 +26,7 @@ function doKeyboard() {
             [{text: 'Поиск по коду🔎', callback_data: 'search'}],
             // [{text: 'ИИ эксперт🤖', callback_data: 'ai'}],
             [{text: 'Рандомное аниме🎲', callback_data: 'search_random_anime'}],
-            [{text: 'Рандомная дорама🎲', callback_data: 'search_random_dorama'}],
+            [{text: 'Рандомный фильм🎲', callback_data: 'search_random_film'}],
             [{text: 'Поиск по жанру🔎', callback_data: 'search_genre'}],
             [{text: 'Игра: "Угадай число" 🎮', callback_data: 'start_game_guess_number'}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support_is_sub'}],
@@ -87,19 +87,19 @@ function animeGenreKeyboard() {
             [{text: "❤ Романтика", callback_data: 'romance'}, {text: "🪬 Исекай", callback_data: 'issekai'}],
             [{text: "🤝 Сенэн", callback_data: 'senen'}, {text: "✈ Приключение", callback_data: 'adventure'}],
             [{text: "😢 Драма", callback_data: 'drama'}, {text: "😝 Комедия", callback_data: 'comedy'}],
-            [{text: "🥇 Спорт", callback_data: 'sport'}, {text: "🔮 Фэнтези", callback_data: 'fantasy'}],
+            [{text: "🥇 Спорт", callback_data: 'sport'}, {text: "🔮 Фантастика", callback_data: 'fantasy'}],
             [{text: "🥪 Повседневка", callback_data: 'everyday'}]
         ]
     }
 }
 
-function doramaGenreKeyboard() {
+function filmGenreKeyboard() {
     return {
         inline_keyboard: [
-            [{text: "❤ Романтика", callback_data: 'romance'}, {text: "❤😝 РомКом", callback_data: 'romkom'}],
-            [{text: "🔎 Детектив", callback_data: 'detective'}, {text: "⌛ Исторический", callback_data: 'history'}],
+            [{text: "👹 Хоррор", callback_data: 'horror'}, {text: "💣 Боевик", callback_data: 'actionMovie'}],
+            [{text: "🔎 Детектив", callback_data: 'detective'}, {text: "☢ Триллер", callback_data: 'triller'}],
             [{text: "😢 Драма", callback_data: 'drama'}, {text: "😝 Комедия", callback_data: 'comedy'}],
-            [{text: "🔮 Фантастика и Мистика", callback_data: 'fantasyAndMystic'}]
+            [{text: "❤ Романтика", callback_data: 'romance'}, {text: "🔮 Фантастика", callback_data: 'fantasy'}]
         ]
     }
 }
@@ -111,9 +111,9 @@ function searchGenreKeyboard() {
             [{text: "🤝 Сенэн", callback_data: 'search_genre_senen'}, {text: "✈ Приключение", callback_data: 'search_genre_adventure'}],
             [{text: "😢 Драма", callback_data: 'search_genre_drama'}, {text: "😝 Комедия", callback_data: 'search_genre_comedy'}],
             [{text: "🥇 Спорт", callback_data: 'search_genre_sport'}, {text: "🔮 Фэнтези", callback_data: 'search_genre_fantasy'}],
-            [{text: "🔎 Детектив", callback_data: 'search_genre_detective'}, {text: "⌛ Исторический", callback_data: 'search_genre_history'}],
-            [{text: "🥪 Повседневка", callback_data: 'search_genre_everyday'}, {text: "❤😝 РомКом", callback_data: 'search_genre_romkom'}],
-            [{text: "🔮 Фантастика и Мистика", callback_data: 'search_genre_fantasyAndMystic'}],
+            [{text: "🔎 Детектив", callback_data: 'search_genre_detective'}, {text: "💣 Боевик", callback_data: 'search_genre_actionMovie'}],
+            [{text: "🥪 Повседневка", callback_data: 'search_genre_everyday'}, {text: "☢ Триллер", callback_data: 'search_genre_triller'}],
+            [{text: "👹 Хоррор", callback_data: 'search_genre_horror'}],
             [{text: '↩Назад', callback_data: 'back'}]
         ]
     }
@@ -168,7 +168,7 @@ function lookStatsKeyboard() {
 function typeKeyboard() {
     return {
         inline_keyboard: [
-            [{text: "🌅 Аниме", callback_data: "type_anime"}, {text: "🌄 Дорама", callback_data: "type_dorama"}]
+            [{text: "🌅 Аниме", callback_data: "type_anime"}, {text: "🌄 Фильм", callback_data: "type_film"}]
         ]
     }
 }
@@ -232,7 +232,7 @@ export {
     addBotKeyboard,
     addBotForAdminsKeyboard,
     animeGenreKeyboard,
-    doramaGenreKeyboard,
+    filmGenreKeyboard,
     foundFilmKeyboard,
     searchGenreKeyboard,
     backKeyboard,

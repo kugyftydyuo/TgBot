@@ -7,7 +7,7 @@ export async function editMovieType(bot, chatId, userId, messageId, query) {
     if (query.data === "type_anime") {
         session.data.type = "Аниме"
     } else {
-        session.data.type = "Дорама"
+        session.data.type = "Фильм"
     }
     session.state = 'EDIT_MOVIE'
     await bot.deleteMessage(chatId, messageId)

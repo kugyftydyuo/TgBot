@@ -1,4 +1,4 @@
-import {animeGenreKeyboard, doramaGenreKeyboard} from "../../../utils/keyboards.js";
+import {animeGenreKeyboard, filmGenreKeyboard} from "../../../utils/keyboards.js";
 import {getSession} from "../../../state/sessionAddBot.js";
 
 export async function addMovieEpisodes(chatId, bot, text, userId) {
@@ -8,6 +8,6 @@ export async function addMovieEpisodes(chatId, bot, text, userId) {
     session.state = 'ADD_MOVIE_GENRE';
 
     await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n👇 Укажи жанр', {
-        reply_markup: session.data.type === "Аниме" ? animeGenreKeyboard() : doramaGenreKeyboard()
+        reply_markup: session.data.type === "Аниме" ? animeGenreKeyboard() : filmGenreKeyboard()
     });
 }

@@ -54,29 +54,3 @@ export function updateUser(user) {
         user.id
     );
 }
-
-export function getUserBids(userId) {
-    const userBids = db.prepare(`
-        SELECT * FROM bids WHERE id = ?
-    `).get(userId)
-
-    if (!userBids) {
-        db.prepare(`
-            INSERT INTO bids (
-                id,
-                smotrim
-            )
-            VALUES (?, ?)
-        `).run(userId, 1);
-
-        return {
-            id: userId,
-            smotrim: true
-        }
-    }
-
-    return {
-        id: userBids.id,
-        smotrim: Boolean(userBids.smotrim)
-    }
-}

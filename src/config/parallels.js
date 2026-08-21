@@ -13,15 +13,15 @@ export const genres = {
     'drama': 'Драма',
     'comedy': 'Комедия',
     'sport': 'Спорт',
-    'fantasy': 'Фэнтези',
     'everyday': 'Повседневка',
-    'romkom': 'РомКом',
+    'actionMovie': 'Боевик',
     'detective': 'Детектив',
-    'history': 'Исторический',
-    'fantasyAndMystic': 'Фантастика и Мистика'
+    'triller': 'Триллер',
+    'fantasy': 'Фантастика',
+    'horror': 'Хоррор'
 }
 
 export const types = {
     'anime': 'Аниме',
-    'dorama': 'Дорама'
+    'film': 'Фильм'
 }
