@@ -3,7 +3,7 @@ function startKeyboard() {
         inline_keyboard: [
             [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
             [{text: '➕ Подписаться', url: "https://t.me/+JgxLhEaZGBswNWM1"}],
-            [{text: '➕ Подписаться', url: "https://t.me/+XuVy34031lc3ZjYy"}],
+            [{text: '➕ Оставить заявку', url: "https://t.me/+XuVy34031lc3ZjYy"}],
             [{text: '➕ Нажать старт', url: "https://t.me/music_ros_bot?start=uglyscimxs2008"}],
             [{text: '✅Проверить', callback_data: "check"}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support'}],
