@@ -5,6 +5,7 @@ function startKeyboard() {
             [{text: '➕ Подписаться', url: "https://t.me/+JgxLhEaZGBswNWM1"}],
             [{text: '➕ Оставить заявку', url: "https://t.me/+XuVy34031lc3ZjYy"}],
             [{text: '➕ Нажать старт', url: "https://t.me/music_ros_bot?start=uglyscimxs2008"}],
+            [{text: '➕ Нажать старт', url: "https://t.me/onlykrykhi_bot?start=adminref_TYnRJWm5s4Uk"}],
             [{text: '✅Проверить', callback_data: "check"}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support'}],
             [{text: '🤝‍Сотрудничество (реклама)', callback_data: 'support_ad'}]
