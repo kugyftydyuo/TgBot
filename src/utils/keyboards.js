@@ -5,8 +5,9 @@ function startKeyboard() {
             [{text: '➕ Подписаться', url: "https://t.me/+JgxLhEaZGBswNWM1"}],
             [{text: '➕ Оставить заявку', url: "https://t.me/+b9ue6Zd4AYZjZmUy"}],
             [{text: '➕ Нажать старт', url: "https://t.me/music_ros_bot?start=uglyscimxs2008"}],
-            [{text: '➕ Нажать старт', url: "https://t.me/onlykrykhi_bot?start=adminref_TYnRJWm5s4Uk"}],
+            // [{text: '➕ Нажать старт', url: "https://t.me/onlykrykhi_bot?start=adminref_TYnRJWm5s4Uk"}],
             [{text: '➕ Нажать старт', url: "https://t.me/spineraapp_bot?start=src_5AP3AFEF"}],
+            [{text: '➕ Нажать старт', url: "https://t.me/yoursmskabot?start=uglyscum0509"}],
             [{text: '✅Проверить', callback_data: "check"}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support'}],
             [{text: '🤝‍Сотрудничество (реклама)', callback_data: 'support_ad'}]
