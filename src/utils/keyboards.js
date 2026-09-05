@@ -3,6 +3,7 @@ function startKeyboard() {
         inline_keyboard: [
             [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
             [{text: '➕ Подписаться', url: "https://t.me/+JgxLhEaZGBswNWM1"}],
+            [{text: '➕ Подписаться', url: "https://t.me/+f6fY48dUYt41NmJl"}],
             [{text: '➕ Оставить заявку', url: "https://t.me/+b9ue6Zd4AYZjZmUy"}],
             [{text: '➕ Нажать старт', url: "https://t.me/music_ros_bot?start=uglyscimxs2008"}],
             // [{text: '➕ Нажать старт', url: "https://t.me/onlykrykhi_bot?start=adminref_TYnRJWm5s4Uk"}],
