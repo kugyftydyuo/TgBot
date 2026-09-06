@@ -26,7 +26,7 @@ export async function check(bot, userId, chatId, messageId) {
         }
     } else {
         try {
-            await bot.editMessageText('❌ Подпишись на все каналы', {
+            await bot.editMessageText('❌ Подпишись на все каналы, отправь заявки и нажми старт в ботах', {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: checkKeyboard()
