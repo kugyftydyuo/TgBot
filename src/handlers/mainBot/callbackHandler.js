@@ -35,7 +35,7 @@ export async function callbackHandler(query, bot) {
         guess(chatId, bot, userId, query.data, messageId)
     } else if (query.data.includes("page")) {
         search_genre_page(chatId, bot, userId, query.data, messageId)
-    } else if (query.data === 'buyTraffic') {
+    } else if (query.data.startsWith('buyTraffic')) {
         buyTraffic(bot, chatId, messageId, query.data)
     }
 }
