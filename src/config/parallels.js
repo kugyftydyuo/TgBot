@@ -4,7 +4,8 @@ export const userIds = {
     7844026868: "KHAN",
     5429133787: "kugyftydyuo",
     8524565596: "M008PT186",
-    8666463469: "ebsuz"
+    8666463469: "ebsuz",
+    6889104409: "bazilikk01"
 }
 
 export const genres = {
