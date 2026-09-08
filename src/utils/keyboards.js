@@ -4,6 +4,7 @@ function startKeyboard() {
             [{text: '➕ Подписаться', url: "https://t.me/+JgxLhEaZGBswNWM1"}, {text: '➕ Подписаться', url: "https://t.me/+f6fY48dUYt41NmJl"}],
             [{text: '➕ Оставить заявку', url: "https://t.me/+b9ue6Zd4AYZjZmUy"}, {text: '➕ Нажать старт', url: "https://t.me/onlykrugg_bot?start=adminref_TYnRJWm5s4Uk"}],
             [{text: '✅Проверить', callback_data: "check"}],
+            [{text: "🛍️Скупка трафика", callback_data: "buyTraffic"}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support'}],
             [{text: '🤝‍Сотрудничество (реклама)', callback_data: 'support_ad'}]
         ],
@@ -26,6 +27,7 @@ function doKeyboard() {
             [{text: 'Рандомный фильм🎲', callback_data: 'search_random_film'}],
             [{text: 'Поиск по жанру🔎', callback_data: 'search_genre'}],
             [{text: 'Игра: "Угадай число" 🎮', callback_data: 'start_game_guess_number'}],
+            [{text: "🛍️Скупка трафика", callback_data: "buyTraffic_is_sub"}],
             [{text: '👨‍🔧Tех. поддержка', callback_data: 'support_is_sub'}],
             [{text: '🤝Сотрудничество (реклама)', callback_data: 'support_ad_is_sub'}]
         ]
