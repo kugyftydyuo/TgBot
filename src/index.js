@@ -7,6 +7,10 @@ import {chatJoinRequestHandler} from "./handlers/mainBot/chatJoinRequestHandler.
 
 const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: true})
 
+bot.setMyCommands([
+    {command: "/start", description: "Если в боте что-то сломалось или случилось не так"},
+])
+
 bot.onText(/\/start(?: (.+))?/, (msg, match) => startHandler(msg.chat.id, match[1], msg.from.id, bot))
 
 bot.on('message', msg => messageHandler(msg.chat.id, msg.text, msg.message_id, msg.from.id, bot))
