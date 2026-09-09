@@ -13,8 +13,7 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
         reply_markup: {
             inline_keyboard: [
                 [{text: '➕ Нажать старт', url: "https://t.me/yoursmskabot?start=uglyscum0509"}, {text: '➕ Нажать старт', url: "https://t.me/music_ros_bot?start=uglyscimxs2008"}],
-              //  {text: '➕ Нажать старт', url: "https://t.me/spineraapp_bot?start=src_5AP3AFEF"},
-                [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
+                [{text: '➕ Нажать старт', url: "https://t.me/spineraapp_bot?start=src_5AP3AFEF"}, {text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
                 [{text: '✅Проверить', callback_data: `check_${ref}`}]
             ],
         }
