@@ -2,6 +2,7 @@ import 'dotenv/config'
 import TelegramBot from 'node-telegram-bot-api'
 import {getUsers} from "./services/userService.js";
 import pLimit from "p-limit";
+import cron from "node-cron"
 
 const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: false})
 
@@ -10,7 +11,7 @@ const limit = pLimit(80);
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function runBroadcast(users, fileId, text, keyboard) {
+async function runBroadcast(users, param, fileId, text, keyboard) {
     console.log(`Запуск рассылки на ${users.length} пользователей...`);
 
     const tasks = users.map(user => {
@@ -20,13 +21,18 @@ async function runBroadcast(users, fileId, text, keyboard) {
 
             while (!sent && attempts < 3) {
                 try {
-                    // Отправка с использованием готового file_id картинки
-                    if (fileId) {
+                    if (param === "photo") {
                         await bot.sendPhoto(user.id, fileId, {
                             caption: text,
                             parse_mode: 'HTML',
-                            reply_markup: keyboard // Объект вашей Inline или Reply клавиатуры
+                            reply_markup: keyboard
                         });
+                    } else if (param === "gif") {
+                        await bot.sendAnimation(user.id, fileId, {
+                            caption: text,
+                            parse_mode: 'HTML',
+                            reply_markup: keyboard
+                        })
                     } else {
                         await bot.sendMessage(user.id, text, {
                             reply_markup: keyboard,
@@ -39,26 +45,21 @@ async function runBroadcast(users, fileId, text, keyboard) {
                     }
                     sent = true;
 
-                    // Микро-пауза между запросами для стабильности очереди
                     await delay(40);
 
                 } catch (error) {
                     attempts++;
 
-                    // Проверяем ошибку 429 (Too Many Requests)
                     if (error.response && error.response.statusCode === 429) {
-                        // Извлекаем retry_after из тела ответа node-telegram-bot-api
                         const parameters = error.response.body?.parameters;
                         const retryAfter = (parameters?.retry_after || 5) * 1000;
 
                         console.warn(`[429] Лимит превышен. Ждем ${retryAfter / 1000} сек. перед повтором для чата ${user.id}`);
 
-                        await delay(retryAfter); // Спим сколько потребовал Telegram
-                        // Цикл while автоматически сделает еще одну попытку отправки для ЭТОГО пользователя
+                        await delay(retryAfter);
                     } else {
-                        // Ошибки 403 (пользователь заблокировал бота) или 400 (неверный ID чата)
                         console.error(`Ошибка отправки пользователю ${user.id}:`, error.message);
-                        break; // Выходим из цикла while, переходим к следующему пользователю
+                        break;
                     }
                 }
             }
@@ -68,8 +69,29 @@ async function runBroadcast(users, fileId, text, keyboard) {
     console.log('Рассылка успешно завершена!');
 }
 
-runBroadcast(users, false, "✅ <b>Bы выигpaли 50.000₽</b> 💶\n <a href='https://t.me/+zK1TwOmgF5hkZmMy'>ПОБEДИТEЛЬ! \"ID:518046\"</a>💰 ⤵" ,{
+runBroadcast(users, "gif", "CgACAgIAAxkBAAPcaqJypmCN4fXXsskguFzvYDXGOX0AAgOiAAJtyBhItx2HFlIDrEc9BA",
+    "<a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>рори впн &gt w &lt</a>\n" +
+    "👍белые списки\n" +
+    "👍раздельное тунелирование\n" +
+    "👍пробный период\n" +
+    "👍119₽/мес.     <a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>тык ^^</a>",
+    {
         inline_keyboard: [
-            [{text: 'Принять 50.000₽', url: 'https://t.me/+zK1TwOmgF5hkZmMy'}]
+            [{text: 'Слутать', url: 'https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'}]
         ]
     })
+
+// cron.schedule('0 22 */2 * *', async () => {
+//     runBroadcast(users, "gif", "CgACAgIAAxkBAAPcaqJypmCN4fXXsskguFzvYDXGOX0AAgOiAAJtyBhItx2HFlIDrEc9BA",
+//         "<a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>рори впн &gt w &lt</a>\n" +
+//         "👍Белые списки\n" +
+//         "👍Раздельное тунелирование\n" +
+//         "👍Пробный период\n" +
+//         "👍119₽/мес.     <a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>тык ^^</a>",
+//         {
+//             inline_keyboard: [
+//                 [{text: 'Слутать', url: 'https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'}]
+//             ]
+//         })
+// })
+

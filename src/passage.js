@@ -9,7 +9,7 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     const chatId = msg.chat.id
     const ref = match[1]
 
-    await bot.sendMessage(chatId, "Для того чтобы отправить код подпишись на следующиe каналы, оставь заявку, либо отправь старт ботам и нажми ✅Проверить", {
+    await bot.sendMessage(chatId, "Для того чтобы отправить код подпишись на следующиe каналы и отправь старт ботам и нажми ✅Проверить", {
         reply_markup: {
             inline_keyboard: [
                 [{text: '➕ Нажать старт', url: "https://t.me/yoursmskabot?start=uglyscum0509"}, {text: '➕ Нажать старт', url: "https://t.me/music_ros_bot?start=uglyscimxs2008"}],
