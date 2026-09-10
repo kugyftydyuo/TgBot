@@ -13,4 +13,6 @@ cron.schedule('0 22 */2 * *', async () => {
                 [{text: 'Слутать', url: 'https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'}]
             ]
         })
+}, {
+    timezone: 'Asia/Bishkek'
 })
