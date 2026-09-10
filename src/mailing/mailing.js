@@ -1,17 +1,14 @@
 import 'dotenv/config'
 import TelegramBot from 'node-telegram-bot-api'
-import {getUsers} from "./services/userService.js";
 import pLimit from "p-limit";
-import cron from "node-cron"
 
 const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: false})
 
-const users = getUsers()
 const limit = pLimit(80);
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function runBroadcast(users, param, fileId, text, keyboard) {
+export async function mailing(users, param, fileId, text, keyboard) {
     console.log(`Запуск рассылки на ${users.length} пользователей...`);
 
     const tasks = users.map(user => {
@@ -68,30 +65,4 @@ async function runBroadcast(users, param, fileId, text, keyboard) {
     await Promise.all(tasks);
     console.log('Рассылка успешно завершена!');
 }
-
-runBroadcast(users, "gif", "CgACAgIAAxkBAAECHlZqotHNdKiZkaGczvHh2mtKqfJY0wACA6IAAm3IGEgf7n9bwh9cqj0E",
-    "<a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>рори впн &gt w &lt</a>\n" +
-    "👍белые списки\n" +
-    "👍раздельное тунелирование\n" +
-    "👍пробный период\n" +
-    "👍119₽/мес.     <a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>тык ^^</a>",
-    {
-        inline_keyboard: [
-            [{text: 'Слутать', url: 'https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'}]
-        ]
-    })
-
-// cron.schedule('0 22 */2 * *', async () => {
-//     runBroadcast(users, "gif", "CgACAgIAAxkBAAPcaqJypmCN4fXXsskguFzvYDXGOX0AAgOiAAJtyBhItx2HFlIDrEc9BA",
-//         "<a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>рори впн &gt w &lt</a>\n" +
-//         "👍Белые списки\n" +
-//         "👍Раздельное тунелирование\n" +
-//         "👍Пробный период\n" +
-//         "👍119₽/мес.     <a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>тык ^^</a>",
-//         {
-//             inline_keyboard: [
-//                 [{text: 'Слутать', url: 'https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'}]
-//             ]
-//         })
-// })
 

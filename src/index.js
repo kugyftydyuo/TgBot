@@ -4,7 +4,7 @@ import {startHandler} from "./handlers/mainBot/startHandler.js";
 import {messageHandler} from "./handlers/mainBot/messageHandler.js";
 import {callbackHandler} from "./handlers/mainBot/callbackHandler.js";
 import {chatJoinRequestHandler} from "./handlers/mainBot/chatJoinRequestHandler.js";
-// import "./mailing.js"
+import "./mailing/sheduler.js"
 
 const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: true})
 
