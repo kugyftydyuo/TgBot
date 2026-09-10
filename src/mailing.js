@@ -69,7 +69,7 @@ async function runBroadcast(users, param, fileId, text, keyboard) {
     console.log('Рассылка успешно завершена!');
 }
 
-runBroadcast(users, "gif", "CgACAgIAAxkBAAPcaqJypmCN4fXXsskguFzvYDXGOX0AAgOiAAJtyBhItx2HFlIDrEc9BA",
+runBroadcast(users, "gif", "CgACAgIAAxkBAAECHlZqotHNdKiZkaGczvHh2mtKqfJY0wACA6IAAm3IGEgf7n9bwh9cqj0E",
     "<a href='https://t.me/roriVPN_bot?start=ref_8501167201_NFFM'>рори впн &gt w &lt</a>\n" +
     "👍белые списки\n" +
     "👍раздельное тунелирование\n" +
