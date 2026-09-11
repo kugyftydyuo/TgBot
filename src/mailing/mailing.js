@@ -4,7 +4,7 @@ import pLimit from "p-limit";
 
 const bot = new TelegramBot(process.env.ANIME_BOT_TOKEN, {polling: false})
 
-const limit = pLimit(80);
+const limit = pLimit(120);
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -42,7 +42,7 @@ export async function mailing(users, param, fileId, text, keyboard) {
                     }
                     sent = true;
 
-                    await delay(40);
+                    await delay(80);
 
                 } catch (error) {
                     attempts++;
