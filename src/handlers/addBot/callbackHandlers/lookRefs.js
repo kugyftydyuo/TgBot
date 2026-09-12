@@ -10,9 +10,9 @@ export async function lookRefs(bot, chatId, messageId, query) {
             for (let i = 0; i < refs.length; i++) {
                 if (!refs[i]) break;
 
-                lastResetMessage += `${refs[i].name}: 👤0\n💰0р\n\n`
+                lastResetMessage += `${refs[i].name}: 👤0\n`
             }
-            lastResetMessage += `Общее количество: 0`
+            lastResetMessage += `\nОбщее количество: 0`
 
             bot.editMessageText(lastResetMessage, {
                 chat_id: chatId,

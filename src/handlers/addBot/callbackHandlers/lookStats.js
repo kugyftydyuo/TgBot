@@ -10,7 +10,7 @@ export async function lookStats(bot, chatId, userId, messageId, query) {
         const ref = getRef(userIds[userId])
         session.state = null
         await bot.deleteMessage(chatId, messageId)
-        return bot.sendMessage(chatId, `👨‍💼- ${ref.last_reset} чел\n💰 - ${ref.last_reset * 6}₽`)
+        return bot.sendMessage(chatId, `👨‍💼- ${ref.last_reset} чел`)
     }
     if (query.data === "look_stats_all") {
         const refs = getRefs()
@@ -21,20 +21,20 @@ export async function lookStats(bot, chatId, userId, messageId, query) {
         for (let i = 0; i < refs.length; i++) {
             if (!refs[i]) break;
 
-            lastResetMessage += `${refs[i].name}: 👤${refs[i].last_reset}\n💰${refs[i].last_reset * 6}р\n\n`
+            lastResetMessage += `${refs[i].name}: 👤${refs[i].last_reset}\n`
             lastResetCount += refs[i].last_reset
         }
-        lastResetMessage += `Общее количество: ${lastResetCount}`
+        lastResetMessage += `\nОбщее количество: ${lastResetCount}`
 
         let alwaysMessage = ``
         let alwaysCount = 0
         for (let i = 0; i < refs.length; i++) {
             if (!refs[i]) break;
 
-            alwaysMessage += `${refs[i].name}: 👤${refs[i].always}\n\n`
+            alwaysMessage += `${refs[i].name}: 👤${refs[i].always}\n`
             alwaysCount += refs[i].always
         }
-        alwaysMessage += `Общее количество: ${alwaysCount}`
+        alwaysMessage += `\nОбщее количество: ${alwaysCount}`
 
         await bot.sendMessage(chatId, `💸Ваши рефки с прошлого обнуления:\n\n${lastResetMessage}`, {
             reply_markup: resetRefsKeyboard()

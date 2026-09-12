@@ -10,7 +10,8 @@ export const userIds = {
     5256603888: "a1ik666",
     8994022014: "heatzi",
     7077541334: "unitedstatesairport",
-    8291189116: "worktokeep"
+    8291189116: "worktokeep",
+    8863704921: "Nihory"
 }
 
 export const genres = {

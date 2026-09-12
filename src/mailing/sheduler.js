@@ -1,5 +1,8 @@
 import cron from "node-cron";
 import {mailing} from "./mailing.js";
+import {getUsers} from "../services/userService.js";
+
+const users = getUsers()
 
 cron.schedule('0 22 */2 * *', async () => {
     mailing(users, "gif", "CgACAgIAAxkBAAPcaqJypmCN4fXXsskguFzvYDXGOX0AAgOiAAJtyBhItx2HFlIDrEc9BA",

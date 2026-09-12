@@ -13,15 +13,15 @@ export async function updateRefs(bot, chatId, messageId, query) {
             if (!refs[i]) break;
 
             if (callData === "lastReset") {
-                message += `${refs[i].name}: 👤${refs[i].last_reset}\n💰${refs[i].last_reset * 6}р\n\n`
+                message += `${refs[i].name}: 👤${refs[i].last_reset}\n`
                 count += refs[i].last_reset
             } else {
-                message += `${refs[i].name}: 👤${refs[i].always}\n\n`
+                message += `${refs[i].name}: 👤${refs[i].always}\n`
                 count += refs[i].always
             }
 
         }
-        message += `Общее количество: ${count}`
+        message += `\nОбщее количество: ${count}`
 
         bot.editMessageText(message, {
             chat_id: chatId,
