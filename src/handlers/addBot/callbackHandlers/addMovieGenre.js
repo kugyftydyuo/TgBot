@@ -8,8 +8,9 @@ export async function addMovieGenre(query, userId, chatId, bot, messageId) {
     session.data.genre = session.data.genre ? session.data.genre + genres[query.data] + " " : genres[query.data] + " "
     session.state = "ADD_MORE_GENRES"
 
-    await bot.deleteMessage(chatId, messageId)
-    return bot.sendMessage(chatId, `Добавить еще жанр?`, {
+    await bot.editMessageText("Добавить еще жанр?", {
+        chat_id: chatId,
+        message_id: messageId,
         reply_markup: moreGenresKeyboard()
     })
 }

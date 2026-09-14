@@ -121,7 +121,7 @@ function searchGenreKeyboard() {
 function editMovieKeyboard() {
     return {
         inline_keyboard: [
-            [{text: "🗯 Название", callback_data: 'edit_movie_name'}, {text: "📒 Кол-во серий", callback_data: 'edit_movie_episodes'}],
+            [{text: "🗯 Название", callback_data: 'edit_movie_name'}],
             [{text: "🎬 Жанр", callback_data: 'edit_movie_genre'}, {text: "🔑 Тип", callback_data: 'edit_movie_type'}],
             [{text: "✅ Готово", callback_data: 'edit_movie_is_ready'}]
         ]
@@ -167,7 +167,8 @@ function lookStatsKeyboard() {
 function typeKeyboard() {
     return {
         inline_keyboard: [
-            [{text: "🌅 Аниме", callback_data: "type_anime"}, {text: "🌄 Фильм", callback_data: "type_film"}]
+            [{text: "🌅 Аниме", callback_data: "type_anime"}, {text: "🌄 Фильм", callback_data: "type_film"}],
+            [{text: "🌠 Сериал", callback_data: "type_serial"}]
         ]
     }
 }

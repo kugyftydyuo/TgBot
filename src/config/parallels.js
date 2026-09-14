@@ -32,5 +32,6 @@ export const genres = {
 
 export const types = {
     'anime': 'Аниме',
-    'film': 'Фильм'
+    'film': 'Фильм',
+    'serial': 'Сериал'
 }

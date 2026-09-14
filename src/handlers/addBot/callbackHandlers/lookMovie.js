@@ -15,14 +15,17 @@ export async function lookMovie(bot, chatId, userId, messageId, query) {
             if (!movies[i]) break
             message += `"${movies[i].code}":\n${moviesList(movies[i])}`
         }
-        await bot.deleteMessage(chatId, messageId)
-        return bot.sendMessage(chatId, message, {
+        await bot.editMessageText(message, {
+            chat_id: chatId,
+            message_id: messageId,
             reply_markup: pagesKeyboard(movies.length, "look")
         })
     }
     if (query.data === "look_one") {
         session.state = "LOOK_MOVIE_CODE"
-        await bot.deleteMessage(chatId, messageId)
-        return bot.sendMessage(chatId, '✍ Напиши код')
+        await bot.editMessageText('✍ Напиши код', {
+            chat_id: chatId,
+            message_id: messageId
+        })
     }
 }

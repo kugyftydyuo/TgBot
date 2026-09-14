@@ -7,14 +7,16 @@ export async function editMoreGenres(bot, chatId, userId, messageId, query) {
 
     if (more === "on") {
         session.state = "EDIT_MOVIE_GENRE"
-        await bot.deleteMessage(chatId, messageId)
-        await bot.sendMessage(chatId, '👇                Укажи жанр                 👇', {
+        await bot.editMessageText('👇                Укажи жанр                 👇', {
+            chat_id: chatId,
+            message_id: messageId,
             reply_markup: session.data.type === "Аниме" ? animeGenreKeyboard() : filmGenreKeyboard()
-        });
+        })
     } else {
-        await bot.deleteMessage(chatId, messageId)
         session.state = "EDIT_MOVIE"
-        return bot.sendMessage(chatId, '✅ Жанр успешно изменен! Поменять что-то ещё?', {
+        await bot.editMessageText('✅ Жанр успешно изменен! Поменять что-то ещё?', {
+            chat_id: chatId,
+            message_id: messageId,
             reply_markup: editMovieKeyboard()
         })
     }

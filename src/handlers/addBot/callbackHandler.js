@@ -21,8 +21,10 @@ export async function callbackHandler(query, bot) {
 
     if (query.data === "resetRefs") {
         lookRefs(bot, chatId, messageId, query)
+        return
     } else if (query.data.startsWith("updateRefs")) {
         updateRefs(bot, chatId, messageId, query)
+        return
     }
 
     switch (session.state) {

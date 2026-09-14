@@ -1,14 +1,15 @@
 import {getSession} from "../../../state/sessionAddBot.js";
+import {types} from "../../../config/parallels.js";
 
 export async function addMovieType(bot, chatId, userId, messageId, query) {
     const session = getSession(userId)
+    const type = query.data.slice(5, query.data.length)
 
     session.state = "ADD_MOVIE_NAME"
-    if (query.data === "type_anime") {
-        session.data.type = "Аниме"
-    } else {
-        session.data.type = "Фильм"
-    }
-    await bot.deleteMessage(chatId, messageId)
-    await bot.sendMessage(chatId, "📩 Добавление новой записи...\n\n✍ Напиши название")
+    session.data.type = types[type]
+
+    await bot.editMessageText("📩 Добавление новой записи...\n\n✍ Напиши название", {
+        chat_id: chatId,
+        message_id: messageId
+    })
 }

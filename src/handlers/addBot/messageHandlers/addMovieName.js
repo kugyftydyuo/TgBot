@@ -1,5 +1,6 @@
 import {getMovies} from "../../../services/moviesService.js";
 import {getSession} from "../../../state/sessionAddBot.js";
+import {animeGenreKeyboard, filmGenreKeyboard} from "../../../utils/keyboards.js";
 
 export async function addMovieName(chatId, bot, text, userId) {
     const movies = getMovies()
@@ -26,11 +27,13 @@ export async function addMovieName(chatId, bot, text, userId) {
     if (!lowerCaseValues.includes(text.toLowerCase())) {
         session.data.code = code
         session.data.name = text[0].toUpperCase() + text.slice(1);
-        session.state = 'ADD_MOVIE_EPISODES';
+        session.state = 'ADD_MOVIE_GENRE';
     } else {
         session.state = null
         return bot.sendMessage(chatId, `✅ Фильм уже существует по коду ${movies[lowerCaseValues.indexOf(text.toLowerCase())].code}`);
     }
 
-    await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n✍ Напиши количество серий');
+    await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n👇 Укажи жанр', {
+        reply_markup: session.data.type === "Аниме" ? animeGenreKeyboard() : filmGenreKeyboard()
+    });
 }

@@ -9,8 +9,10 @@ export async function lookStats(bot, chatId, userId, messageId, query) {
     if (query.data === "look_stats_my") {
         const ref = getRef(userIds[userId])
         session.state = null
-        await bot.deleteMessage(chatId, messageId)
-        return bot.sendMessage(chatId, `👨‍💼- ${ref.last_reset} чел`)
+        await bot.editMessageText(`👨‍💼- ${ref.last_reset} чел`, {
+            chat_id: chatId,
+            message_id: messageId
+        })
     }
     if (query.data === "look_stats_all") {
         const refs = getRefs()

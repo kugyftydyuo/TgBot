@@ -1,4 +1,4 @@
-import {animeGenreKeyboard, filmGenreKeyboard} from "../../../utils/keyboards.js";
+import {animeGenreKeyboard, filmGenreKeyboard, moreGenresKeyboard} from "../../../utils/keyboards.js";
 import {getSession} from "../../../state/sessionAddBot.js";
 import {moviesList} from "../../../config/strings.js";
 import {addMovie} from "../../../services/moviesService.js";
@@ -11,17 +11,21 @@ export async function addMoreGenres(bot, chatId, userId, messageId, query) {
 
     if (more === "on") {
         session.state = "ADD_MOVIE_GENRE"
-        await bot.deleteMessage(chatId, messageId)
-        await bot.sendMessage(chatId, '👇                Укажи жанр                 👇', {
+        await bot.editMessageText("👇                Укажи жанр                 👇", {
+            chat_id: chatId,
+            message_id: messageId,
             reply_markup: session.data.type === "Аниме" ? animeGenreKeyboard() : filmGenreKeyboard()
-        });
+        })
     } else {
-        await bot.deleteMessage(chatId, messageId)
         session.state = null
         addMovie(session.data)
+        await bot.editMessageText(`✅ Фильм был добавлен по коду <code>${session.data.code}</code>`, {
+            parse_mode: "HTML",
+            chat_id: chatId,
+            message_id: messageId,
+        })
         await bot.sendMessage(8501167201, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
         await bot.sendMessage(1942693598, `${username ? username : lastName} добавил новый фильм!!!\n${moviesList(session.data)}`)
-        await bot.sendMessage(chatId, `✅ Фильм был добавлен по коду <code>${session.data.code}</code>`, {parse_mode: "HTML"})
         session.data = {}
     }
 }
