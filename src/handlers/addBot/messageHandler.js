@@ -5,6 +5,7 @@ import {editMovieName} from "./messageHandlers/editMovieName.js";
 import {lookMovieCode} from "./messageHandlers/lookMovieCode.js";
 import {getSession} from "../../state/sessionAddBot.js";
 import {buttons} from "../../config/strings.js";
+import {addMovieCode} from "./messageHandlers/addMovieCode.js";
 
 export async function messageHandler(msg, bot) {
     const chatId = msg.chat.id
@@ -28,6 +29,9 @@ export async function messageHandler(msg, bot) {
             break
         case 'DELETE_MOVIE':
             deleteMovieH(chatId, bot, text, userId)
+            break
+        case 'ADD_MOVIE_CODE':
+            addMovieCode(chatId, bot, text, userId)
             break
     }
 }

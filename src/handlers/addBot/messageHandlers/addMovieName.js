@@ -4,7 +4,6 @@ import {animeGenreKeyboard, filmGenreKeyboard} from "../../../utils/keyboards.js
 
 export async function addMovieName(chatId, bot, text, userId) {
     const movies = getMovies()
-    const code = movies[movies.length - 1].code + 1
 
     const title = text.trim().replace(/\s+/g, ' ');
     const session = getSession(userId);
@@ -25,7 +24,7 @@ export async function addMovieName(chatId, bot, text, userId) {
     movies.map(movie => lowerCaseValues = [...lowerCaseValues, movie.name.toLowerCase()])
 
     if (!lowerCaseValues.includes(text.toLowerCase())) {
-        session.data.code = code
+        session.data.code = session.data.code ? session.data.code : movies[movies.length - 1].code + 1
         session.data.name = text[0].toUpperCase() + text.slice(1);
         session.state = 'ADD_MOVIE_GENRE';
     } else {

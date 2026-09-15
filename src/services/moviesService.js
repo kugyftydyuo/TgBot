@@ -9,6 +9,7 @@ export function getMovie(code) {
 export function getMovies() {
     return db.prepare(`
         SELECT * FROM movies
+        ORDER BY code ASC
     `).all()
 }
 
