@@ -26,7 +26,7 @@ export function getUser(userId, ref) {
         `).run(userId, name);
 
         return {
-            name: name,
+            ref: name,
             is_subscribed: false,
             is_first_sub: false
         };

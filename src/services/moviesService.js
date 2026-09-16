@@ -43,9 +43,9 @@ export function editMovie(movieToEdit) {
             type = ?
         WHERE code = ?
     `).run(
-        !movieToEdit.name ? movie.name : movieToEdit.name,
-        !movieToEdit.genre ? movie.genre : movieToEdit.genre,
-        !movieToEdit.type ? movie.type : movieToEdit.type,
+        movieToEdit.name ?? movie.name,
+        movieToEdit.genre ?? movie.genre,
+        movieToEdit.type ?? movie.type,
         movieToEdit.code
     )
 }

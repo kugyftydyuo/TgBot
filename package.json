@@ -2,10 +2,10 @@
   "name": "bot",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/bots/main/index.js",
   "scripts": {
-    "dev": "concurrently \"nodemon src/index.js\" \"nodemon src/addName.js\"",
-    "start": "concurrently \"node src/index.js\" \"node src/addName.js\""
+    "dev": "concurrently \"nodemon src/bots/main/index.js\" \"nodemon src/bots/add/index.js\"",
+    "start": "concurrently \"node src/bots/main/index.js\" \"node src/bots/add/index.js\""
   },
   "author": "",
   "license": "ISC",

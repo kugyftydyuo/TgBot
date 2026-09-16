@@ -1,5 +1,4 @@
 import {getUser, updateUser} from "./userService.js";
-import {getSession} from "../state/sessionAddBot.js";
 import {db} from "../database/database.js";
 
 export function getRefs() {

@@ -1,7 +1,6 @@
 .idea
 .env
 node_modules
-src/storage
 database.db
 database.sqbpro
 database.db-journal

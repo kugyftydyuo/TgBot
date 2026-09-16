@@ -1,4 +1,4 @@
-export const userIds = {
+export const workersIds = {
     8501167201: "KHAN",
     1942693598: "tryhard",
     7844026868: "KHAN",
