@@ -1,28 +1,12 @@
-import {getRefs, resetRefs} from "../../services/refsService.js";
-import {resetRefsKeyboard} from "../../keyboards/resetRefs.js";
-import {msgIsNotModifiedError} from "../../consts/strings.js";
+import {confirmResetRefsKeyboard} from "../../keyboards/confirmResetRefs.js";
+import {getAddBotSession} from "../../state/addBotSession.js";
 
-export async function lookRefs(bot, chatId, messageId, query) {
-        try {
-            const refs = getRefs()
-
-            let lastResetMessage = `💸Ваши рефки с прошлого обнуления:\n\n`
-            for (let i = 0; i < refs.length; i++) {
-                if (!refs[i]) break;
-
-                lastResetMessage += `${refs[i].name}: 👤0\n`
-            }
-            lastResetMessage += `\nОбщее количество: 0`
-
-            bot.editMessageText(lastResetMessage, {
-                chat_id: chatId,
-                message_id: messageId,
-                reply_markup: resetRefsKeyboard()
-            })
-            resetRefs(query.data)
-        } catch (e) {
-            if (e === msgIsNotModifiedError) {
-                return null
-            }
-        }
+export async function lookRefs(bot, chatId, userId, messageId) {
+    const session = getAddBotSession(userId)
+    session.state = "CONFIRM_RESET_REFS"
+    bot.editMessageText("⚠️Точно обнулить рефки?", {
+        chat_id: chatId,
+        message_id: messageId,
+        reply_markup: confirmResetRefsKeyboard()
+    })
 }

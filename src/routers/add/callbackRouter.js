@@ -11,6 +11,7 @@ import {editMoreGenres} from "../../features/movie/edit/editMoreGenres.js";
 import {lookAllMovie} from "../../features/movie/look/lookAllMovie.js";
 import {lookRefs} from "../../features/referrals/lookRefs.js";
 import {updateRefs} from "../../features/referrals/updateRefs.js";
+import {confirmResetRefs} from "../../features/referrals/confirmResetRefs.js";
 
 const stateRoutes = {
     ADD_MOVIE_TYPE: addMovieType,
@@ -22,7 +23,8 @@ const stateRoutes = {
     EDIT_MORE_GENRES: editMoreGenres,
     LOOK_MOVIE: lookMovie,
     LOOK_STATS: lookStats,
-    LOOK_ALL_MOVIE: lookAllMovie
+    LOOK_ALL_MOVIE: lookAllMovie,
+    CONFIRM_RESET_REFS: confirmResetRefs
 }
 
 export async function callbackRouter(query, bot) {
@@ -33,7 +35,7 @@ export async function callbackRouter(query, bot) {
     const session = getAddBotSession(userId);
 
     if (query.data === "resetRefs") {
-        lookRefs(bot, chatId, messageId, query)
+        lookRefs(bot, chatId, userId, messageId, query)
         return
     } else if (query.data.startsWith("updateRefs")) {
         updateRefs(bot, chatId, messageId, query)
