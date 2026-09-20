@@ -1,9 +1,9 @@
-import {getRef, getRefs} from "../../services/refsService.js";
+import {getRef} from "../../services/refsService.js";
 import {workersIds} from "../../config/parallels.js";
 import {getAddBotSession} from "../../state/addBotSession.js";
 import {resetRefsKeyboard} from "../../keyboards/resetRefs.js";
 import {updateAllRefsKeyboard} from "../../keyboards/updateAllRefs.js";
-import {countAlwaysRefs, countLastResetRefs} from "../../services/countRefs.js";
+import {countAlwaysRefs, countLastResetRefs} from "../../services/countRefsService.js";
 
 export async function lookStats(bot, query) {
     const userId = query.from.id;

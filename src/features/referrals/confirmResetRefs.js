@@ -1,7 +1,7 @@
 import {resetRefs} from "../../services/refsService.js";
 import {resetRefsKeyboard} from "../../keyboards/resetRefs.js";
 import {msgIsNotModifiedError} from "../../consts/strings.js";
-import {countLastResetRefs} from "../../services/countRefs.js";
+import {countLastResetRefs} from "../../services/countRefsService.js";
 
 export function confirmResetRefs(bot, query) {
     const chatId = query.message.chat.id;

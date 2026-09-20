@@ -1,7 +1,7 @@
 import {resetRefsKeyboard} from "../../keyboards/resetRefs.js";
 import {updateAllRefsKeyboard} from "../../keyboards/updateAllRefs.js";
 import {msgIsNotModifiedError} from "../../consts/strings.js";
-import {countAlwaysRefs, countLastResetRefs} from "../../services/countRefs.js";
+import {countAlwaysRefs, countLastResetRefs} from "../../services/countRefsService.js";
 
 export async function updateRefs(bot, chatId, messageId, query) {
     try {

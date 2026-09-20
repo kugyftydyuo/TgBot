@@ -3,7 +3,8 @@ import {db} from "../database/database.js";
 
 export function getRefs() {
     return db.prepare(`
-        SELECT * FROM refs;
+        SELECT * FROM refs
+        ORDER BY last_reset DESC
     `).all()
 }
 
@@ -39,7 +40,10 @@ export function updateRef(ref) {
 
 export function editRef(userId, checkSub) {
     const user = getUser(userId)
-    const ref = getRef(user.ref)
+    let ref = getRef(user.ref)
+    if (!ref) {
+        ref = "tryhard"
+    }
     
     if (checkSub.isSubscribed) {
         if (!user.is_subscribed) {
