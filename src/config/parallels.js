@@ -8,7 +8,6 @@ export const workersIds = {
     6889104409: "bazilikk01",
     8673787448: "Vova_Grigory",
     5256603888: "a1ik666",
-    8863704921: "Nihory",
     1045221271: "ilhomfh"
 }
 
