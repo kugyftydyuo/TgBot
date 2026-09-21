@@ -23,7 +23,7 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
 bot.on('callback_query', async (query) => {
     const chatId = query.message.chat.id;
     const userId = query.from.id;
-    const ref = query.data.slice(6, query.data.length) === "undefined" ? "tryhard" : query.data.slice(6, query.data.length)
+    const ref = query.data.slice(6, query.data.length) === "undefined" ? "Altyn_Belenkaya" : query.data.slice(6, query.data.length)
 
     if (query.data.startsWith("check")) {
         let subscribes = []

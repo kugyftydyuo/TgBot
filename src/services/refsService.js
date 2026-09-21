@@ -42,7 +42,7 @@ export function editRef(userId, checkSub) {
     const user = getUser(userId)
     let ref = getRef(user.ref)
     if (!ref) {
-        ref = "tryhard"
+        ref = "Altyn_Belenkaya"
     }
     
     if (checkSub.isSubscribed) {

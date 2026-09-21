@@ -1,6 +1,6 @@
 export const workersIds = {
     8501167201: "KHAN",
-    1942693598: "tryhard",
+    1942693598: "Altyn_Belenkaya",
     7844026868: "KHAN",
     5429133787: "kugyftydyuo",
     8524565596: "M008PT186",
