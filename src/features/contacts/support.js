@@ -7,7 +7,7 @@ export async function support(bot, query) {
 
     try {
         await bot.editMessageText(
-            query.data.includes("ad") ? "По поводу рекламы обращаться к:\nhttps://t.me/UglyScum_xox" : 'Связаться с нами можно по следующим контактам:\nhttps://t.me/KHAN_ss1',
+            query.data.includes("ad") ? "По поводу рекламы обращаться к:\nhttps://t.me/ugly_hum" : 'Связаться с нами можно по следующим контактам:\nhttps://t.me/KHAN_ss1',
             {
                 chat_id: chatId,
                 message_id: messageId,
