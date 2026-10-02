@@ -58,7 +58,7 @@ export async function searchGenre(bot, query) {
     const moviesWithGenre = movies.filter(movie => movie.genre.includes(genres[genre]))
 
     let message = ``;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
         if (i === moviesWithGenre.length) break
         message += `${moviesList(moviesWithGenre[i])}`
     }
@@ -112,7 +112,7 @@ export async function searchGenrePage(bot, query) {
         }
     } else {
         let message = `❗️                                                                                                              СТРАНИЦА ${page}\n\n`
-        for (let i = (page - 1) * 5; i < page * 5; i++) {
+        for (let i = (page - 1) * 7; i < page * 7; i++) {
             if (!moviesWithGenre[i]) break
             message += `${moviesList(moviesWithGenre[i])}`
         }
