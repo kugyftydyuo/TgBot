@@ -10,7 +10,7 @@ export async function lookAllMovie(bot, query) {
     const movies = getMovies()
 
     let message = `❗️                                                                                                              СТРАНИЦА ${page}\n\n`
-    for (let i = (page - 1) * 5; i < page * 5; i++) {
+    for (let i = (page - 1) * 7; i < page * 7; i++) {
         if (!movies[i]) break
         message += `"${movies[i].code}":\n${moviesList(movies[i])}`
     }

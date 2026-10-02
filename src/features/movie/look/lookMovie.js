@@ -15,7 +15,7 @@ export async function lookMovie(bot, query) {
         const movies = getMovies()
 
         let message = `❗️                                                                                                              СТРАНИЦА 1\n\n`
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 7; i++) {
             if (!movies[i]) break
             message += `"${movies[i].code}":\n${moviesList(movies[i])}`
         }
