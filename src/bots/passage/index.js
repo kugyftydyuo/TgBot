@@ -3,7 +3,7 @@ import TelegramBot from 'node-telegram-bot-api'
 
 const bot = new TelegramBot(process.env.PASSAGE_BOT_TOKEN, {polling: true})
 
-const channels = ['@Parad1se_News', '@kinomir_now']
+const channels = ['@Parad1se_News', '@kinomir_now', "@kinostasis"]
 
 bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     const chatId = msg.chat.id
@@ -14,6 +14,7 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
             inline_keyboard: [
                 [{text: '➕ Нажать старт', url: "https://t.me/yoursmskabot?start=uglyscum0509"}, {text: '➕ Подписаться', url: "https://t.me/+niZuDmFDwPE4ZDMy"}],
                 [{text: '➕ Нажать старт', url: "https://t.me/spineraapp_bot?start=src_5AP3AFEF"}, {text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
+                [{text: '➕ Подписаться', url: "https://t.me/kinostasis"}]
                 [{text: '✅Проверить', callback_data: `check_${ref}`}]
             ],
         }

@@ -3,7 +3,6 @@ export const workersIds = {
     1942693598: "Altyn_Belenkaya",
     7844026868: "KHAN",
     5429133787: "kugyftydyuo",
-    8524565596: "M008PT186",
     8666463469: "ebsuz",
     1045221271: "ilhomfh",
     8303604679: "RenSora001",
