@@ -14,7 +14,7 @@ export function getUser(userId, ref) {
     `).get(userId);
 
     if (!user) {
-        const name = !ref ? "Altyn_Belenkaya" : ref
+        const name = !ref ? "marlboro" : ref
         db.prepare(`
             INSERT INTO users (
                 id,

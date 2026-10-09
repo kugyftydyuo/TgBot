@@ -9,20 +9,6 @@ export function getRefs() {
 }
 
 export function getRef(name) {
-    if (name === "tryhard") {
-        const ref = db.prepare(`
-            SELECT *
-            FROM refs
-            WHERE name = ?
-        `).get("Altyn_Belenkaya")
-
-        return {
-            name: ref.name,
-            last_reset: ref.last_reset,
-            always: ref.always
-        }
-    }
-
     const ref = db.prepare(`
         SELECT *
         FROM refs
@@ -56,7 +42,7 @@ export function editRef(userId, checkSub) {
     const user = getUser(userId)
     let ref = getRef(user.ref)
     if (!ref) {
-        ref = "Altyn_Belenkaya"
+        ref = "marlboro"
     }
     
     if (checkSub.isSubscribed) {
