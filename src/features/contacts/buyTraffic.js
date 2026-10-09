@@ -7,7 +7,7 @@ export async function buyTraffic(bot, query) {
 
     try {
         await bot.editMessageText(
-            'По поводу набора трафферов:\nhttps://t.me/tryh9rd',
+            'По поводу набора трафферов:\nhttps://t.me/nxtgoal',
             {
                 chat_id: chatId,
                 message_id: messageId,
