@@ -10,7 +10,8 @@ export const workersIds = {
     8303604679: "RenSora001",
     7516160444: "ty4a01",
     5876086276: "vexx01",
-    8046338388: "Demidov"
+    8046338388: "Demidov",
+    6574233543: "sergo"
 }
 
 export const genres = {

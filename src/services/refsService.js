@@ -8,12 +8,30 @@ export function getRefs() {
     `).all()
 }
 
-export function getRef(name) {
+export function getRef(name, userId) {
     const ref = db.prepare(`
         SELECT *
         FROM refs
         WHERE name = ?
     `).get(name)
+
+    if (!ref) {
+        const trueRef = db.prepare(`
+            SELECT *
+            FROM refs
+            WHERE name = ?
+        `).get('marlboro')
+
+        db.prepare(`
+            UPDATE users SET ref = ? WHERE id = ?
+        `).run('marlboro', userId)
+
+        return {
+            name: trueRef.name,
+            last_reset: trueRef.last_reset,
+            always: trueRef.always
+        }
+    }
 
     return {
         name: ref.name,
@@ -40,10 +58,7 @@ export function updateRef(ref) {
 
 export function editRef(userId, checkSub) {
     const user = getUser(userId)
-    let ref = getRef(user.ref)
-    if (!ref) {
-        ref = "marlboro"
-    }
+    let ref = getRef(user.ref, userId)
     
     if (checkSub.isSubscribed) {
         if (!user.is_subscribed) {
