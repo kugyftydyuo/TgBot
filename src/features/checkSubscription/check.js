@@ -16,12 +16,15 @@ export async function check(bot, query) {
 
     if (checkSub.isSubscribed) {
         try {
-            await bot.editMessageText(
-                '🔓 Доступ разрешен\n\nВыбери действие:',
-                {
+            await bot.editMessageText('🎬Для того чтобы получить <b>название</b> выполняй следующие шаги:\n\n' +
+                '1⃣ Нажми на кнопку <b>Поиск по коду🔎</b>\n\n' +
+                '2⃣ Отправь в чат код из <b>описания видео</b> которое ты только что смотрел(а) в <i>Tik Tok</i> или <i>YouTube</i>\n\n' +
+                '3⃣ Готово!\n\n' +
+                '📌<i>Если хочешь зарабатывать на нарезках отправь в чат: </i><b><code>🤝Набор трафферов</code></b>\n\n<i>Либо нажми на соответствующую кнопку</i>', {
                     chat_id: chatId,
                     message_id: messageId,
-                    reply_markup: doKeyboard()
+                    reply_markup: doKeyboard(),
+                    parse_mode: 'HTML'
                 }
             );
         } catch (e) {
@@ -31,7 +34,7 @@ export async function check(bot, query) {
         }
     } else {
         try {
-            await bot.editMessageText('❌ Подпишись на все каналы, отправь заявки и нажми старт в ботах', {
+            await bot.editMessageText('❌ Подпишись на все каналы', {
                 chat_id: chatId,
                 message_id: messageId,
                 reply_markup: checkKeyboard()

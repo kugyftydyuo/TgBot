@@ -9,14 +9,14 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     const chatId = msg.chat.id
     const ref = match[1]
 
-    await bot.sendMessage(chatId, "Для того чтобы отправить код подпишись на следующиe каналы и отправь старт ботам и нажми ✅Проверить", {
+    await bot.sendMessage(chatId, "Для того чтобы получить название подпишись на 👇<b>следующиe каналы</b>👇 и нажми\n✅Проверить и получить название", {
         reply_markup: {
             inline_keyboard: [
-                [{text: '➕ Нажать старт', url: "https://t.me/yoursmskabot?start=uglyscum0509"}, {text: '➕ Нажать старт', url: "https://t.me/MogComy_Bot?start=ref8143254615"}],
-                [{text: '➕ Нажать старт', url: "https://t.me/spineraapp_bot?start=src_3QL5APV2"}, {text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
-                [{text: '✅Проверить', callback_data: `check_${ref}`}]
+                [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
+                [{text: '✅Проверить и получить название', callback_data: `check_${ref}`}]
             ],
-        }
+        },
+        parse_mode: 'HTML'
     })
 })
 
@@ -42,7 +42,7 @@ bot.on('callback_query', async (query) => {
         }
 
         if (subscribes.length === channels.length) {
-            const link = `https://t.me/FrameRush_Bot?start=${ref}`
+            const link = `https://t.me/CoolFilmHubBot?start=${ref}`
             await bot.sendMessage(chatId, `✅Подписка подтверждена, для того чтобы получить название нажми <a href="${link}">ЗДЕСЬ</a>`, {
                 parse_mode: "HTML",
                 reply_markup: {
@@ -56,7 +56,7 @@ bot.on('callback_query', async (query) => {
                 })
             })
         } else {
-            await bot.sendMessage(chatId, '❌ Подпишись на все каналы и нажми старт в ботах')
+            await bot.sendMessage(chatId, '❌ Подпишись на все каналы')
         }
     }
 })

@@ -1,23 +1,21 @@
 import {workers} from "../../../config/workers.js";
 import {getAddBotSession} from "../../../state/addBotSession.js";
-import {typeKeyboard} from "../../../keyboards/type.js";
 
 export async function addHandler(msg, bot) {
     const chatId = msg.chat.id
     const userId = msg.from.id
 
-    if (workers.includes(userId)) {
+    if (workers.includes(userId.toString())) {
         const session = getAddBotSession(userId);
-        session.state = 'ADD_MOVIE_TYPE';
+        session.state = 'ADD_MOVIE_NAME';
         session.data = {
             code: null,
-            name: "",
-            genre: "",
-            type: ""
+            name: ""
         }
-        await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n❓ Что добавляем?', {
-            reply_markup: typeKeyboard()
-        });
+        await bot.sendMessage(chatId, "📩 Добавление новой записи...\n\n✍ Напиши название")
+        // await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n❓ Что добавляем?', {
+        //     reply_markup: typeKeyboard()
+        // });
     } else {
         return bot.sendMessage(chatId, "❌ Нет доступа")
     }

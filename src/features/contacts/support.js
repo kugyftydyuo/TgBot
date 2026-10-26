@@ -7,7 +7,7 @@ export async function support(bot, query) {
 
     try {
         await bot.editMessageText(
-            query.data.includes("ad") ? "По поводу скупки, продажи траффика:\nhttps://t.me/ugly_hum" : 'Связаться с нами можно по следующим контактам:\nhttps://t.me/KHAN_ss1',
+            "По поводу скупки, продажи траффика:\nhttps://t.me/ugly_hum",
             {
                 chat_id: chatId,
                 message_id: messageId,

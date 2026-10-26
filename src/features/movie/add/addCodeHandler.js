@@ -8,9 +8,7 @@ export async function addCodeHandler(msg, bot) {
     if (admins.includes(userId)) {
         const session = getAddBotSession(userId);
         session.data = {
-            code: null,
-            genre: "",
-            type: ""
+            code: null
         }
         session.state = 'ADD_MOVIE_CODE';
         await bot.sendMessage(chatId, '📩 Добавление новой записи...\n\n✍ Напиши код под которым нужно добавить фильм');

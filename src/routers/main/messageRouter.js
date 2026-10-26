@@ -19,7 +19,7 @@ export async function messageRouter(msg, bot) {
         console.log('Ваш file_id:', msg.animation.file_id);
     }
 
-    if (text.startsWith("/start")) return
+    if (text.startsWith("/start") || text === "🤝Набор трафферов") return
 
     const handler = stateRoutes[session.state];
     if (!handler) {

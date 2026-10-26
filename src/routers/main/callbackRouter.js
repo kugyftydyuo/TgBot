@@ -7,6 +7,7 @@ import {searchGenre, searchGenrePage, searchGenreStart} from "../../features/mov
 import {back} from "../../features/back/back.js";
 import {gameGuessNumber, guess} from "../../features/games/guessNumber/gameGuessNumber.js";
 import {buyTraffic} from "../../features/contacts/buyTraffic.js";
+import {deleteThisMessage} from "../../features/message/deleteThisMessage.js";
 
 const exactRoutes = {
     check: check,
@@ -15,6 +16,7 @@ const exactRoutes = {
     search_genre: searchGenreStart,
     back: back,
     start_game_guess_number: gameGuessNumber,
+    delete_this_message: deleteThisMessage
 }
 
 const prefixRoutes = [
