@@ -1,6 +1,7 @@
 import {addMovie, getMovies} from "../../../services/moviesService.js";
 import {getAddBotSession} from "../../../state/addBotSession.js";
 import {moviesList} from "../../../consts/strings.js";
+import {emojis} from "../../../config/emojis.js";
 
 export async function addMovieName(bot, msg) {
     const chatId = msg.chat.id
@@ -17,13 +18,13 @@ export async function addMovieName(bot, msg) {
     const hasLink = /(https?:\/\/|www\.|t\.me|@)/i.test(title);
 
     if (hasLink) {
-        return bot.sendMessage(chatId, '❌ Ссылки запрещены');
+        return bot.sendMessage(chatId, `<tg-emoji emoji-id=\'${emojis.angry}\'>👍</tg-emoji> Ссылки запрещены`, {parse_mode: 'HTML'});
     }
 
     const valid = /^[a-zA-Zа-яА-ЯёЁ0-9\s\-:(),*.]+$/.test(title);
 
     if (!valid) {
-        return bot.sendMessage(chatId, '❌ Недопустимые символы');
+        return bot.sendMessage(chatId, `<tg-emoji emoji-id=\'${emojis.angry}\'>👍</tg-emoji> Недопустимые символы`, {parse_mode: 'HTML'});
     }
 
     let lowerCaseValues = []
@@ -33,11 +34,11 @@ export async function addMovieName(bot, msg) {
     session.data.name = text[0].toUpperCase() + text.slice(1);
     session.state = null
     addMovie(session.data)
-    await bot.sendMessage(chatId, `✅ Фильм был добавлен по коду <code>${session.data.code}</code>`, {
+    await bot.sendMessage(chatId, `<tg-emoji emoji-id=\'${emojis.check3}\'>👍</tg-emoji> Фильм был добавлен по коду <code>${session.data.code}</code>`, {
         parse_mode: "HTML",
     })
-    await bot.sendMessage(8388798577, `${username ? username : lastName} добавил новый фильм по коду ${session.data.code}!!!\n${moviesList(session.data)}`)
-    await bot.sendMessage(1942693598, `${username ? username : lastName} добавил новый фильм по коду ${session.data.code}!!!\n${moviesList(session.data)}`)
+    // await bot.sendMessage(8388798577, `<tg-emoji emoji-id=\'${emojis.warning2}\'>👍</tg-emoji> ${username ? username : lastName} добавил новый фильм по коду ${session.data.code}!!!\n${moviesList(session.data)}`, {parse_mode: 'HTML'})
+    // await bot.sendMessage(1942693598, `<tg-emoji emoji-id=\'${emojis.warning2}\'>👍</tg-emoji> ${username ? username : lastName} добавил новый фильм по коду ${session.data.code}!!!\n${moviesList(session.data)}`, {parse_mode: 'HTML'})
     session.data = {}
     // session.state = 'ADD_MOVIE_GENRE';
     //

@@ -38,7 +38,7 @@ export async function searchGenreStart(bot, query) {
         }
     } catch (e) {
         if (e.message !== msgIsNotModifiedError) {
-            await bot.sendMessage(chatId, updateBot)
+            await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
         }
     }
 }
@@ -68,7 +68,8 @@ export async function searchGenre(bot, query) {
             await bot.editMessageText(`🤷‍♂️ Похоже здесь пусто`, {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: backKeyboard()
+                reply_markup: backKeyboard(),
+                parse_mode: 'HTML'
             })
         } else {
             await bot.editMessageText(`Все записи с жанром "${genres[genre]}":                                  CТРАНИЦА 1\n\n${message}`, {
@@ -79,7 +80,7 @@ export async function searchGenre(bot, query) {
         }
     } catch (e) {
         if (e.message !== msgIsNotModifiedError) {
-            await bot.sendMessage(chatId, updateBot)
+            await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
         }
     }
 }
@@ -107,7 +108,7 @@ export async function searchGenrePage(bot, query) {
             );
         } catch (e) {
             if (e.message !== msgIsNotModifiedError) {
-                await bot.sendMessage(chatId, updateBot)
+                await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
             }
         }
     } else {
@@ -121,7 +122,8 @@ export async function searchGenrePage(bot, query) {
             await bot.editMessageText(message, {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: pagesKeyboard(moviesWithGenre.length, "genre")
+                reply_markup: pagesKeyboard(moviesWithGenre.length, "genre"),
+                parse_mode: 'HTML'
             })
         } catch (e) {
             await bot.sendMessage(chatId, "Ты уже на этой странице!")

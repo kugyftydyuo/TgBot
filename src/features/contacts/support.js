@@ -16,7 +16,7 @@ export async function support(bot, query) {
         );
     } catch (e) {
         if (e.message !== msgIsNotModifiedError) {
-            await bot.sendMessage(chatId, updateBot)
+            await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
         }
     }
 }

@@ -2,6 +2,7 @@ import {resetRefs} from "../../services/refsService.js";
 import {resetRefsKeyboard} from "../../keyboards/resetRefs.js";
 import {msgIsNotModifiedError} from "../../consts/strings.js";
 import {countLastResetRefs} from "../../services/countRefsService.js";
+import {emojis} from "../../config/emojis.js";
 
 export function confirmResetRefs(bot, query) {
     const chatId = query.message.chat.id;
@@ -14,10 +15,11 @@ export function confirmResetRefs(bot, query) {
     }
 
     try {
-        bot.editMessageText(`💸Ваши рефки с прошлого обнуления:\n\n${countLastResetRefs()}`, {
+        bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.dollar}\'>❌</tg-emoji> Ваши рефки с прошлого обнуления:\n\n${countLastResetRefs()}`, {
             chat_id: chatId,
             message_id: messageId,
-            reply_markup: resetRefsKeyboard()
+            reply_markup: resetRefsKeyboard(),
+            parse_mode: 'HTML'
         })
     } catch (e) {
         if (e === msgIsNotModifiedError) {

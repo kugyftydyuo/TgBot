@@ -3,6 +3,7 @@ import {animeGenreKeyboard} from "../../../keyboards/animeGenre.js";
 import {filmGenreKeyboard} from "../../../keyboards/filmGenre.js";
 import {typeKeyboard} from "../../../keyboards/type.js";
 import {getAddBotSession} from "../../../state/addBotSession.js";
+import {emojis} from "../../../config/emojis.js";
 
 export async function editMovieH(bot, query) {
     const userId = query.from.id;
@@ -13,9 +14,10 @@ export async function editMovieH(bot, query) {
 
     if (query.data === "edit_movie_name") {
         session.state = "EDIT_MOVIE_NAME"
-        await bot.editMessageText("🛠 Редактирование названия...\n\n✍ Напиши новое название", {
+        await bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.tool }\'>👍</tg-emoji> Редактирование названия...\n\n<tg-emoji emoji-id=\'${emojis.pencil }\'>👍</tg-emoji> Напиши новое название`, {
             chat_id: chatId,
-            message_id: messageId
+            message_id: messageId,
+            parse_mode: 'HTML'
         })
     }
 
@@ -42,9 +44,10 @@ export async function editMovieH(bot, query) {
         session.state = null
         editMovie(session.data)
         session.data = {}
-        await bot.editMessageText("✅ Редактирование завершено", {
+        await bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.check3 }\'>👍</tg-emoji> Редактирование завершено`, {
             chat_id: chatId,
-            message_id: messageId
+            message_id: messageId,
+            parse_mode: 'HTML'
         })
     }
 }

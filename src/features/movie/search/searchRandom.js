@@ -28,12 +28,13 @@ export async function searchRandom(bot, query) {
             await bot.editMessageText(`${type === "anime" ? "🎲Рандомное аниме:" : "🎲Рандомный фильм:"}\n\n${moviesList(randomMovie)}`, {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: backKeyboard()
+                reply_markup: backKeyboard(),
+                parse_mode: 'HTML'
             })
         } catch (e) {
             if (e.message !== msgIsNotModifiedError) {
                 console.log(e)
-                await bot.sendMessage(chatId, updateBot)
+                await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
             }
         }
     } else {
@@ -45,7 +46,7 @@ export async function searchRandom(bot, query) {
             });
         } catch (e) {
             if (e.message !== msgIsNotModifiedError) {
-                await bot.sendMessage(chatId, updateBot)
+                await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
             }
         }
     }

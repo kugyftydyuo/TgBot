@@ -19,6 +19,14 @@ export async function messageRouter(msg, bot) {
         console.log('Ваш file_id:', msg.animation.file_id);
     }
 
+    const entities = msg.entities || [];
+
+    for (const entity of entities) {
+        if (entity.type === 'custom_emoji') {
+            await bot.sendMessage(msg.chat.id, `${entity.custom_emoji_id}`);
+        }
+    }
+
     if (text.startsWith("/start") || text === "🤝Набор трафферов") return
 
     const handler = stateRoutes[session.state];

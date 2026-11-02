@@ -1,7 +1,9 @@
+import {emojis} from "../config/emojis.js";
+
 export function doKeyboard() {
     return {
         inline_keyboard: [
-            [{text: 'Поиск по коду🔎', callback_data: 'search'}],
+            [{text: 'Поиск по коду', icon_custom_emoji_id: emojis.search, callback_data: 'search'}],
             //[{text: 'Рандомное аниме🎲', callback_data: 'search_random_anime'}],
             //[{text: 'Рандомный фильм🎲', callback_data: 'search_random_film'}],
             //[{text: 'Поиск по жанру🔎', callback_data: 'search_genre'}],

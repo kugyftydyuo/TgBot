@@ -1,6 +1,7 @@
 import {getMainBotSession} from "../../state/mainBotSession.js";
 import {startKeyboard} from "../../keyboards/start.js";
 import {msgIsNotModifiedError, updateBot} from "../../consts/strings.js";
+import {emojis} from "../../config/emojis.js";
 
 export async function backToMain(bot, query) {
     const userId = query.from.id;
@@ -12,16 +13,17 @@ export async function backToMain(bot, query) {
 
     try {
         await bot.editMessageText(
-            'Для того чтобы отправить код подпишись на следующие каналы и нажми ✅Проверить',
+            `<tg-emoji emoji-id='${emojis.square_message}'>👍</tg-emoji> Для того чтобы получить название подпишись на следующие каналы и нажми <tg-emoji emoji-id='${emojis.check}'>👍</tg-emoji> Проверить`,
             {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: startKeyboard()
+                reply_markup: startKeyboard(),
+                parse_mode: 'HTML'
             }
         );
     } catch (e) {
         if (e.message !== msgIsNotModifiedError) {
-            await bot.sendMessage(chatId, updateBot)
+            await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
         }
     }
 }

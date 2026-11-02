@@ -6,6 +6,7 @@ import {editRef} from "../../../services/refsService.js";
 import {saveStats} from "../../../services/statsService.js";
 import {msgIsNotModifiedError, updateBot} from "../../../consts/strings.js";
 import {isDev} from "../../../config/rules.js";
+import {emojis} from "../../../config/emojis.js";
 
 export async function search(bot, query) {
     const userId = query.from.id;
@@ -25,26 +26,29 @@ export async function search(bot, query) {
         try {
             session.botMessageId = messageId
 
-            await bot.editMessageText('✍ Напиши код из описания видео', {
+            await bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.draw}\'>✍</tg-emoji> Напиши код из описания видео`, {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: backKeyboard()
+                reply_markup: backKeyboard(),
+                parse_mode: 'HTML'
             });
         } catch (e) {
+            console.log(e)
             if (e.message !== msgIsNotModifiedError) {
-                await bot.sendMessage(chatId, updateBot)
+                await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
             }
         }
     } else {
         try {
-            await bot.editMessageText('❌ Подпишись на все каналы', {
+            await bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.cross}\'>❌</tg-emoji> Подпишись на все каналы`, {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: checkKeyboard()
+                reply_markup: checkKeyboard(),
+                parse_mode: 'HTML'
             });
         } catch (e) {
             if (e.message !== msgIsNotModifiedError) {
-                await bot.sendMessage(chatId, updateBot)
+                await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
             }
         }
     }

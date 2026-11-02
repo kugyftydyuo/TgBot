@@ -16,10 +16,11 @@ export async function gameGuessNumber(bot, query) {
 
     saveStats('guessNumber', userId)
 
-    await bot.editMessageText('Я загадал цифру от 0 до 9, попробуй ее угадать', {
+    await bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.lamp}\'>👍</tg-emoji> Я загадал цифру от <tg-emoji emoji-id=\'${emojis.num0}\'>👍</tg-emoji> до <tg-emoji emoji-id=\'${emojis.num9}\'>👍</tg-emoji>, попробуй ее угадать`, {
         chat_id: chatId,
         message_id: messageId,
-        reply_markup: guessNumberKeyboard()
+        reply_markup: guessNumberKeyboard(),
+        parse_mode: 'HTML'
     })
 }
 
@@ -33,21 +34,23 @@ export async function guess(bot, query) {
 
     try {
         if (session.randomNumber === number) {
-            await bot.editMessageText('✅ Ты угадал(а)! Сыграть ещё раз?', {
+            await bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.check}\'>👍</tg-emoji> Ты угадал(а)! Сыграть ещё раз?`, {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: guessNumberPlayAgainKeyboard()
+                reply_markup: guessNumberPlayAgainKeyboard(),
+                parse_mode: 'HTML'
             })
         } else {
-            await bot.editMessageText(`❌ Ты не угадал(а). Загаданным числом было ${session.randomNumber}. Сыграть ещё раз?`, {
+            await bot.editMessageText(`<tg-emoji emoji-id=\'${emojis.cross}\'>👍</tg-emoji> Ты не угадал(а). Загаданным числом было ${session.randomNumber}. Сыграть ещё раз?`, {
                 chat_id: chatId,
                 message_id: messageId,
-                reply_markup: guessNumberPlayAgainKeyboard()
+                reply_markup: guessNumberPlayAgainKeyboard(),
+                parse_mode: 'HTML'
             })
         }
     } catch (e) {
         if (e.message !== msgIsNotModifiedError) {
-            await bot.sendMessage(chatId, updateBot)
+            await bot.sendMessage(chatId, updateBot, {parse_mode: 'HTML'})
         }
     }
 }

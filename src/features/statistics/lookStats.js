@@ -4,6 +4,7 @@ import {getAddBotSession} from "../../state/addBotSession.js";
 import {resetRefsKeyboard} from "../../keyboards/resetRefs.js";
 import {updateAllRefsKeyboard} from "../../keyboards/updateAllRefs.js";
 import {countAlwaysRefs, countLastResetRefs} from "../../services/countRefsService.js";
+import {emojis} from "../../config/emojis.js";
 
 export async function lookStats(bot, query) {
     const userId = query.from.id;
@@ -23,11 +24,13 @@ export async function lookStats(bot, query) {
     if (query.data === "look_stats_all") {
         session.state = "LOOK_REFS"
 
-        await bot.sendMessage(chatId, `💸Ваши рефки с прошлого обнуления:\n\n${countLastResetRefs()}`, {
-            reply_markup: resetRefsKeyboard()
+        await bot.sendMessage(chatId, `<tg-emoji emoji-id=\'${emojis.dollar }\'>❌</tg-emoji> Ваши рефки с прошлого обнуления:\n\n${countLastResetRefs()}`, {
+            reply_markup: resetRefsKeyboard(),
+            parse_mode: 'HTML'
         })
-        await bot.sendMessage(chatId, `💸Ваши рефки за все время:\n\n${countAlwaysRefs()}`, {
-            reply_markup: updateAllRefsKeyboard()
+        await bot.sendMessage(chatId, `<tg-emoji emoji-id=\'${emojis.dollar }\'>❌</tg-emoji> Ваши рефки за все время:\n\n${countAlwaysRefs()}`, {
+            reply_markup: updateAllRefsKeyboard(),
+            parse_mode: 'HTML'
         })
         await bot.deleteMessage(chatId, messageId)
     }

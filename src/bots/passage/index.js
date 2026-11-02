@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import TelegramBot from 'node-telegram-bot-api'
+import {emojis} from "../../config/emojis.js";
 
 const bot = new TelegramBot(process.env.PASSAGE_BOT_TOKEN, {polling: true})
 
@@ -9,11 +10,11 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     const chatId = msg.chat.id
     const ref = match[1]
 
-    await bot.sendMessage(chatId, "Для того чтобы получить название подпишись на 👇<b>следующиe каналы</b>👇 и нажми\n✅Проверить и получить название", {
+    await bot.sendMessage(chatId, `<tg-emoji emoji-id='${emojis.hello}'>👍</tg-emoji> Для того чтобы получить название подпишись на <b>следующиe каналы</b><tg-emoji emoji-id='${emojis.down}'>👍</tg-emoji> и нажми\n<tg-emoji emoji-id='${emojis.check}'>👍</tg-emoji> Проверить и получить название`, {
         reply_markup: {
             inline_keyboard: [
-                [{text: '➕ Подписаться', url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
-                [{text: '✅Проверить и получить название', callback_data: `check_${ref}`}]
+                [{text: 'Подписаться', icon_custom_emoji_id: emojis.link, url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
+                [{text: 'Проверить и получить название', icon_custom_emoji_id: emojis.check, callback_data: `check_${ref}`}]
             ],
         },
         parse_mode: 'HTML'
@@ -43,11 +44,11 @@ bot.on('callback_query', async (query) => {
 
         if (subscribes.length === channels.length) {
             const link = `https://t.me/CoolFilmHubBot?start=${ref}`
-            await bot.sendMessage(chatId, `✅Подписка подтверждена, для того чтобы получить название нажми <a href="${link}">ЗДЕСЬ</a>`, {
+            await bot.sendMessage(chatId, `<tg-emoji emoji-id='${emojis.check}'>👍</tg-emoji> Подписка подтверждена, для того чтобы получить название нажми <a href="${link}">ЗДЕСЬ</a>`, {
                 parse_mode: "HTML",
                 reply_markup: {
                     inline_keyboard: [
-                        [{text: '✅Получить название', url: link}]
+                        [{text: 'Получить название', icon_custom_emoji_id: emojis.check, url: link}]
                     ]
                 },
                 disable_web_page_preview: true,
@@ -56,7 +57,7 @@ bot.on('callback_query', async (query) => {
                 })
             })
         } else {
-            await bot.sendMessage(chatId, '❌ Подпишись на все каналы')
+            await bot.sendMessage(chatId, `<tg-emoji emoji-id='${emojis.cross}'>👍</tg-emoji> Подпишись на все каналы`, {parse_mode: 'HTML'})
         }
     }
 })

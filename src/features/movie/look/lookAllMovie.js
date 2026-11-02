@@ -1,6 +1,7 @@
 import {getMovies} from "../../../services/moviesService.js";
 import {moviesList} from "../../../consts/strings.js";
 import {pagesKeyboard} from "../../../keyboards/pages.js";
+import {emojis} from "../../../config/emojis.js";
 
 export async function lookAllMovie(bot, query) {
     const chatId = query.message.chat.id;
@@ -19,9 +20,10 @@ export async function lookAllMovie(bot, query) {
         await bot.editMessageText(message, {
             chat_id: chatId,
             message_id: messageId,
-            reply_markup: pagesKeyboard(movies.length, "look")
+            reply_markup: pagesKeyboard(movies.length, "look"),
+            parse_mode: 'HTML'
         })
     } catch {
-        await bot.sendMessage(chatId, "Ты уже на этой странице!")
+        await bot.sendMessage(chatId, `<tg-emoji emoji-id=\'${emojis.angry }\'>👍</tg-emoji> Ты уже на этой странице!`, {parse_mode: 'HTML'})
     }
 }
