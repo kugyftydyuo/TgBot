@@ -17,12 +17,10 @@ export function addMovie(movie) {
     db.prepare(`
         INSERT INTO movies (
             code,
-            name,
-            genre,
-            type
+            name
         )
-        VALUES (?, ?, ?, ?)
-    `).run(movie.code, movie.name, movie.genre, movie.type)
+        VALUES (?, ?)
+    `).run(movie.code, movie.name)
 }
 
 export function deleteMovie(code) {
@@ -38,14 +36,10 @@ export function editMovie(movieToEdit) {
     db.prepare(`
         UPDATE movies
         SET 
-            name = ?,
-            genre = ?,
-            type = ?
+            name = ?
         WHERE code = ?
     `).run(
         movieToEdit.name ?? movie.name,
-        movieToEdit.genre ?? movie.genre,
-        movieToEdit.type ?? movie.type,
         movieToEdit.code
     )
 }

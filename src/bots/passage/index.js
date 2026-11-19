@@ -14,6 +14,7 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
         reply_markup: {
             inline_keyboard: [
                 [{text: 'Подписаться', icon_custom_emoji_id: emojis.link, url: "https://t.me/+cqkrYv1GR4dlNGVi"}],
+                [{text: 'Нажать старт', icon_custom_emoji_id: emojis.link, url: "https://t.me/DownloadAnyMusic_bot"}],
                 [{text: 'Проверить и получить название', icon_custom_emoji_id: emojis.check, callback_data: `check_${ref}`}]
             ],
         },
